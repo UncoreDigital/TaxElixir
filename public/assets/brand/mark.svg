@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" role="img" aria-label="TaxElixir"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#D8B460"/><stop offset="55%" stop-color="#CBA85A"/><stop offset="100%" stop-color="#C0A854"/>
+  </linearGradient></defs>
+  <path d="M60 6 L14 22 V70 C14 98 34 118 60 134 C86 118 106 98 106 70 V22 Z" fill="url(#g)" stroke="#0C2748" stroke-width="4"/>
+  <path d="M60 16 L23 29 V70 C23 92 39 108 60 120 C81 108 97 92 97 70 V29 Z" fill="none" stroke="#0C2748" stroke-width="2" opacity="0.85"/>
+  <g fill="#0C2748">
+    <rect x="20" y="36" width="42" height="11"/>
+    <rect x="35" y="36" width="12" height="60"/>
+    <rect x="30" y="89" width="22" height="7"/>
+    <rect x="58" y="48" width="12" height="48"/>
+    <rect x="58" y="48" width="30" height="11"/>
+    <rect x="58" y="65" width="24" height="10"/>
+    <rect x="58" y="85" width="30" height="11"/>
+  </g>
+</svg>

@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   TaxElixir — Design System
+   Palette sampled directly from logo.jpeg (1600x427) by pixel clustering:
+     navy wordmark / shield outline / "TE" monogram  #0C2748  hsl(213 71% 16%)
+     deepest letterform core                          #002448  hsl(210 100% 14%)
+     shield gold (gradient top)                       #D8B460  hsl(42 61% 61%)
+     shield gold (centre)                             #CBA85A  hsl(43 51% 58%)
+     shield gold (gradient bottom)                    #C0A854  hsl(47 46% 54%)
+     field                                            #FCFCFC
+   The shield is a vertical gradient, not flat — --gradient-gold reproduces it.
+   ========================================================================== */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 213 45% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 45% 14%;
+
+    /* Navy — the logo wordmark */
+    --primary: 213 71% 16%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 213 20% 46%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 30% 96%;
+    --muted-foreground: 213 14% 42%;
+
+    /* Gold — the shield */
+    --accent: 43 51% 58%;
+    --accent-foreground: 213 71% 16%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 212 24% 90%;
+    --input: 212 24% 90%;
+    --ring: 43 51% 58%;
+
+    --radius: 0.5rem;
+
+    /* Brand tokens */
+    --navy: 213 71% 16%;
+    --navy-deep: 210 100% 14%;
+    --navy-light: 212 45% 27%;
+    --gold: 43 51% 58%;
+    --gold-light: 42 61% 61%;
+    --gold-dark: 47 46% 54%;
+    --ink: 213 45% 14%;
+    --ink-muted: 213 14% 42%;
+
+    --gradient-navy: linear-gradient(135deg, hsl(210 100% 14%) 0%, hsl(212 45% 27%) 100%);
+    --gradient-gold: linear-gradient(180deg, hsl(42 61% 61%) 0%, hsl(47 46% 54%) 100%);
+    --gradient-gold-x: linear-gradient(100deg, hsl(42 61% 61%) 0%, hsl(43 51% 58%) 50%, hsl(47 46% 54%) 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    /* Never let a wide table or diagram scroll the page sideways. */
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), Georgia, serif;
+    @apply font-bold tracking-tight text-navy;
+  }
+  ::selection {
+    background: hsl(var(--gold) / 0.28);
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--gold));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .bg-gradient-navy { background: var(--gradient-navy); }
+  .bg-gradient-gold { background: var(--gradient-gold); }
+  .bg-gradient-gold-x { background: var(--gradient-gold-x); }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-gold-x);
+  }
+
+  /* The short rule under the logo tagline, reused as a section marker. */
+  .rule-gold {
+    @apply block h-px w-16;
+    background: var(--gradient-gold-x);
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-gold-dark;
+  }
+
+  .prose-brand {
+    @apply max-w-none text-ink-muted leading-relaxed;
+  }
+  .prose-brand h2 { @apply mt-10 mb-3 text-2xl md:text-3xl; }
+  .prose-brand h3 { @apply mt-8 mb-2 text-xl md:text-2xl; }
+  .prose-brand p { @apply mb-4; }
+  .prose-brand ul { @apply mb-4 list-disc space-y-1 pl-5; }
+  .prose-brand ol { @apply mb-4 list-decimal space-y-1 pl-5; }
+  .prose-brand a { @apply text-navy underline decoration-gold/60 underline-offset-2 hover:decoration-gold; }
+  .prose-brand blockquote { @apply my-6 border-l-2 border-gold pl-4 italic text-ink; }
+  .prose-brand img { @apply my-6 rounded-lg; }
+
+  /* Wide content must scroll inside its own box, not the page. */
+  .scroll-x { @apply -mx-5 overflow-x-auto px-5 md:mx-0 md:px-0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
