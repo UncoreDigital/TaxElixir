@@ -69,6 +69,63 @@ after any brand change and every size regenerates from one source.
 
 ---
 
+## 🔵 Scope confirmation — four service pages now built, three need sign-off
+
+All nine service pages are live. Four of them cover work that does **not** appear in the
+TaxElixir services deck, so their scope was drafted from standard practice rather than
+transcribed. Each renders a visible amber notice during review, and each needs the client
+to confirm, correct or remove it before launch.
+
+A service page is a promise. These four are promises the client has not yet made.
+
+| # | Service | Status | What we need confirmed |
+|---|---|---|---|
+| 27 | **Payroll Services** — `/services/payroll` | Provisional | The deck lists payroll only as a *role* ("Offshore Payroll Expert", sheet 4), not a service scope. The page uses that role's four capabilities verbatim. **We deliberately did not claim 940/941/W-2 preparation or filing** — confirm whether TaxElixir performs those |
+| 28 | **Sales Tax Services** — `/services/sales-tax` | Provisional | Absent from the deck. Confirm which of return preparation, multi-state filing, registration support, exemption-certificate tracking and notice handling are actually performed. Nexus determination is currently positioned as the firm's call, not ours |
+| 29 | **Filing 1099 & Issue Forms** — `/services/filing-1099` | Provisional | Absent from the deck. Confirm the forms handled (1099-NEC, 1099-MISC, others?), whether TIN matching is performed, and whether submission happens under the client firm's credentials or ours |
+| 30 | **Management Consultation** — `/services/management-consultation` | **Grounded — light review only** | Every scope item is verbatim from the deck's Accounting sheet: budgeting and forecasting, break-even analysis, cash flow monitoring, financial statement preparation and review, revenue reporting. This page reframes work already described rather than inventing a service. Read it for tone, not for accuracy |
+
+### Client portal — currently a document exchange, not a login
+
+The design brief asked for a **Client Login** in the sticky header. There is no
+authenticated client area, so the link is labelled **Client Portal** and points at the
+secure document upload — which is a real feature. Labelling it "Login" when it opens an
+upload form is the kind of small dishonesty that costs trust on a site whose pitch is
+security.
+
+A genuine client portal — per-client accounts, engagement status, document history,
+scoped access — is a separate build. If TaxElixir wants one, it needs scoping: who gets
+accounts, what they can see, and how access is revoked when an engagement ends.
+
+### Two items from the same brief that were not built
+
+- **Regional sections for UK, Australia and Canada.** TaxElixir's own deck says it serves
+  US CPA firms *exclusively*. Building four regional sections would contradict that
+  positioning, would require service content that does not exist (VAT, BAS, T1/T2), and is
+  the exact structure that left the competitor with four un-canonicalised duplicate pages
+  and a UK section claiming more clients than the company claims worldwide. If TaxElixir
+  does intend to serve those markets, that is a positioning decision to make first and a
+  separate build to scope after.
+- **Machine translation widget.** On the competitor's site this is currently *broken* — the
+  `[gtranslate]` shortcode prints as literal text on all 68 pages. Beyond that, machine
+  translation of tax and compliance copy risks mistranslating regulatory claims, and the
+  audience here is US-based. Not recommended.
+
+Two further items from the same brief were not built, for reasons worth stating plainly:
+
+- **Regional sections for UK, Australia and Canada.** TaxElixir's own deck says it serves
+  US CPA firms *exclusively*. Building four regional sections would contradict that
+  positioning, and it is the exact structure that left the competitor with four
+  un-canonicalised duplicate pages and a UK section claiming more clients than the company
+  claims worldwide. If TaxElixir does intend to serve those markets, that is a positioning
+  decision to make first and a build to scope separately.
+- **Machine translation widget.** On the competitor's site this is currently *broken* — the
+  `[gtranslate]` shortcode prints as literal text on all 68 pages. Beyond that, machine
+  translation of tax and compliance copy risks mistranslating regulatory claims, and the
+  audience here is US-based. Not recommended.
+
+---
+
 ## 🟡 Useful — improves conversion, not required for launch
 
 | # | Item | Where |

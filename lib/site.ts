@@ -12,7 +12,12 @@ export const site = {
   tagline: "Where Trust Meets CPA Excellence",
   description:
     "TaxElixir is an India-based offshore outsourcing partner for US CPA firms — tax preparation, accounting, audit support and dedicated offshore staffing that scales your capacity without adding headcount.",
-  url: "https://www.taxelixir.com",
+  /**
+   * Canonical origin. Env-driven so preview and staging deploys emit their own
+   * canonical tags — a preview that canonicalises to production can get itself
+   * dropped from the index in production's favour.
+   */
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.taxelixir.com").replace(/\/$/, ""),
   logo: "/assets/logo.jpeg",
   email: "info@taxelixir.com",
   emailHref: "mailto:info@taxelixir.com",
@@ -49,7 +54,12 @@ export const navItems: NavItem[] = [
     dropdown: [
       { name: "Tax Preparation", href: "/services/tax", blurb: "1040, 1065, 1120, 1120-S, 990 and expat returns" },
       { name: "Back Year Tax Services", href: "/services/back-year-tax", blurb: "Bring delinquent filings current" },
-      { name: "Accounting & Bookkeeping", href: "/services/accounting", blurb: "Bookkeeping, AP/AR, close and CAAS" },
+      { name: "Accounting & CAAS", href: "/services/accounting", blurb: "AP/AR, month-end close, advisory reporting" },
+      { name: "Bookkeeping", href: "/services/bookkeeping", blurb: "Daily transactions, reconciliations, clean books" },
+      { name: "Payroll Services", href: "/services/payroll", blurb: "Processing, multi-state compliance, reporting" },
+      { name: "Sales Tax Services", href: "/services/sales-tax", blurb: "Multi-state returns, reconciliation, calendars" },
+      { name: "Filing 1099 & Issue Forms", href: "/services/filing-1099", blurb: "1099-NEC and MISC, TIN matching, e-filing" },
+      { name: "Management Consultation", href: "/services/management-consultation", blurb: "Forecasting, break-even, cash flow modelling" },
       { name: "Audit Support", href: "/services/audit", blurb: "Workpapers, procedures, compilations, reviews" },
     ],
   },
@@ -76,7 +86,17 @@ export const navItems: NavItem[] = [
       { name: "FAQs", href: "/faqs" },
     ],
   },
-  { name: "Insights", href: "/blog" },
+  {
+    name: "Resources",
+    href: "/blog",
+    dropdown: [
+      { name: "Insights", href: "/blog", blurb: "Writing for CPA firm owners" },
+      { name: "Case Studies", href: "/case-studies", blurb: "How firms use us in practice" },
+      { name: "Events & Webinars", href: "/events", blurb: "Sessions we are running or speaking at" },
+      { name: "Guides & Ebooks", href: "/guides", blurb: "Free downloads for firm owners" },
+      { name: "Partnership", href: "/partnership", blurb: "White-label and referral arrangements" },
+    ],
+  },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -87,7 +107,12 @@ export const footerNav = [
     links: [
       { name: "Tax Preparation", href: "/services/tax" },
       { name: "Back Year Tax Services", href: "/services/back-year-tax" },
-      { name: "Accounting & Bookkeeping", href: "/services/accounting" },
+      { name: "Accounting & CAAS", href: "/services/accounting" },
+      { name: "Bookkeeping", href: "/services/bookkeeping" },
+      { name: "Payroll Services", href: "/services/payroll" },
+      { name: "Sales Tax Services", href: "/services/sales-tax" },
+      { name: "Filing 1099 & Issue Forms", href: "/services/filing-1099" },
+      { name: "Management Consultation", href: "/services/management-consultation" },
       { name: "Audit Support", href: "/services/audit" },
     ],
   },
@@ -113,9 +138,18 @@ export const footerNav = [
     ],
   },
   {
-    heading: "Company",
+    heading: "Resources",
     links: [
       { name: "Insights", href: "/blog" },
+      { name: "Case Studies", href: "/case-studies" },
+      { name: "Events & Webinars", href: "/events" },
+      { name: "Guides & Ebooks", href: "/guides" },
+      { name: "Partnership", href: "/partnership" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
       { name: "Send Documents", href: "/upload" },
       { name: "Contact", href: "/contact" },
       { name: "Privacy Policy", href: "/privacy-policy" },

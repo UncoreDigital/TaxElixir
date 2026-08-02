@@ -15,6 +15,13 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  /*
+   * `next dev` and `next build` both write to .next and will corrupt each
+   * other's output if run together — on Windows this surfaces as spurious
+   * "Cannot find module './NNNN.js'" or ENOENT on *.nft.json.
+   * Set NEXT_DIST_DIR to build into a separate directory while dev is running.
+   */
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "*.supabase.co" }],

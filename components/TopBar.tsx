@@ -1,0 +1,78 @@
+import Link from "next/link";
+import { LogIn, Mail, Phone, ShieldCheck } from "lucide-react";
+import Placeholder from "@/components/Placeholder";
+import { getContactDetails } from "@/lib/settings";
+import { site } from "@/lib/site";
+
+/**
+ * Persistent utility strip above the header.
+ *
+ * Contact details sit above the fold on every page because this audience picks
+ * up the phone rather than filling in a form — a CPA firm partner evaluating an
+ * offshore provider wants to hear a voice before sending client data.
+ */
+export default async function TopBar() {
+  // Phone comes from Admin → Site Settings; lib/site.ts is only the fallback.
+  const contact = await getContactDetails();
+
+  return (
+    <div className="hidden border-b border-white/10 bg-navy-deep text-white/70 md:block">
+      <div className="container flex h-10 items-center justify-between gap-6 text-xs">
+        <div className="flex items-center gap-6">
+          {contact.phone ? (
+            <a
+              href={contact.phoneHref ?? undefined}
+              className="flex items-center gap-2 transition-colors hover:text-gold-light"
+            >
+              <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+              <span className="font-medium tracking-wide">{contact.phone}</span>
+            </a>
+          ) : (
+            <span className="flex items-center gap-2">
+              <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>Phone</span>
+              <Placeholder label="client to supply" />
+            </span>
+          )}
+
+          <a
+            href={site.emailHref}
+            className="flex items-center gap-2 transition-colors hover:text-gold-light"
+          >
+            <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+            <span className="font-medium tracking-wide">{site.email}</span>
+          </a>
+        </div>
+
+        <div className="flex items-center gap-5">
+          <Link
+            href="/security"
+            className="flex items-center gap-2 transition-colors hover:text-gold-light"
+          >
+            <ShieldCheck className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
+            Security &amp; Compliance
+          </Link>
+          <span className="hidden text-white/30 lg:inline" aria-hidden="true">
+            |
+          </span>
+          {/*
+            Labelled "Client Portal" rather than "Client Login" on purpose: there
+            is no authenticated client area yet, and a login link that opens an
+            upload form is the kind of small dishonesty that costs trust on a
+            site selling security. Secure document exchange is the real feature
+            it points at. A true per-client portal is a separate build — see the
+            client content-gap doc.
+          */}
+          <Link
+            href="/upload"
+            data-cursor="grow"
+            className="hidden items-center gap-1.5 rounded border border-white/20 px-3 py-1 transition-colors hover:border-gold hover:text-gold-light lg:inline-flex"
+          >
+            <LogIn className="h-3.5 w-3.5" aria-hidden="true" />
+            Client Portal
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

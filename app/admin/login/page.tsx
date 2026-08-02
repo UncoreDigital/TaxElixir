@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import LoginForm from "@/components/admin/LoginForm";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 import { site } from "@/lib/site";
@@ -32,7 +33,23 @@ export default function AdminLoginPage() {
 
           <div className="mt-7">
             {configured ? (
-              <LoginForm />
+              /*
+               * LoginForm reads ?next= via useSearchParams(), which bails out of
+               * static rendering unless it sits inside a Suspense boundary.
+               * The fallback mirrors the form's height so the card does not
+               * jump when it hydrates.
+               */
+              <Suspense
+                fallback={
+                  <div className="space-y-4" aria-hidden="true">
+                    <div className="h-[68px] rounded-md bg-slate-100" />
+                    <div className="h-[68px] rounded-md bg-slate-100" />
+                    <div className="h-12 rounded-md bg-slate-100" />
+                  </div>
+                }
+              >
+                <LoginForm />
+              </Suspense>
             ) : (
               <div className="rounded-lg border border-dashed border-amber-400 bg-amber-50 p-5 text-sm text-amber-900">
                 <strong className="font-semibold">Supabase is not configured.</strong>

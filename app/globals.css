@@ -55,9 +55,32 @@
     --ink: 213 45% 14%;
     --ink-muted: 213 14% 42%;
 
+    /*
+      Slate scale — cool greys biased toward the navy rather than neutral,
+      so surfaces read as part of the palette instead of borrowed from it.
+    */
+    --slate-50: 210 30% 97%;
+    --slate-100: 212 26% 94%;
+    --slate-200: 212 24% 90%;
+    --slate-400: 212 16% 62%;
+    --slate-600: 213 14% 42%;
+    --slate-800: 213 30% 22%;
+
+    /*
+      Emerald — the trust accent. Deliberately NOT a second brand colour: gold
+      is the logo and owns primary CTAs. Emerald carries verified/secure/success
+      states only (certifications, encrypted transfer, form success), where a
+      green reads as confirmation in a way gold never will.
+    */
+    --emerald: 158 64% 34%;
+    --emerald-light: 156 52% 46%;
+    --emerald-dark: 160 68% 26%;
+
     --gradient-navy: linear-gradient(135deg, hsl(210 100% 14%) 0%, hsl(212 45% 27%) 100%);
     --gradient-gold: linear-gradient(180deg, hsl(42 61% 61%) 0%, hsl(47 46% 54%) 100%);
     --gradient-gold-x: linear-gradient(100deg, hsl(42 61% 61%) 0%, hsl(43 51% 58%) 50%, hsl(47 46% 54%) 100%);
+    /* Hover border for cards — gold into emerald, the two accents in sequence. */
+    --gradient-edge: linear-gradient(130deg, hsl(42 61% 61%) 0%, hsl(43 51% 58%) 45%, hsl(158 64% 34%) 100%);
   }
 }
 
@@ -76,8 +99,9 @@
     overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-playfair), Georgia, serif;
-    @apply font-bold tracking-tight text-navy;
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    @apply font-bold text-navy;
+    letter-spacing: -0.022em;
   }
   ::selection {
     background: hsl(var(--gold) / 0.28);
@@ -126,6 +150,27 @@
 
   /* Wide content must scroll inside its own box, not the page. */
   .scroll-x { @apply -mx-5 overflow-x-auto px-5 md:mx-0 md:px-0; }
+}
+
+/*
+  Only hide the native cursor once the custom one has actually mounted — the
+  class is added by CustomCursor, which refuses to mount on touch devices or
+  under reduced-motion. Text fields keep their I-beam either way, because the
+  caret position is real information.
+*/
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role="button"],
+.has-custom-cursor summary,
+.has-custom-cursor label {
+  cursor: none;
+}
+.has-custom-cursor input:not([type="checkbox"]),
+.has-custom-cursor textarea,
+.has-custom-cursor select,
+.has-custom-cursor [contenteditable="true"] {
+  cursor: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

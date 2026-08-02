@@ -10,6 +10,7 @@ import Software from "@/components/sections/Software";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
 import DisclaimerBand from "@/components/DisclaimerBand";
+import ProvisionalNotice from "@/components/ProvisionalNotice";
 import { services, getService } from "@/lib/services-data";
 import { getRole } from "@/lib/hire-data";
 import { faqs } from "@/lib/content";
@@ -81,6 +82,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         crumbs={[{ name: "Services", href: "/services" }, { name: service.title }]}
         intro={service.intro}
       />
+
+      {service.provisional && <ProvisionalNotice service={service.title} />}
 
       {/* Scope */}
       <section className="section">

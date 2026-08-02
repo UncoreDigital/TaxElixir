@@ -1,5 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TopBar from "@/components/TopBar";
+import CustomCursor from "@/components/CustomCursor";
+import SmoothScroll from "@/components/SmoothScroll";
 import { site } from "@/lib/site";
 
 /**
@@ -47,10 +50,21 @@ function OrganizationJsonLd() {
   );
 }
 
+/**
+ * The header and footer now read contact details from `site_settings`, so the
+ * whole marketing tree needs to revalidate for an admin edit to appear.
+ * Five minutes: fast enough that changing a phone number feels immediate,
+ * slow enough that the pages stay effectively static.
+ */
+export const revalidate = 300;
+
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <OrganizationJsonLd />
+      <SmoothScroll />
+      <CustomCursor />
+      <TopBar />
       <Header />
       <main id="main">{children}</main>
       <Footer />

@@ -59,10 +59,28 @@ export default {
           DEFAULT: "hsl(var(--ink))",
           muted: "hsl(var(--ink-muted))",
         },
+        /* Trust accent — verified / secure / success states only. */
+        emerald: {
+          DEFAULT: "hsl(var(--emerald))",
+          light: "hsl(var(--emerald-light))",
+          dark: "hsl(var(--emerald-dark))",
+        },
+        slate: {
+          50: "hsl(var(--slate-50))",
+          100: "hsl(var(--slate-100))",
+          200: "hsl(var(--slate-200))",
+          400: "hsl(var(--slate-400))",
+          600: "hsl(var(--slate-600))",
+          800: "hsl(var(--slate-800))",
+        },
       },
       fontFamily: {
-        display: ["var(--font-playfair)", "Georgia", "serif"],
+        /* Headings — structured geometric sans, for financial authority. */
+        display: ["var(--font-jakarta)", "system-ui", "sans-serif"],
+        /* Body — optimised for long-form readability. */
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        /* Reserved for the logo wordmark, which is a serif in the artwork. */
+        wordmark: ["var(--font-playfair)", "Georgia", "serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

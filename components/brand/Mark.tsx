@@ -24,7 +24,15 @@ export default function Mark({
   return (
     <svg
       viewBox="0 0 120 140"
-      className={cn("h-auto", className)}
+      /*
+       * Intrinsic width/height matter here. An SVG with only a viewBox and no
+       * dimensions expands to fill its container, so if the stylesheet ever
+       * fails to load the mark renders as a full-page black shield. These give
+       * it a sane default that CSS then overrides.
+       */
+      width={120}
+      height={140}
+      className={cn("h-auto max-h-full", className)}
       role="img"
       aria-label="TaxElixir"
     >

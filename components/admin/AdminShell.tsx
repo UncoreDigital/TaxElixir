@@ -7,6 +7,7 @@ import {
   ExternalLink,
   FileText,
   LayoutDashboard,
+  Library,
   LogOut,
   Mail,
   Menu,
@@ -23,6 +24,7 @@ const navItems = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
   { name: "Leads", href: "/admin/leads", icon: Mail },
   { name: "Insights", href: "/admin/posts", icon: FileText },
+  { name: "Resources", href: "/admin/resources", icon: Library },
   { name: "Document Uploads", href: "/admin/uploads", icon: Upload },
   { name: "Site Settings", href: "/admin/settings", icon: Settings },
 ];

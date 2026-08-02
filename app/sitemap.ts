@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { services } from "@/lib/services-data";
 import { roles } from "@/lib/hire-data";
 import { getPublishedPosts } from "@/lib/posts";
+import { getResources } from "@/lib/resources";
 import { site } from "@/lib/site";
 
 /**
@@ -25,6 +26,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: "/software", changeFrequency: "monthly", priority: 0.6 },
       { url: "/faqs", changeFrequency: "monthly", priority: 0.6 },
       { url: "/blog", changeFrequency: "weekly", priority: 0.7 },
+      { url: "/case-studies", changeFrequency: "monthly", priority: 0.7 },
+      { url: "/events", changeFrequency: "weekly", priority: 0.6 },
+      { url: "/guides", changeFrequency: "monthly", priority: 0.6 },
+      { url: "/partnership", changeFrequency: "monthly", priority: 0.7 },
       { url: "/contact", changeFrequency: "yearly", priority: 0.8 },
       { url: "/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
     ] as const
@@ -52,5 +57,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...roleRoutes, ...postRoutes];
+  // Only case studies get their own page; events and guides live on their index.
+  const caseStudies = await getResources("case_study");
+  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((c) => ({
+    url: `${site.url}/case-studies/${c.slug}`,
+    lastModified: new Date(c.updated_at),
+    changeFrequency: "yearly",
+    priority: 0.7,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...serviceRoutes,
+    ...roleRoutes,
+    ...postRoutes,
+    ...caseStudyRoutes,
+  ];
 }

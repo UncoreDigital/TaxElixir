@@ -150,5 +150,72 @@ export const faqs: { q: string; a: string }[] = [
   },
 ];
 
-/** Homepage social proof. CLIENT TO SUPPLY — no testimonials were provided. */
+/**
+ * Homepage social proof. CLIENT TO SUPPLY — no testimonials were provided.
+ * The carousel in components/sections/Testimonials.tsx is built and renders as
+ * soon as this array has entries. Each needs a real name and a real firm; an
+ * anonymous quote persuades nobody in this market.
+ */
 export const testimonials: { quote: string; name: string; firm: string }[] = [];
+
+/**
+ * Leadership & expertise claims.
+ *
+ * Every item is `needsClient: true` on purpose. These are precisely the claims
+ * a prospect checks on LinkedIn before a first call — "Big 4-trained" and
+ * "US-based leadership" are verifiable, and being caught overstating either
+ * ends the conversation. Confirm each, then flip the flag.
+ */
+export const leadership = [
+  {
+    title: "Big 4-trained leadership",
+    body: "Engagement leads whose training came from Big 4 audit and tax practices, so your reviewers are talking to people who already know your standards.",
+    needsClient: true,
+  },
+  {
+    title: "US GAAP and IRS fluency",
+    body: "Day-to-day familiarity with the filing calendar, entity types and disclosure requirements your firm works to — not a general accounting background applied to US rules.",
+    needsClient: true,
+  },
+  {
+    title: "US-based point of contact",
+    body: "A senior contact in your time zone who owns the relationship, so escalation does not wait for an overnight handover.",
+    needsClient: true,
+  },
+  {
+    title: "Qualified delivery team",
+    body: "Chartered Accountants, CPAs and Enrolled Agents across the delivery floor, assigned by engagement type rather than by whoever is free.",
+    needsClient: true,
+  },
+];
+
+/** White-label and referral arrangements — see /partnership. */
+export const partnershipModels = [
+  {
+    title: "White-Label Delivery",
+    body: "We work entirely behind your brand. Deliverables carry your templates and your letterhead, and we do not appear to your clients at any point.",
+    points: [
+      "Your workpaper templates and file naming",
+      "No TaxElixir branding on any deliverable",
+      "We never contact your clients directly",
+    ],
+  },
+  {
+    title: "Referral Partnership",
+    body: "For firms that come across work outside their own capacity or specialism and would rather refer it than decline it.",
+    points: [
+      "Introduce work that does not fit your practice",
+      "Agreed commercial terms in writing up front",
+      "You stay informed on progress throughout",
+    ],
+  },
+  {
+    title: "Capacity Partnership",
+    body: "A standing arrangement for firms with predictable seasonal peaks — reserved capacity booked ahead of your busy period.",
+    points: [
+      "Capacity reserved before the season starts",
+      "Agreed volumes and turnaround windows",
+      "Scales back down without notice-period cost",
+    ],
+  },
+];

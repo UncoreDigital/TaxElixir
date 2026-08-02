@@ -2,8 +2,11 @@ import {
   Archive,
   BookOpen,
   Calculator,
+  FileCheck,
   FileText,
+  Receipt,
   ShieldCheck,
+  TrendingUp,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -13,8 +16,11 @@ export const icons: Record<string, LucideIcon> = {
   Archive,
   BookOpen,
   Calculator,
+  FileCheck,
   FileText,
+  Receipt,
   ShieldCheck,
+  TrendingUp,
   Users,
 };
 

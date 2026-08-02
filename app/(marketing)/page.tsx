@@ -4,7 +4,9 @@ import CoreServices from "@/components/sections/CoreServices";
 import Stats from "@/components/sections/Stats";
 import WhyUs from "@/components/sections/WhyUs";
 import Workflow from "@/components/sections/Workflow";
-import HireRoles from "@/components/sections/HireRoles";
+import StaffingTabs from "@/components/sections/StaffingTabs";
+import Leadership from "@/components/sections/Leadership";
+import Testimonials from "@/components/sections/Testimonials";
 import Software from "@/components/sections/Software";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
@@ -26,7 +28,9 @@ export default function HomePage() {
       <Stats />
       <WhyUs />
       <Workflow />
-      <HireRoles />
+      <StaffingTabs />
+      <Leadership />
+      <Testimonials />
       <Software />
       <FaqSection items={faqs.slice(0, 6)} />
       <DisclaimerBand />

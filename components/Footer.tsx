@@ -1,10 +1,14 @@
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import Logo from "@/components/brand/Logo";
+import NewsletterForm from "@/components/NewsletterForm";
+import Placeholder from "@/components/Placeholder";
+import { getContactDetails } from "@/lib/settings";
 import { footerNav, site } from "@/lib/site";
 
-export default function Footer() {
+export default async function Footer() {
   const year = new Date().getFullYear();
+  const contact = await getContactDetails();
 
   return (
     <footer className="bg-gradient-navy text-white/70">
@@ -21,13 +25,37 @@ export default function Footer() {
             </Link>
             <p className="mt-6 text-sm leading-relaxed">{site.description}</p>
 
-            <a
-              href={site.emailHref}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-gold-light"
-            >
-              <Mail className="h-4 w-4" aria-hidden="true" />
-              {site.email}
-            </a>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+              <a
+                href={site.emailHref}
+                className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-gold-light"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                {site.email}
+              </a>
+
+              {contact.linkedin && (
+                <a
+                  href={contact.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${site.name} on LinkedIn`}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-gold-light"
+                >
+                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                  LinkedIn
+                </a>
+              )}
+            </div>
+
+            <div className="mt-8">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold-light">
+                Stay in the loop
+              </h2>
+              <div className="mt-4">
+                <NewsletterForm />
+              </div>
+            </div>
           </div>
 
           {footerNav.map((col) => (
@@ -49,6 +77,58 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Contact block — US delivery hours and reach-us details. */}
+        <div className="mt-14 grid gap-6 rounded-xl border border-white/12 bg-white/[0.04] p-7 sm:grid-cols-3">
+          <div>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-light">
+              Email
+            </h2>
+            <a
+              href={site.emailHref}
+              className="mt-2.5 flex items-start gap-2 text-sm text-white/80 transition-colors hover:text-white"
+            >
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+              {site.email}
+            </a>
+          </div>
+
+          <div>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-light">
+              Phone
+            </h2>
+            <p className="mt-2.5 flex items-start gap-2 text-sm text-white/80">
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+              {contact.phone ? (
+                <a href={contact.phoneHref ?? undefined} className="hover:text-white">
+                  {contact.phone}
+                </a>
+              ) : (
+                <span className="flex flex-wrap items-center gap-2">
+                  Not yet published
+                  <Placeholder label="client to supply" />
+                </span>
+              )}
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-light">
+              Offices
+            </h2>
+            <p className="mt-2.5 flex items-start gap-2 text-sm text-white/80">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+              {contact.address ? (
+                contact.address
+              ) : (
+                <span className="flex flex-wrap items-center gap-2">
+                  India — serving US CPA firms
+                  <Placeholder label="address to supply" />
+                </span>
+              )}
+            </p>
+          </div>
         </div>
 
         {/*

@@ -55,6 +55,53 @@ export type DocumentSubmission = {
   status: UploadStatus;
 };
 
+export type ResourceKind = "case_study" | "event" | "guide";
+
+export type Resource = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  kind: ResourceKind;
+  slug: string;
+  title: string;
+  summary: string;
+  content: string;
+  cover_url: string | null;
+  cover_alt: string | null;
+  client_name: string | null;
+  industry: string | null;
+  outcome: string | null;
+  starts_at: string | null;
+  location: string | null;
+  registration_url: string | null;
+  file_url: string | null;
+  gated: boolean;
+  meta_title: string | null;
+  meta_description: string | null;
+  is_featured: boolean;
+  status: PostStatus;
+  published_at: string | null;
+};
+
+export type GuideDownload = {
+  id: string;
+  created_at: string;
+  resource_id: string | null;
+  title: string;
+  name: string;
+  email: string;
+  company: string | null;
+  phone: string | null;
+};
+
+export type NewsletterSubscriber = {
+  id: string;
+  created_at: string;
+  email: string;
+  source_page: string | null;
+  status: "subscribed" | "unsubscribed";
+};
+
 export type SiteSetting = {
   key: string;
   value: string | null;
@@ -96,6 +143,24 @@ export type Database = {
         Row: SiteSetting;
         Insert: Partial<SiteSetting> & Pick<SiteSetting, "key" | "label">;
         Update: Partial<SiteSetting>;
+        Relationships: [];
+      };
+      resources: {
+        Row: Resource;
+        Insert: Partial<Resource> & Pick<Resource, "kind" | "slug" | "title">;
+        Update: Partial<Resource>;
+        Relationships: [];
+      };
+      guide_downloads: {
+        Row: GuideDownload;
+        Insert: Partial<GuideDownload> & Pick<GuideDownload, "title" | "name" | "email">;
+        Update: Partial<GuideDownload>;
+        Relationships: [];
+      };
+      newsletter_subscribers: {
+        Row: NewsletterSubscriber;
+        Insert: Partial<NewsletterSubscriber> & Pick<NewsletterSubscriber, "email">;
+        Update: Partial<NewsletterSubscriber>;
         Relationships: [];
       };
     };

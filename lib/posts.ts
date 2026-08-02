@@ -1,4 +1,4 @@
-import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { createStaticClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import type { Post } from "@/lib/supabase/types";
 
 /**
@@ -13,7 +13,7 @@ import type { Post } from "@/lib/supabase/types";
 export async function getPublishedPosts(limit?: number): Promise<Post[]> {
   if (!isSupabaseConfigured()) return [];
 
-  const supabase = createClient();
+  const supabase = createStaticClient();
   let query = supabase
     .from("posts")
     .select("*")
@@ -35,7 +35,7 @@ export async function getPublishedPosts(limit?: number): Promise<Post[]> {
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   if (!isSupabaseConfigured()) return null;
 
-  const supabase = createClient();
+  const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("posts")
     .select("*")

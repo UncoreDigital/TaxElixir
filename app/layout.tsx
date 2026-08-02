@@ -1,17 +1,33 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 
+/** Body — long-form readability. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
-/** Matches the transitional serif of the logo wordmark. */
+/**
+ * Headings — a structured geometric sans. Reads as financial-platform
+ * authority where a display serif reads as editorial or luxury.
+ */
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+/**
+ * Reserved for the logo wordmark only — the supplied artwork is a transitional
+ * serif, so the lockup stays true to it even though page headings do not.
+ */
 const playfair = Playfair_Display({
   subsets: ["latin"],
+  weight: ["700"],
   variable: "--font-playfair",
   display: "swap",
 });
@@ -52,7 +68,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-US" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en-US" className={`${inter.variable} ${jakarta.variable} ${playfair.variable}`}>
       <body>
         <a
           href="#main"

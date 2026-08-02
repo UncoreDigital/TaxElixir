@@ -5,6 +5,7 @@ import PageBanner from "@/components/PageBanner";
 import ContactForm from "@/components/ContactForm";
 import Placeholder from "@/components/Placeholder";
 import DisclaimerBand from "@/components/DisclaimerBand";
+import { getContactDetails } from "@/lib/settings";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -14,7 +15,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  // Phone and address come from Admin -> Site Settings.
+  const contact = await getContactDetails();
+
   return (
     <>
       <PageBanner
@@ -48,9 +52,9 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" aria-hidden="true" />
-                  {site.phone ? (
-                    <a href={site.phoneHref ?? undefined} className="text-navy">
-                      {site.phone}
+                  {contact.phone ? (
+                    <a href={contact.phoneHref ?? undefined} className="text-navy">
+                      {contact.phone}
                     </a>
                   ) : (
                     <span className="text-ink-muted">
@@ -60,8 +64,8 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" aria-hidden="true" />
-                  {site.address ? (
-                    <span className="text-ink-muted">{site.address}</span>
+                  {contact.address ? (
+                    <span className="text-ink-muted">{contact.address}</span>
                   ) : (
                     <span className="text-ink-muted">
                       Office address <Placeholder label="client to supply" />

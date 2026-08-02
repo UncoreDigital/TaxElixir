@@ -35,7 +35,7 @@ export default function Logo({
       <span className="flex flex-col justify-center">
         <span
           className={cn(
-            "font-display font-bold leading-none tracking-tight",
+            "font-wordmark font-bold leading-none tracking-tight",
             "text-[1.45em]",
             light ? "text-white" : "text-navy"
           )}
