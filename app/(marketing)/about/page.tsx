@@ -150,22 +150,33 @@ export default function AboutPage() {
           />
 
           {/*
-            `self-start` on the photo column is the whole trick. Grid children
-            stretch by default, which would pull this 1:1 headshot to the height
-            of a 400-word bio and object-cover would crop it to roughly 1:2 —
-            a hard zoom into her face. Top-aligned, it keeps its square and the
-            full photographed frame stays visible.
+            Three grid children with explicit placement, for two reasons.
+
+            `self-start` on the photo keeps it square: grid children stretch by
+            default, which would pull this 1:1 headshot to the height of a
+            400-word bio and let object-cover crop it to roughly 1:2 — a hard
+            zoom into her face.
+
+            The explicit rows put the name above the photo when the grid
+            collapses to one column. In source order the photo comes second, so
+            a phone reads name → photo → credentials → bio instead of meeting a
+            stranger's photograph and a credential list before her name.
           */}
           <Reveal>
             <article className="mx-auto mt-14 max-w-5xl rounded-2xl border border-border bg-white p-8 shadow-soft md:p-10 lg:p-12">
-              <div className="grid gap-9 md:grid-cols-[minmax(0,17.5rem)_1fr] md:gap-12">
-                <div className="relative mx-auto w-full max-w-[17.5rem] self-start md:mx-0 md:max-w-none">
-                  {/* Gold block peeking out behind the corner — same accent the
-                      section rules use, without framing her in a hard border. */}
-                  <span
-                    className="absolute -bottom-3 -right-3 h-28 w-28 rounded-2xl bg-gradient-gold-x"
-                    aria-hidden="true"
-                  />
+              <div className="grid gap-y-8 md:grid-cols-[minmax(0,19rem)_1fr] md:gap-x-12">
+                <div className="md:col-start-2 md:row-start-1">
+                  <h3 className="text-2xl md:text-3xl">Dhara Jain</h3>
+                  <p className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-dark">
+                    Founder
+                    <Placeholder label="confirm title" className="tracking-wide" />
+                  </p>
+                </div>
+
+                {/* Credentials sit under the photo rather than beside the name:
+                    the bio runs ~400 words, so a photo-only column would leave a
+                    tall empty gutter next to it. */}
+                <div className="mx-auto w-full max-w-[19rem] self-start md:col-start-1 md:row-span-2 md:row-start-1 md:mx-0 md:max-w-none">
                   <Image
                     src="/assets/team/Owner.jpeg"
                     alt="Dhara Jain"
@@ -173,30 +184,27 @@ export default function AboutPage() {
                     height={1254}
                     // Source is 1254x1254 into a square box, so object-cover
                     // crops nothing at all.
-                    sizes="(min-width: 768px) 280px, 280px"
-                    className="relative aspect-square w-full rounded-2xl object-cover shadow-soft"
+                    sizes="(min-width: 768px) 304px, 304px"
+                    className="aspect-square w-full rounded-2xl object-cover shadow-soft"
                   />
-                </div>
 
-                <div className="min-w-0">
-                  <h3 className="text-2xl md:text-3xl">Dhara Jain</h3>
-                  <p className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-dark">
-                    Founder
-                    <Placeholder label="confirm title" className="tracking-wide" />
-                  </p>
+                  <span className="rule-gold mt-7" aria-hidden="true" />
 
-                  <ul className="mt-5 flex flex-wrap gap-2">
+                  <ul className="mt-5 space-y-3">
                     {credentials.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-full border border-border bg-muted/60 px-3 py-1 text-xs font-medium text-navy"
-                      >
+                      <li key={item} className="flex gap-3 text-sm leading-snug text-ink-muted">
+                        <span
+                          className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
+                          aria-hidden="true"
+                        />
                         {item}
                       </li>
                     ))}
                   </ul>
+                </div>
 
-                  <span className="rule-gold mt-7" aria-hidden="true" />
+                <div className="min-w-0 md:col-start-2 md:row-start-2">
+                  <span className="rule-gold" aria-hidden="true" />
 
                   <div className="mt-6 space-y-5 text-sm leading-relaxed text-ink-muted md:text-base">
                     <p>
