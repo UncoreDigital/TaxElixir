@@ -7,7 +7,6 @@ import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
 import Software from "@/components/sections/Software";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { services } from "@/lib/services-data";
 import { getIcon } from "@/lib/icons";
 
@@ -96,7 +95,6 @@ export default function ServicesPage() {
 
       <Workflow />
       <Software />
-      <DisclaimerBand />
       <CTA />
     </>
   );

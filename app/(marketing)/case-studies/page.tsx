@@ -5,7 +5,6 @@ import { ArrowRight, Building2 } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CoverFallback from "@/components/CoverFallback";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import Placeholder from "@/components/Placeholder";
 import { getResources } from "@/lib/resources";
 
@@ -93,8 +92,6 @@ export default async function CaseStudiesPage() {
           )}
         </div>
       </section>
-
-      <DisclaimerBand />
       <CTA />
     </>
   );

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowUpRight, CalendarDays, MapPin, Video } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import Placeholder from "@/components/Placeholder";
 import { getResources, splitEvents } from "@/lib/resources";
 import type { Resource } from "@/lib/supabase/types";
@@ -152,8 +151,6 @@ export default async function EventsPage() {
           </p>
         </div>
       </section>
-
-      <DisclaimerBand />
       <CTA />
     </>
   );

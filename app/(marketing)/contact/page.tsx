@@ -4,9 +4,8 @@ import { Mail, MapPin, Phone, ShieldCheck, Upload } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import ContactForm from "@/components/ContactForm";
 import Placeholder from "@/components/Placeholder";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { getContactDetails } from "@/lib/settings";
-import { site } from "@/lib/site";
+import { features, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact TaxElixir — Talk to Us About Capacity",
@@ -75,23 +74,26 @@ export default async function ContactPage() {
               </ul>
             </div>
 
-            <Link
-              href="/upload"
-              className="group flex items-start gap-4 rounded-2xl border border-border bg-white p-7 shadow-soft transition-all hover:border-gold/40 hover:shadow-card"
-            >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-gold-x text-navy">
-                <Upload className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span>
-                <span className="block font-display text-lg font-bold text-navy">
-                  Sending documents?
+            {/* Parked with the rest of the secure-upload path — see features.clientPortal. */}
+            {features.clientPortal && (
+              <Link
+                href="/upload"
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-white p-7 shadow-soft transition-all hover:border-gold/40 hover:shadow-card"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-gold-x text-navy">
+                  <Upload className="h-4 w-4" aria-hidden="true" />
                 </span>
-                <span className="mt-1.5 block text-sm leading-relaxed text-ink-muted">
-                  Use our secure upload instead of email. Files go to a private,
-                  access-controlled store — never a public link.
+                <span>
+                  <span className="block font-display text-lg font-bold text-navy">
+                    Sending documents?
+                  </span>
+                  <span className="mt-1.5 block text-sm leading-relaxed text-ink-muted">
+                    Use our secure upload instead of email. Files go to a private,
+                    access-controlled store — never a public link.
+                  </span>
                 </span>
-              </span>
-            </Link>
+              </Link>
+            )}
 
             <div className="rounded-2xl border border-border bg-white p-7 shadow-soft">
               <ShieldCheck className="h-5 w-5 text-gold-dark" aria-hidden="true" />
@@ -108,8 +110,6 @@ export default async function ContactPage() {
           </aside>
         </div>
       </section>
-
-      <DisclaimerBand />
     </>
   );
 }

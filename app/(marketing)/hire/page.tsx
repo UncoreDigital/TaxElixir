@@ -4,7 +4,6 @@ import HireRoles from "@/components/sections/HireRoles";
 import Workflow from "@/components/sections/Workflow";
 import WhyUs from "@/components/sections/WhyUs";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 
@@ -64,7 +63,6 @@ export default function HirePage() {
       <HireRoles />
       <Workflow />
       <WhyUs />
-      <DisclaimerBand />
       <CTA
         title="Tell us which role you need"
         body="Describe the work you want covered and we will propose the right role, the right model and a pilot you can judge us on."

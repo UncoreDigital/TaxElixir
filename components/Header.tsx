@@ -48,10 +48,14 @@ export default function Header() {
       <div className="container flex h-20 items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} — home`}>
           <Image
-            src={site.logo}
+            src={site.headerLogo}
             alt={`${site.name} — ${site.tagline}`}
-            width={1600}
-            height={427}
+            width={site.headerLogoWidth}
+            height={site.headerLogoHeight}
+            // Without this, Next sizes the srcset from the 3010px intrinsic
+            // width and ships a 3840px render — priority-loaded, on every page —
+            // for a slot ~180px wide. 180px lets it pick a 384w variant instead.
+            sizes="180px"
             priority
             className="h-11 w-auto md:h-12"
           />

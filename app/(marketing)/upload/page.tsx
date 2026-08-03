@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Lock, ShieldCheck } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import DocumentUploadForm from "@/components/DocumentUploadForm";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
-import { site } from "@/lib/site";
+import { features, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Secure Document Upload",
@@ -22,6 +22,10 @@ const assurances = [
 ];
 
 export default function UploadPage() {
+  // Parked, not deleted. While features.clientPortal is false this route 404s
+  // like any unknown URL, so there is no path in — guessed or bookmarked.
+  if (!features.clientPortal) notFound();
+
   const configured = isSupabaseConfigured();
 
   return (
@@ -88,8 +92,6 @@ export default function UploadPage() {
           </aside>
         </div>
       </section>
-
-      <DisclaimerBand />
     </>
   );
 }

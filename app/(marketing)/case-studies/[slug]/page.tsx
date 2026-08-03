@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import DOMPurify from "isomorphic-dompurify";
 import { ArrowLeft } from "lucide-react";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { getResourceBySlug, getResources } from "@/lib/resources";
 import { site } from "@/lib/site";
 
@@ -111,8 +110,6 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
           <div className="prose-brand" dangerouslySetInnerHTML={{ __html: safeHtml }} />
         </div>
       </article>
-
-      <DisclaimerBand />
       <CTA
         title="Want the same arrangement for your firm?"
         body="Tell us what work you would move first. We will propose a pilot you can judge us on before anything scales."

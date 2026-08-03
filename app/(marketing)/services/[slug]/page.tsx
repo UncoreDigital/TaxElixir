@@ -9,7 +9,6 @@ import Workflow from "@/components/sections/Workflow";
 import Software from "@/components/sections/Software";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import ProvisionalNotice from "@/components/ProvisionalNotice";
 import { services, getService } from "@/lib/services-data";
 import { getRole } from "@/lib/hire-data";
@@ -218,7 +217,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       <Workflow />
       <Software />
       <FaqSection items={faqs.slice(0, 5)} />
-      <DisclaimerBand />
       <CTA />
 
       <script

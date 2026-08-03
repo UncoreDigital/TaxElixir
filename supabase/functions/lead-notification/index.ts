@@ -29,6 +29,14 @@ const SMTP_PORT = Number(Deno.env.get("SMTP_PORT") ?? "465");
 const SMTP_USER = Deno.env.get("SMTP_USER") ?? "";
 const SMTP_PASS = Deno.env.get("SMTP_PASS") ?? "";
 const NOTIFICATION_EMAIL = Deno.env.get("NOTIFICATION_EMAIL") ?? "";
+/**
+ * Shared secret with the database trigger. Platform JWT verification is off for
+ * this function (see supabase/config.toml) because Supabase's new-format keys
+ * cannot be sent as a Bearer token — so this header is the authentication.
+ *
+ *   supabase secrets set WEBHOOK_SECRET=<same value stored in Vault>
+ */
+const WEBHOOK_SECRET = Deno.env.get("WEBHOOK_SECRET") ?? "";
 const SITE_NAME = "TaxElixir";
 
 const NAVY = "#0C2748";
@@ -150,6 +158,24 @@ function buildNewsletter(r: Record<string, unknown>): Built {
 }
 
 Deno.serve(async (req) => {
+  // Auth first, before any config check — an unauthorized caller should not be
+  // able to probe which secrets are set.
+  if (!WEBHOOK_SECRET) {
+    console.error("lead-notification: WEBHOOK_SECRET is not set — refusing all calls.");
+    return new Response(JSON.stringify({ error: "Function is not configured." }), {
+      status: 503,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (req.headers.get("x-webhook-secret") !== WEBHOOK_SECRET) {
+    console.warn("lead-notification: rejected call with missing or wrong x-webhook-secret.");
+    // 401, not 500 — a wrong secret is not worth retrying.
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   try {
     if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !NOTIFICATION_EMAIL) {
       throw new Error(

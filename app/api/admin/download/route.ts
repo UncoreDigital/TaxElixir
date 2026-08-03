@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/server";
 
 /**
@@ -10,6 +11,12 @@ import { createClient } from "@/lib/supabase/server";
  * short enough that a copied link is useless.
  */
 export async function POST(request: Request) {
+  // The only consumer is the parked uploads list. Closed off with it so the
+  // signing endpoint is not left standing on its own.
+  if (!features.clientPortal) {
+    return NextResponse.json({ error: "Not found." }, { status: 404 });
+  }
+
   const supabase = createClient();
 
   const {

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { AlertTriangle, FileText, Mail, Upload } from "lucide-react";
 import AdminPageHeader from "@/components/admin/AdminPageHeader";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/server";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Dashboard" };
@@ -37,13 +38,20 @@ export default async function AdminDashboardPage() {
       href: "/admin/posts",
       icon: FileText,
     },
-    {
-      label: "Document Uploads",
-      value: uploadsRes.count ?? 0,
-      sub: `${newUploadsRes.count ?? 0} unread`,
-      href: "/admin/uploads",
-      icon: Upload,
-    },
+    // Parked with the rest of the upload path — see features.clientPortal.
+    // The counts are still queried above; only the tile is withheld, so
+    // flipping the flag back needs no change here.
+    ...(features.clientPortal
+      ? [
+          {
+            label: "Document Uploads",
+            value: uploadsRes.count ?? 0,
+            sub: `${newUploadsRes.count ?? 0} unread`,
+            href: "/admin/uploads",
+            icon: Upload,
+          },
+        ]
+      : []),
   ];
 
   const unsetStats = (settingsRes.data ?? []).filter((s) => !s.value);
@@ -56,7 +64,12 @@ export default async function AdminDashboardPage() {
         description="Everything submitted through the website, and the figures the public site reads from."
       />
 
-      <div className="grid gap-5 sm:grid-cols-3">
+      <div
+        className={cn(
+          "grid gap-5",
+          cards.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
+        )}
+      >
         {cards.map((card) => (
           <Link
             key={card.label}

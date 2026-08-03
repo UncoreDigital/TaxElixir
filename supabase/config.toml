@@ -1,0 +1,17 @@
+project_id = "buiywfheuwydfnijqsfe"
+
+# ---------------------------------------------------------------------------
+# lead-notification is called by a Postgres trigger, not by a signed-in user.
+#
+# This project uses the new API key format (`sb_publishable_…` / `sb_secret_…`),
+# and Supabase does not accept either of those in an `Authorization: Bearer`
+# header — the gateway rejects the request before the function boots, which is
+# why a failing call leaves NO entry in the function's invocation log.
+#
+# So the platform's JWT check is off and the function does its own auth instead:
+# it requires an `x-webhook-secret` header matching the WEBHOOK_SECRET secret.
+# An unauthorized call now reaches the function and is logged as a 401, rather
+# than vanishing at the gateway.
+# ---------------------------------------------------------------------------
+[functions.lead-notification]
+verify_jwt = false

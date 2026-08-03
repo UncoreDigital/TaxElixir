@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Placeholder from "@/components/Placeholder";
-import AvatarPlaceholder from "@/components/AvatarPlaceholder";
 import Stats from "@/components/sections/Stats";
 import WhyUs from "@/components/sections/WhyUs";
 import CoreServices from "@/components/sections/CoreServices";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -35,6 +34,14 @@ const values = [
     title: "Excellence",
     body: "The tagline is 'Where Trust Meets CPA Excellence' and it sets the bar we are measured against — your review standards, not our internal ones.",
   },
+];
+
+/** Drawn only from what the client wrote — nothing here is inferred. */
+const credentials = [
+  "Licensed CPA",
+  "20+ years in finance & accounting",
+  "Middle East industry exposure",
+  "AI & Automation Committee member",
 ];
 
 export default function AboutPage() {
@@ -128,39 +135,126 @@ export default function AboutPage() {
       </section>
 
       {/*
-        Leadership and team are deliberately absent rather than filled with
-        stock photography — see the content-gap list in README.md.
+        The founder profile the client supplied. The rest of the leadership team
+        is still outstanding — content-gap #12 — but one real, named, accountable
+        person beats four dashed frames, so the empty slots are gone rather than
+        sitting next to a genuine profile. Still no stock photography.
       */}
       <section className="section">
         <div className="container">
           <SectionHeading
             align="center"
             eyebrow="Leadership"
-            title="Meet the team"
-            intro="Firms outsourcing offshore want to know who is accountable. Leadership profiles are being prepared."
+            title="Who is accountable"
+            intro="Firms sending work offshore ask one question before any other: who stands behind it. This is where that answer starts."
           />
 
-          <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[0, 1, 2, 3].map((i) => (
-              <div key={i}>
-                <AvatarPlaceholder />
-                <div className="mt-4 space-y-2">
-                  <div className="h-3.5 w-2/3 rounded bg-muted" />
-                  <div className="h-3 w-1/2 rounded bg-muted/70" />
+          {/*
+            `self-start` on the photo column is the whole trick. Grid children
+            stretch by default, which would pull this 1:1 headshot to the height
+            of a 400-word bio and object-cover would crop it to roughly 1:2 —
+            a hard zoom into her face. Top-aligned, it keeps its square and the
+            full photographed frame stays visible.
+          */}
+          <Reveal>
+            <article className="mx-auto mt-14 max-w-5xl rounded-2xl border border-border bg-white p-8 shadow-soft md:p-10 lg:p-12">
+              <div className="grid gap-9 md:grid-cols-[minmax(0,17.5rem)_1fr] md:gap-12">
+                <div className="relative mx-auto w-full max-w-[17.5rem] self-start md:mx-0 md:max-w-none">
+                  {/* Gold block peeking out behind the corner — same accent the
+                      section rules use, without framing her in a hard border. */}
+                  <span
+                    className="absolute -bottom-3 -right-3 h-28 w-28 rounded-2xl bg-gradient-gold-x"
+                    aria-hidden="true"
+                  />
+                  <Image
+                    src="/assets/team/Owner.jpeg"
+                    alt="Dhara Jain"
+                    width={1254}
+                    height={1254}
+                    // Source is 1254x1254 into a square box, so object-cover
+                    // crops nothing at all.
+                    sizes="(min-width: 768px) 280px, 280px"
+                    className="relative aspect-square w-full rounded-2xl object-cover shadow-soft"
+                  />
+                </div>
+
+                <div className="min-w-0">
+                  <h3 className="text-2xl md:text-3xl">Dhara Jain</h3>
+                  <p className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-dark">
+                    Founder
+                    <Placeholder label="confirm title" className="tracking-wide" />
+                  </p>
+
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {credentials.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-full border border-border bg-muted/60 px-3 py-1 text-xs font-medium text-navy"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <span className="rule-gold mt-7" aria-hidden="true" />
+
+                  <div className="mt-6 space-y-5 text-sm leading-relaxed text-ink-muted md:text-base">
+                    <p>
+                      Dhara Jain is a licensed CPA with over 20 years of experience in
+                      finance and accounting. She has built her career through a strong
+                      commitment to accuracy, accountability and continuous professional
+                      growth. Her professional journey began with resolving complex
+                      accounts receivable challenges, where she developed a reputation for
+                      handling responsibilities with diligence and precision.
+                    </p>
+                    <p>
+                      Over the years, Dhara has gained valuable industry exposure in the
+                      Middle East, which enriched her global perspective and strengthened
+                      her adaptability in diverse business environments. She continued to
+                      advance her expertise by completing her CPA certification and
+                      obtaining her license, reflecting her dedication to lifelong learning
+                      and professional excellence.
+                    </p>
+                    <p>
+                      She has also remained actively engaged in emerging developments such
+                      as AI and automation, and has contributed as a member of an AI and
+                      Automation Committee within her organisation. Her analytical skills
+                      and dedication to her work have consistently enabled her to deliver
+                      assignments in a timely manner while maintaining high standards of
+                      accuracy and compliance.
+                    </p>
+                  </div>
+
+                  {/*
+                    Rendered as a statement about her, not a quotation. The client
+                    described her approach in the third person and we are not putting
+                    invented words inside quote marks beside a real person's photograph.
+                  */}
+                  <p className="mt-7 border-l-2 border-gold bg-gold/[0.06] py-4 pl-5 pr-4 text-sm leading-relaxed text-navy md:text-base">
+                    Her approach to work is guided by the belief that accuracy and speed
+                    are both essential to delivering timely, compliant and high-quality
+                    results.
+                  </p>
+
+                  <p className="mt-7 text-sm leading-relaxed text-ink-muted">
+                    Beyond her professional commitments, Dhara enjoys swimming, playing
+                    tennis and trekking. Staying active is one of her core personal
+                    values — she believes an active lifestyle helps sustain energy, focus
+                    and overall momentum in life.
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
+            </article>
+          </Reveal>
 
-          <div className="mt-8 text-center">
-            <Placeholder label="client to supply: names, titles, bios, photos" />
-          </div>
+          <p className="mt-8 text-center">
+            <Placeholder label="client to supply: remaining leadership profiles" />
+          </p>
         </div>
       </section>
 
       <CoreServices />
       <WhyUs />
-      <DisclaimerBand />
       <CTA />
     </>
   );

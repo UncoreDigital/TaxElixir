@@ -332,6 +332,11 @@ failure can never roll back the insert.
 
 ### Secrets
 
+Two separate sets, in two separate places. Missing either one gives you the same
+symptom — a lead that saves fine and an email that never arrives.
+
+**1. SMTP, for the function** (Supabase → Edge Functions → Secrets):
+
 ```bash
 supabase functions deploy lead-notification
 supabase secrets set \
@@ -341,6 +346,86 @@ supabase secrets set \
   SMTP_PASS=<app password> \
   NOTIFICATION_EMAIL=info@taxelixir.com
 ```
+
+Plus `WEBHOOK_SECRET` — see below.
+
+**2. A shared secret, so the function knows the call came from us.** Not a
+Supabase key: any long random string (`openssl rand -hex 32`), set in **two**
+places with the same value.
+
+On the function:
+
+```bash
+supabase secrets set WEBHOOK_SECRET=<that string>
+```
+
+And in the database, via Vault so `0004_webhooks.sql` stays committable:
+
+```sql
+select vault.create_secret(
+  '<that same string>',
+  'lead_notification_secret',       -- the name the trigger looks up
+  'Shared secret sent as x-webhook-secret to lead-notification'
+);
+```
+
+**Why a shared secret and not a Supabase key.** This project uses the new API
+key format (`sb_publishable_…` / `sb_secret_…`), and Supabase does not accept
+either in an `Authorization: Bearer` header. Such a call is rejected at the
+gateway *before the function starts*, so it produces no invocation and no log
+line — the failure is completely invisible from the dashboard. So the function
+runs with `verify_jwt = false` ([`supabase/config.toml`](../supabase/config.toml))
+and authenticates the `x-webhook-secret` header itself, which means a bad call
+shows up as a logged `401` instead of disappearing.
+
+### Troubleshooting: the row saved but no email arrived
+
+Work outwards from the database — the trigger swallows its own errors by design,
+so nothing surfaces in the app.
+
+**Is the request even being queued?** `pg_net` is asynchronous; every attempt and
+its outcome land here:
+
+```sql
+select id, status_code, error_msg, created
+from net._http_response
+order by created desc
+limit 10;
+```
+
+- **No rows at all** → the trigger never called out. Check the triggers exist
+  (`select tgname from pg_trigger where tgname = 'leads_notify'`) and that the
+  Vault secret is set; a missing secret is logged as a warning in Postgres Logs
+  and skips the call.
+- **`status_code` 401 with an invocation logged** → the `x-webhook-secret` the
+  trigger sent does not match `WEBHOOK_SECRET` on the function. The two got out
+  of step; set both again.
+- **`status_code` 401 with NO invocation logged** → JWT verification is still
+  on. The gateway is rejecting the call before the function boots. Turn it off:
+  Edge Functions → Settings → "Verify JWT with legacy secret".
+- **`status_code` 503** → the function ran but `WEBHOOK_SECRET` is not set on it.
+- **`status_code` 500** → the request reached the function and the function
+  failed. Its own logs will say why; almost always a missing SMTP secret.
+- **`error_msg` set, no status** → the URL is unreachable. Confirm the project
+  ref in `notify_lead_webhook()` matches your project.
+
+**Is the function itself healthy?** Test it in isolation, bypassing the database
+entirely. The dashboard **Test** button cannot set a custom header, so use curl:
+
+```bash
+curl -i https://buiywfheuwydfnijqsfe.supabase.co/functions/v1/lead-notification \
+  -H 'Content-Type: application/json' \
+  -H 'x-webhook-secret: <your shared secret>' \
+  -d '{"type":"INSERT","table":"leads","record":{"name":"Test","email":"you@example.com","message":"smtp check"}}'
+```
+
+A `200` means SMTP is fine and the problem is upstream in the trigger. A `500`
+means the secrets are missing or the mailbox is rejecting the login — for Gmail
+that means an **app password**, not the account password, with 2FA enabled.
+
+> Empty function logs with a successfully saved lead always means the call never
+> reached the function's code — either the trigger never fired it, or the
+> gateway rejected it. Start at `net._http_response`, not at the function.
 
 > **Security note.** The Anchor implementation this was ported from has its SMTP
 > host, username and Gmail app password hardcoded in the committed source file.

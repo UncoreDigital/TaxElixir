@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import MediaUpload from "@/components/admin/MediaUpload";
 import { createClient } from "@/lib/supabase/client";
 import type { Post, PostStatus } from "@/lib/supabase/types";
 import { postSchema } from "@/lib/validation";
@@ -243,12 +244,13 @@ export default function PostEditor({ post }: { post: Post | null }) {
             <h2 className="text-base">Cover image</h2>
             <div className="mt-4 space-y-4">
               <div>
-                <label htmlFor="cover_url" className="mb-1.5 block text-sm font-medium text-navy">Image URL</label>
-                <input
-                  id="cover_url" type="url" value={form.cover_url}
-                  onChange={(e) => set("cover_url", e.target.value)}
-                  className={inputBase}
-                  placeholder="https://…/cover.jpg"
+                <span className="mb-1.5 block text-sm font-medium text-navy">Image</span>
+                <MediaUpload
+                  value={form.cover_url}
+                  onChange={(url) => set("cover_url", url)}
+                  bucket="post-media"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  kind="image"
                 />
                 {fieldError("cover_url") && <p className="mt-1.5 text-xs text-destructive">{fieldError("cover_url")}</p>}
               </div>

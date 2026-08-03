@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { faqs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export default function FaqsPage() {
       />
 
       <FaqSection items={faqs} title="Everything firms ask us" eyebrow="Answers" />
-      <DisclaimerBand />
       <CTA
         title="Still have a question?"
         body="Send it over. You will get a direct answer from someone who does the work, not a sales response."

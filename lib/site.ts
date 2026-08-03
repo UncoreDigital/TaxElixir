@@ -19,6 +19,16 @@ export const site = {
    */
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.taxelixir.com").replace(/\/$/, ""),
   logo: "/assets/logo.jpeg",
+  /**
+   * The header lockup. A cleaner 3010x804 render of the same artwork as
+   * logo.jpeg — same shield, same wordmark, same tagline — so it drops in at
+   * the old aspect ratio (3.744 vs 3.747) with no reflow. Still a near-white
+   * field, so it belongs on white surfaces only; the navy footer and the admin
+   * sidebar keep the live-text Logo component.
+   */
+  headerLogo: "/assets/header-logo.png",
+  headerLogoWidth: 3010,
+  headerLogoHeight: 804,
   email: "info@taxelixir.com",
   emailHref: "mailto:info@taxelixir.com",
 
@@ -38,6 +48,23 @@ export const site = {
    */
   disclaimer:
     "TaxElixir is not a CPA Firm. We are a professional outsourcing partner exclusively serving US CPA Firms.",
+} as const;
+
+/**
+ * Feature switches for work that is built but not being shown yet.
+ *
+ * `clientPortal` covers the whole secure-document-exchange path in one flag:
+ * the "Client Portal" button in the top bar, the footer link, the contact-page
+ * card, the public /upload page, and — on the admin side — the "Document
+ * Uploads" nav item, the dashboard tile and /admin/uploads.
+ *
+ * Off means genuinely unreachable, not merely unlinked: both routes 404 while
+ * the flag is false, so there is no URL to guess. Nothing is deleted — the
+ * forms, the storage bucket, the tables and the rows all stay put. Flip this
+ * to true and the entire feature comes back exactly as it was.
+ */
+export const features = {
+  clientPortal: false,
 } as const;
 
 export type NavItem = {
@@ -150,7 +177,9 @@ export const footerNav = [
   {
     heading: "Company",
     links: [
-      { name: "Send Documents", href: "/upload" },
+      // Secure upload is parked behind features.clientPortal — the route 404s
+      // while it is off, so the link must not be rendered.
+      ...(features.clientPortal ? [{ name: "Send Documents", href: "/upload" }] : []),
       { name: "Contact", href: "/contact" },
       { name: "Privacy Policy", href: "/privacy-policy" },
     ],

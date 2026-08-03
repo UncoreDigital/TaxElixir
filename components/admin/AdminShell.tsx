@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import Logo from "@/components/brand/Logo";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +26,11 @@ const navItems = [
   { name: "Leads", href: "/admin/leads", icon: Mail },
   { name: "Insights", href: "/admin/posts", icon: FileText },
   { name: "Resources", href: "/admin/resources", icon: Library },
-  { name: "Document Uploads", href: "/admin/uploads", icon: Upload },
+  // Document Uploads is parked with the public /upload form — one flag governs
+  // both, because an inbox for a form nobody can reach is just confusing.
+  ...(features.clientPortal
+    ? [{ name: "Document Uploads", href: "/admin/uploads", icon: Upload }]
+    : []),
   { name: "Site Settings", href: "/admin/settings", icon: Settings },
 ];
 

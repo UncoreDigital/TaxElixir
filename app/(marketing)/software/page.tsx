@@ -4,7 +4,6 @@ import Software from "@/components/sections/Software";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 
 export const metadata: Metadata = {
   title: "Software We Work In",
@@ -59,7 +58,6 @@ export default function SoftwarePage() {
       </section>
 
       <Software />
-      <DisclaimerBand />
       <CTA />
     </>
   );

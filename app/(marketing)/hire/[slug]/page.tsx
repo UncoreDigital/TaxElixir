@@ -8,7 +8,6 @@ import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { ButtonLink } from "@/components/ui/Button";
 import { roles, getRole } from "@/lib/hire-data";
 import { getService } from "@/lib/services-data";
@@ -163,7 +162,6 @@ export default function RolePage({ params }: { params: { slug: string } }) {
       </section>
 
       <FaqSection items={faqs.slice(0, 5)} />
-      <DisclaimerBand />
       <CTA
         title={`Ready to add a ${role.title.toLowerCase()}?`}
         body="Tell us about the work and your review standards. We will propose a candidate profile, an engagement model and a pilot you can judge us on."

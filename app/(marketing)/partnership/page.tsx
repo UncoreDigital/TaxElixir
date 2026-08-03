@@ -6,7 +6,6 @@ import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { partnershipModels } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -85,7 +84,6 @@ export default function PartnershipPage() {
         eyebrow="Partnership FAQs"
         title="What firms ask before partnering"
       />
-      <DisclaimerBand />
       <CTA
         title="Let's talk about how this would work"
         body="Tell us how your firm is structured and what you would want covered. We will come back with a model, terms and a pilot."

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { serviceOptions } from "@/lib/validation";
+import { leadSchema, serviceOptions } from "@/lib/validation";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -25,9 +25,12 @@ export default function ContactForm() {
       prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
     );
 
+  /** Drop a field's error as soon as the user starts fixing it. */
+  const clearError = (name: string) =>
+    setErrors((prev) => (prev[name] ? { ...prev, [name]: undefined } : prev));
+
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setState("sending");
     setErrors({});
     setFormError(null);
 
@@ -43,6 +46,21 @@ export default function ContactForm() {
       services,
       sourcePage: pathname,
     };
+
+    /*
+     * Same schema the route runs, checked here first. The form sets noValidate,
+     * so without this every short message costs a round-trip and comes back as a
+     * bare 400. The server still validates — this is only to fail fast.
+     */
+    const parsed = leadSchema.safeParse(payload);
+    if (!parsed.success) {
+      setErrors(parsed.error.flatten().fieldErrors);
+      setFormError("Please check the highlighted fields and try again.");
+      setState("error");
+      return;
+    }
+
+    setState("sending");
 
     try {
       const res = await fetch("/api/contact", {
@@ -86,7 +104,12 @@ export default function ContactForm() {
   const fieldError = (name: string) => errors[name]?.[0];
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-5">
+    <form
+      onSubmit={onSubmit}
+      onInput={(event) => clearError((event.target as HTMLInputElement).name)}
+      noValidate
+      className="space-y-5"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-navy">
@@ -174,7 +197,13 @@ export default function ContactForm() {
           aria-invalid={Boolean(fieldError("message"))}
           className={cn(inputBase, "resize-y", fieldError("message") && "border-destructive")}
         />
-        {fieldError("message") && <p className="mt-1.5 text-xs text-destructive">{fieldError("message")}</p>}
+        {fieldError("message") ? (
+          <p className="mt-1.5 text-xs text-destructive">{fieldError("message")}</p>
+        ) : (
+          <p className="mt-1.5 text-xs text-ink-muted">
+            A sentence or two is plenty — at least 10 characters.
+          </p>
+        )}
       </div>
 
       {/* Honeypot — positioned off-screen rather than display:none so bots fill it. */}

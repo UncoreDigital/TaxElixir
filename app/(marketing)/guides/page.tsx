@@ -4,7 +4,6 @@ import { BookMarked, Download, Lock } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CoverFallback from "@/components/CoverFallback";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import Placeholder from "@/components/Placeholder";
 import GuideDownloadButton from "@/components/GuideDownloadButton";
 import { getResources } from "@/lib/resources";
@@ -98,8 +97,6 @@ export default async function GuidesPage() {
           )}
         </div>
       </section>
-
-      <DisclaimerBand />
       <CTA />
     </>
   );

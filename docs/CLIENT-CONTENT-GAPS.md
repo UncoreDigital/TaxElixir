@@ -32,7 +32,7 @@ an em dash in production. Nothing has been invented to fill a space.
 | 9 | **Number of CPA firms supported** | Homepage, About | " |
 | 10 | **Returns prepared annually** | Homepage, About | Strongest single number for this audience — a CPA firm evaluating a partner wants throughput |
 | 11 | **Client testimonials** (3–5, named person + firm) | Homepage, service pages | The competitor uses five named testimonials from named firms as its main trust signal. `lib/content.ts → testimonials` is an empty array; the section stays hidden until filled |
-| 12 | **Leadership team** — names, titles, short bios, photos | `/about` | Currently a placeholder. Offshore providers get asked "who is actually accountable?" — this is where that is answered |
+| 12 | **Leadership team** — names, titles, short bios, photos | `/about` | **Partly supplied.** Dhara Jain (founder) is live with photo and bio; her *title* is our inference from "owner" and needs confirming. Anyone else on the leadership bench is still outstanding — offshore providers get asked "who is actually accountable?", and one name only answers part of it |
 | 13 | **Software licences** — which of QuickBooks, Xero, UltraTax, Lacerte, Drake, ProConnect, Sage, NetSuite do you actually work in? | `/software`, service pages | Only **CCH Axcess** and **CaseWare** are confirmed, from the audit sheet. The rest are drafted and marked `verified: false` in `lib/content.ts` |
 
 Set 7–10 once in **Admin → Site Settings** and every page picks them up. They deliberately
@@ -56,7 +56,7 @@ the logo.
 | 14 | **Vector logo source** — `.ai`, `.eps` or `.svg` | Shield mark redrawn as SVG paths from the JPEG; wordmark set live in Playfair Display | Our redraw is a close match, not a trace. If the real logo uses a specific licensed typeface or precise shield curve, this will drift from print and social collateral |
 | 15 | **Logo variants** — transparent PNG, white/knockout version | Vector lockup that recolours for dark backgrounds | Needed for partner directories, PDFs, email signatures, conference material |
 | 16 | **Brand guidelines** — if any exist (colour codes, clear space, approved fonts) | Palette sampled from the JPEG by pixel clustering: navy `#0C2748`, gold `#D8B460 → #C0A854` | Confirms our sampled values match the intended brand colours |
-| 17 | **Team headshots** — consistent framing, plain background | Dashed placeholder frames on `/about` | Deliberately not stock photography. A leadership page with purchased faces is worse than an honest empty frame |
+| 17 | **Team headshots** — consistent framing, plain background | One supplied: `public/assets/team/Owner.jpeg`, 1254×1254, plain office background | Match this framing for the rest of the team so the row does not read as a collage. Still no stock photography for the unfilled slots |
 | 18 | **Office photographs** — workspace, security-controlled floor | None; `/security` is text-only | Strong trust signal for a page about protecting client data |
 | 19 | **Article cover images** | Branded shield-and-grid fallback plate, auto-applied per category | Real images lift click-through on social; the fallback is a floor, not a target |
 | 20 | **Software partner badges** — if TaxElixir holds any (Intuit ProAdvisor, Xero Partner, etc.) | Plain text pills | Trademarked logos cannot be used without authorisation — supply proof of partner status and we will use the official badge |

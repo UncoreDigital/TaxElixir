@@ -5,7 +5,6 @@ import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Placeholder from "@/components/Placeholder";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { securityControls } from "@/lib/content";
 import { site } from "@/lib/site";
 
@@ -86,8 +85,6 @@ export default function SecurityPage() {
           </div>
         </div>
       </section>
-
-      <DisclaimerBand />
       <CTA
         title="Questions about how we handle your data?"
         body="We would rather answer them properly before an engagement than be asked about them during one."

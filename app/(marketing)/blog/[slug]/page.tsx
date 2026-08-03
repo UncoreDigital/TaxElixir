@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import DOMPurify from "isomorphic-dompurify";
 import { ArrowLeft } from "lucide-react";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { getPostBySlug, getPublishedPosts } from "@/lib/posts";
 import { formatDate, readingTime } from "@/lib/utils";
 import { site } from "@/lib/site";
@@ -152,8 +151,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </div>
         </section>
       )}
-
-      <DisclaimerBand />
       <CTA />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />

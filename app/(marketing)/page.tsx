@@ -10,7 +10,6 @@ import Testimonials from "@/components/sections/Testimonials";
 import Software from "@/components/sections/Software";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
-import DisclaimerBand from "@/components/DisclaimerBand";
 import { faqs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -33,7 +32,6 @@ export default function HomePage() {
       <Testimonials />
       <Software />
       <FaqSection items={faqs.slice(0, 6)} />
-      <DisclaimerBand />
       <CTA />
     </>
   );

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import MediaUpload from "@/components/admin/MediaUpload";
 import { createClient } from "@/lib/supabase/client";
 import type { Resource, ResourceKind, PostStatus } from "@/lib/supabase/types";
 import { slugify } from "@/lib/utils";
@@ -265,9 +266,15 @@ export default function ResourceEditor({ resource }: { resource: Resource | null
               <h2 className="text-base">Download</h2>
               <div className="mt-4 space-y-4">
                 <div>
-                  <label htmlFor="r-file" className="mb-1.5 block text-sm font-medium text-navy">File URL</label>
-                  <input id="r-file" type="url" value={form.file_url} onChange={(e) => set("file_url", e.target.value)} className={inputBase} placeholder="https://…/guide.pdf" />
-                  <p className="mt-1.5 text-xs text-ink-muted">Upload to the <code>resource-files</code> bucket, then paste the public URL.</p>
+                  <span className="mb-1.5 block text-sm font-medium text-navy">Guide file</span>
+                  <MediaUpload
+                    value={form.file_url}
+                    onChange={(url) => set("file_url", url)}
+                    bucket="resource-files"
+                    accept="application/pdf"
+                    kind="file"
+                    hint="PDF"
+                  />
                 </div>
                 <label className="flex items-start gap-2.5 text-sm text-ink">
                   <input type="checkbox" checked={form.gated} onChange={(e) => set("gated", e.target.checked)} className="mt-0.5 h-4 w-4 rounded border-input text-navy focus:ring-gold" />
@@ -284,8 +291,14 @@ export default function ResourceEditor({ resource }: { resource: Resource | null
             <h2 className="text-base">Cover image</h2>
             <div className="mt-4 space-y-4">
               <div>
-                <label htmlFor="r-cover" className="mb-1.5 block text-sm font-medium text-navy">Image URL</label>
-                <input id="r-cover" type="url" value={form.cover_url} onChange={(e) => set("cover_url", e.target.value)} className={inputBase} />
+                <span className="mb-1.5 block text-sm font-medium text-navy">Image</span>
+                <MediaUpload
+                  value={form.cover_url}
+                  onChange={(url) => set("cover_url", url)}
+                  bucket="post-media"
+                  accept="image/jpeg,image/png,image/webp,image/avif"
+                  kind="image"
+                />
                 <p className="mt-1.5 text-xs text-ink-muted">Empty falls back to a branded plate.</p>
               </div>
               <div>
