@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/server";
 
 const schema = z.object({
@@ -10,6 +11,12 @@ const schema = z.object({
 });
 
 export async function POST(request: Request) {
+  // Closed with the footer form — see features.newsletter. Left open it would
+  // keep accepting signups from bots that already know the path.
+  if (!features.newsletter) {
+    return NextResponse.json({ error: "Not found." }, { status: 404 });
+  }
+
   let payload: unknown;
   try {
     payload = await request.json();

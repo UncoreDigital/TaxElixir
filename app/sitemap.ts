@@ -3,14 +3,16 @@ import { services } from "@/lib/services-data";
 import { roles } from "@/lib/hire-data";
 import { getPublishedPosts } from "@/lib/posts";
 import { getResources } from "@/lib/resources";
-import { site } from "@/lib/site";
+import { features, site } from "@/lib/site";
 
 /**
  * Generated from the same data the pages render from, so a page can never exist
  * without being listed. unisonglobus.com omits ~30 live pages from its sitemaps
  * including /contact/ — the consequence of maintaining the list by hand.
  *
- * /upload and /admin are deliberately excluded (noindex).
+ * /upload and /admin are deliberately excluded (noindex), as is /guides while
+ * features.guides is off — both routes 404, and listing a 404 in the sitemap is
+ * a crawl error you volunteer for.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -33,7 +35,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: "/contact", changeFrequency: "yearly", priority: 0.8 },
       { url: "/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
     ] as const
-  ).map((entry) => ({ ...entry, url: `${site.url}${entry.url}`, lastModified: now }));
+  )
+    .filter((entry) => features.guides || entry.url !== "/guides")
+    .map((entry) => ({ ...entry, url: `${site.url}${entry.url}`, lastModified: now }));
 
   const serviceRoutes: MetadataRoute.Sitemap = services.map((s) => ({
     url: `${site.url}/services/${s.slug}`,

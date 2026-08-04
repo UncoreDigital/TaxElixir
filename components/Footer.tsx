@@ -4,7 +4,7 @@ import Logo from "@/components/brand/Logo";
 import NewsletterForm from "@/components/NewsletterForm";
 import Placeholder from "@/components/Placeholder";
 import { getContactDetails } from "@/lib/settings";
-import { footerNav, site } from "@/lib/site";
+import { features, footerNav, site } from "@/lib/site";
 
 export default async function Footer() {
   const year = new Date().getFullYear();
@@ -48,14 +48,17 @@ export default async function Footer() {
               )}
             </div>
 
-            <div className="mt-8">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold-light">
-                Stay in the loop
-              </h2>
-              <div className="mt-4">
-                <NewsletterForm />
+            {/* Parked — see features.newsletter. */}
+            {features.newsletter && (
+              <div className="mt-8">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold-light">
+                  Stay in the loop
+                </h2>
+                <div className="mt-4">
+                  <NewsletterForm />
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {footerNav.map((col) => (

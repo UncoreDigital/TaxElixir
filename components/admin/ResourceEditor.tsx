@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import MediaUpload from "@/components/admin/MediaUpload";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import type { Resource, ResourceKind, PostStatus } from "@/lib/supabase/types";
 import { slugify } from "@/lib/utils";
@@ -26,7 +27,18 @@ const inputBase =
 const KINDS: { value: ResourceKind; label: string; hint: string }[] = [
   { value: "case_study", label: "Case Study", hint: "Appears on /case-studies with its own page" },
   { value: "event", label: "Event / Webinar", hint: "Sorts into Upcoming or Past by its date" },
-  { value: "guide", label: "Guide / Ebook", hint: "Appears on /guides with a download" },
+  // Guide / Ebook is parked behind features.guides. Dropping it from this list
+  // removes the option everywhere the editor offers a kind, including on a new
+  // resource, so nothing new can be created as a guide while the flag is off.
+  ...(features.guides
+    ? [
+        {
+          value: "guide" as ResourceKind,
+          label: "Guide / Ebook",
+          hint: "Appears on /guides with a download",
+        },
+      ]
+    : []),
 ];
 
 export default function ResourceEditor({ resource }: { resource: Resource | null }) {

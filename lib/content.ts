@@ -102,17 +102,23 @@ export const securityControls = [
  * competency in. The audit sheet names CCH and CaseWare explicitly; the rest
  * are drafted from the services described and must be verified.
  */
+/**
+ * `slug` is also the logo filename. Drop `<slug>.svg` (or .png/.webp) into
+ * public/assets/software/ and the card picks it up on the next build — no code
+ * change. Anything without a file renders as a wordmark card instead, so the
+ * row is never half-empty. See lib/software-logos.ts.
+ */
 export const software = [
-  { name: "CCH Axcess", verified: true },
-  { name: "CaseWare", verified: true },
-  { name: "QuickBooks", verified: false },
-  { name: "Xero", verified: false },
-  { name: "UltraTax CS", verified: false },
-  { name: "Lacerte", verified: false },
-  { name: "Drake Tax", verified: false },
-  { name: "ProConnect", verified: false },
-  { name: "Sage", verified: false },
-  { name: "NetSuite", verified: false },
+  { name: "CCH Axcess", slug: "cch-axcess", verified: true },
+  { name: "CaseWare", slug: "caseware", verified: true },
+  { name: "QuickBooks", slug: "quickbooks", verified: false },
+  { name: "Xero", slug: "xero", verified: false },
+  { name: "UltraTax CS", slug: "ultratax-cs", verified: false },
+  { name: "Lacerte", slug: "lacerte", verified: false },
+  { name: "Drake Tax", slug: "drake-tax", verified: false },
+  { name: "ProConnect", slug: "proconnect", verified: false },
+  { name: "Sage", slug: "sage", verified: false },
+  { name: "NetSuite", slug: "netsuite", verified: false },
 ];
 
 export const faqs: { q: string; a: string }[] = [

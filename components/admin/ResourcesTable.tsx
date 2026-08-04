@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ExternalLink, Pencil, Star, Trash2 } from "lucide-react";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import type { Resource, ResourceKind } from "@/lib/supabase/types";
 import { cn, formatDate } from "@/lib/utils";
+
+/** Guides are parked behind features.guides — no tab, no count, no rows. */
+const FILTERS = (["all", "case_study", "event", "guide"] as const).filter(
+  (k) => features.guides || k !== "guide"
+);
 
 const KIND_LABEL: Record<ResourceKind, string> = {
   case_study: "Case Study",
@@ -47,7 +53,7 @@ export default function ResourcesTable({
   return (
     <>
       <div className="mb-5 flex flex-wrap gap-2">
-        {(["all", "case_study", "event", "guide"] as const).map((k) => (
+        {FILTERS.map((k) => (
           <button
             key={k}
             type="button"
@@ -71,8 +77,9 @@ export default function ResourcesTable({
         <div className="rounded-xl border border-dashed border-border bg-white p-12 text-center">
           <h2 className="text-lg">Nothing here yet</h2>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-muted">
-            Case studies, events and guides you add appear on the public site as
-            soon as they are published.
+            {features.guides
+              ? "Case studies, events and guides you add appear on the public site as soon as they are published."
+              : "Case studies and events you add appear on the public site as soon as they are published."}
           </p>
           <Link
             href="/admin/resources/new"

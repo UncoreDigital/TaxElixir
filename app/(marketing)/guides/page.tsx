@@ -7,6 +7,8 @@ import CTA from "@/components/sections/CTA";
 import Placeholder from "@/components/Placeholder";
 import GuideDownloadButton from "@/components/GuideDownloadButton";
 import { getResources } from "@/lib/resources";
+import { features } from "@/lib/site";
+import { notFound } from "next/navigation";
 
 export const revalidate = 300;
 
@@ -18,6 +20,10 @@ export const metadata: Metadata = {
 };
 
 export default async function GuidesPage() {
+  // Parked, not deleted — see features.guides. 404s rather than rendering an
+  // empty shelf, and the sitemap drops the URL to match.
+  if (!features.guides) notFound();
+
   const guides = await getResources("guide");
 
   return (

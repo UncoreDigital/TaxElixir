@@ -65,6 +65,28 @@ export const site = {
  */
 export const features = {
   clientPortal: false,
+
+  /**
+   * `guides` covers the Guides & Ebooks track: the nav and footer links, the
+   * public /guides page, and — in the admin — the "Guide / Ebook" resource kind,
+   * its filter tab and any guide rows in the resources list.
+   *
+   * Note this is a *kind* inside Resources, not a section of its own: case
+   * studies and events share the same table, the same list and the same editor,
+   * so the flag filters guides out rather than closing anything down. Existing
+   * guide rows stay in the database untouched and reappear when it goes true.
+   */
+  guides: false,
+
+  /**
+   * The "Stay in the loop" signup in the footer, plus the POST /api/newsletter
+   * endpoint behind it. Both go together: an endpoint still writing to
+   * `newsletter_subscribers` after the form is gone is a table quietly filling
+   * up from bots with nobody watching it.
+   *
+   * The table, its rows and the lead-notification handler are all untouched.
+   */
+  newsletter: false,
 } as const;
 
 export type NavItem = {
@@ -120,7 +142,9 @@ export const navItems: NavItem[] = [
       { name: "Insights", href: "/blog", blurb: "Writing for CPA firm owners" },
       { name: "Case Studies", href: "/case-studies", blurb: "How firms use us in practice" },
       { name: "Events & Webinars", href: "/events", blurb: "Sessions we are running or speaking at" },
-      { name: "Guides & Ebooks", href: "/guides", blurb: "Free downloads for firm owners" },
+      ...(features.guides
+        ? [{ name: "Guides & Ebooks", href: "/guides", blurb: "Free downloads for firm owners" }]
+        : []),
       { name: "Partnership", href: "/partnership", blurb: "White-label and referral arrangements" },
     ],
   },
@@ -170,7 +194,7 @@ export const footerNav = [
       { name: "Insights", href: "/blog" },
       { name: "Case Studies", href: "/case-studies" },
       { name: "Events & Webinars", href: "/events" },
-      { name: "Guides & Ebooks", href: "/guides" },
+      ...(features.guides ? [{ name: "Guides & Ebooks", href: "/guides" }] : []),
       { name: "Partnership", href: "/partnership" },
     ],
   },

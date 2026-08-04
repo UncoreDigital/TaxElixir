@@ -59,7 +59,8 @@ the logo.
 | 17 | **Team headshots** — consistent framing, plain background | One supplied: `public/assets/team/Owner.jpeg`, 1254×1254, plain office background | Match this framing for the rest of the team so the row does not read as a collage. Still no stock photography for the unfilled slots |
 | 18 | **Office photographs** — workspace, security-controlled floor | None; `/security` is text-only | Strong trust signal for a page about protecting client data |
 | 19 | **Article cover images** | Branded shield-and-grid fallback plate, auto-applied per category | Real images lift click-through on social; the fallback is a floor, not a target |
-| 20 | **Software partner badges** — if TaxElixir holds any (Intuit ProAdvisor, Xero Partner, etc.) | Plain text pills | Trademarked logos cannot be used without authorisation — supply proof of partner status and we will use the official badge |
+| 20 | **Software partner badges** — if TaxElixir holds any (Intuit ProAdvisor, Xero Partner, etc.) | Wordmark cards | Trademarked logos cannot be used without authorisation — supply proof of partner status and we will use the official badge |
+| 20a | **Software vendor logos** — official artwork for the 10 tools on the Software section | Wordmark card per tool; the logo slot is built and waiting | Drop `<slug>.svg` into `public/assets/software/` (see the README there) and each card swaps to the logo on the next build — no code change. Use the vendor's own press-page asset; several restrict logo use to their partner programmes, which is gap 20 above |
 
 **What is already generated and needs no client input:** favicon (`app/icon.svg`), Apple
 touch icon (180×180), PWA icons (192/512), social share cards for the site and the blog
