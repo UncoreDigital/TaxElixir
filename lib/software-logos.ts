@@ -34,10 +34,21 @@ function build(): Record<string, string> {
   for (const ext of [...EXTENSIONS].reverse()) {
     for (const entry of entries) {
       if (path.extname(entry).toLowerCase() !== ext) continue;
-      // Later loop passes overwrite earlier ones, so iterating the extension
-      // list in reverse leaves the most-preferred format as the final value.
-      found[path.basename(entry, path.extname(entry)).toLowerCase()] =
-        `/assets/software/${entry}`;
+
+      // `<slug>.norm.png` is the output of scripts/normalize-software-logos.mjs
+      // — trimmed and centred on a shared canvas. Strip the marker so it keys on
+      // the slug, and let it win over a raw drop-in of the same slug regardless
+      // of format, because an un-normalised file is the thing that makes the row
+      // look uneven.
+      const base = path.basename(entry, path.extname(entry)).toLowerCase();
+      const normalised = base.endsWith(".norm");
+      const slug = normalised ? base.slice(0, -".norm".length) : base;
+
+      if (!normalised && found[slug]?.includes(".norm.")) continue;
+
+      // Later passes overwrite earlier ones, so iterating the extension list in
+      // reverse leaves the most-preferred format as the final value.
+      found[slug] = `/assets/software/${entry}`;
     }
   }
 

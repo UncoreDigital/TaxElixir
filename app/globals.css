@@ -150,6 +150,14 @@
 
   /* Wide content must scroll inside its own box, not the page. */
   .scroll-x { @apply -mx-5 overflow-x-auto px-5 md:mx-0 md:px-0; }
+
+  /*
+    Scrollbar hidden only where an equivalent affordance is provided in its
+    place — the logo carousel has arrow buttons and edge fades. Never use this
+    on a container whose only scroll cue is the bar itself.
+  */
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
 /*

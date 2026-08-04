@@ -39,12 +39,13 @@ export default function Header() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur transition-shadow",
-        scrolled ? "border-border shadow-soft" : "border-transparent"
-      )}
-    >
+    <>
+      <header
+        className={cn(
+          "sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur transition-shadow",
+          scrolled ? "border-border shadow-soft" : "border-transparent"
+        )}
+      >
       <div className="container flex h-20 items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} — home`}>
           <Image
@@ -122,9 +123,21 @@ export default function Header() {
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
-      </div>
+        </div>
+      </header>
 
-      {/* Mobile drawer */}
+      {/*
+        The drawer is a SIBLING of <header>, not a child, and that placement is
+        load-bearing.
+
+        The header carries `backdrop-blur`, and a backdrop-filter establishes a
+        containing block for position:fixed descendants — the same way transform
+        does. Nested inside, this element's `inset-0` resolved against the
+        header's own 80px-tall box instead of the viewport, so `top-20` plus
+        `bottom: 0` computed to exactly zero height. The menu opened, locked
+        body scroll and rendered its links, all at 0px tall: invisible, and it
+        looked for all the world like the button was dead.
+      */}
       {open && (
         <div id="mobile-nav" className="fixed inset-0 top-20 z-50 overflow-y-auto bg-white lg:hidden">
           <nav className="container py-6" aria-label="Mobile">
@@ -187,6 +200,6 @@ export default function Header() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
