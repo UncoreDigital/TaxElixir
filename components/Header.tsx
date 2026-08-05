@@ -46,8 +46,18 @@ export default function Header() {
           scrolled ? "border-border shadow-soft" : "border-transparent"
         )}
       >
-      <div className="container flex h-20 items-center justify-between gap-4">
+      <div className="container flex h-24 items-center justify-between gap-4 md:h-28">
         <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} — home`}>
+          {/*
+            Sized up from h-11/h-12 at the client's request (Website Updates
+            sheet, row 2): the tagline is set inside the artwork at roughly 1/14
+            of its height, so at 44px tall it rendered around 8px and was not
+            readable. h-16/h-20 puts it near 11px and 14px respectively.
+
+            The bar grows with it — h-24/h-28 against a 20px logo cap keeps the
+            same optical padding the h-20 bar had, rather than letting the
+            lockup crowd the edges.
+          */}
           <Image
             src={site.headerLogo}
             alt={`${site.name} — ${site.tagline}`}
@@ -55,10 +65,10 @@ export default function Header() {
             height={site.headerLogoHeight}
             // Without this, Next sizes the srcset from the 3010px intrinsic
             // width and ships a 3840px render — priority-loaded, on every page —
-            // for a slot ~180px wide. 180px lets it pick a 384w variant instead.
-            sizes="180px"
+            // for a slot ~300px wide. 300px lets it pick a 640w variant instead.
+            sizes="300px"
             priority
-            className="h-11 w-auto md:h-12"
+            className="h-16 w-auto md:h-20"
           />
         </Link>
 
@@ -133,13 +143,20 @@ export default function Header() {
         The header carries `backdrop-blur`, and a backdrop-filter establishes a
         containing block for position:fixed descendants — the same way transform
         does. Nested inside, this element's `inset-0` resolved against the
-        header's own 80px-tall box instead of the viewport, so `top-20` plus
+        header's own box instead of the viewport, so the top offset plus
         `bottom: 0` computed to exactly zero height. The menu opened, locked
         body scroll and rendered its links, all at 0px tall: invisible, and it
         looked for all the world like the button was dead.
+
+        The offset tracks the header's height at every breakpoint the drawer is
+        reachable at — h-24 below md, h-28 from md up. Leave one behind when the
+        bar is resized and the drawer either overlaps the logo or floats.
       */}
       {open && (
-        <div id="mobile-nav" className="fixed inset-0 top-20 z-50 overflow-y-auto bg-white lg:hidden">
+        <div
+          id="mobile-nav"
+          className="fixed inset-0 top-24 z-50 overflow-y-auto bg-white md:top-28 lg:hidden"
+        >
           <nav className="container py-6" aria-label="Mobile">
             {navItems.map((item) => (
               <div key={item.name} className="border-b border-border last:border-0">

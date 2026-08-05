@@ -3,13 +3,15 @@ import { cn } from "@/lib/utils";
 import { site } from "@/lib/site";
 
 /**
- * Full lockup: shield + wordmark + rule + tagline, matching the supplied
- * artwork's structure.
+ * Full lockup rebuilt as live text: shield + wordmark + rule + tagline, in the
+ * page's own Playfair, so it recolours for any background and stays crisp at
+ * any size.
  *
- * The supplied logo.jpeg carries a near-white field, so dropping it onto the
- * navy footer leaves a white patch. This renders as live text in the page's own
- * Playfair, which means it recolours cleanly for dark backgrounds and stays
- * crisp at any size.
+ * ADMIN SURFACES ONLY. The public header and footer both render the client's
+ * real artwork (site.headerLogo / site.footerLogo) — this is close to it but
+ * not identical, and the client noticed the difference the moment it appeared
+ * in the footer. Do not reintroduce it to a public page; if a new background
+ * needs the lockup, ask for that export rather than approximating it here.
  */
 export default function Logo({
   tone = "navy",

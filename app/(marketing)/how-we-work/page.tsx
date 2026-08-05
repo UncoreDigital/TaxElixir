@@ -3,10 +3,7 @@ import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
-import Software from "@/components/sections/Software";
-import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
-import { faqs } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "How We Work — Engagement Process for CPA Firms",
@@ -100,8 +97,8 @@ export default function HowWeWorkPage() {
         </div>
       </section>
 
-      <Software />
-      <FaqSection items={faqs} />
+      {/* Software and FAQ blocks removed — see the client's Website Updates
+          sheet, row 15. They live on the home page, /software and /faqs. */}
       <CTA />
     </>
   );

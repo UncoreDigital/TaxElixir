@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ExternalLink, Pencil, Star, Trash2 } from "lucide-react";
+import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import type { Post } from "@/lib/supabase/types";
 import { cn, formatDate } from "@/lib/utils";
@@ -82,7 +83,10 @@ export default function PostsTable({ initialPosts }: { initialPosts: Post[] }) {
               </td>
               <td className="px-5 py-4">
                 <div className="flex items-center justify-end gap-1">
-                  {post.status === "published" && (
+                  {/* /blog 404s while features.resources is off, so a
+                      "view on the live site" link would land on a 404 and read
+                      as a broken publish rather than a parked section. */}
+                  {post.status === "published" && features.resources && (
                     <a
                       href={`/blog/${post.slug}`}
                       target="_blank"

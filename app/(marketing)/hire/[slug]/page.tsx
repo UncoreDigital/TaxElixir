@@ -6,13 +6,11 @@ import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
-import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
 import { ButtonLink } from "@/components/ui/Button";
 import { roles, getRole } from "@/lib/hire-data";
 import { getService } from "@/lib/services-data";
 import { getIcon } from "@/lib/icons";
-import { faqs } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -161,7 +159,8 @@ export default function RolePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
-      <FaqSection items={faqs.slice(0, 5)} />
+      {/* FAQ block removed — see the client's Website Updates sheet, row 15.
+          The full set lives on /faqs. */}
       <CTA
         title={`Ready to add a ${role.title.toLowerCase()}?`}
         body="Tell us about the work and your review standards. We will propose a candidate profile, an engagement model and a pilot you can judge us on."

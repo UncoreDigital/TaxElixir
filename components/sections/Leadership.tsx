@@ -4,7 +4,8 @@ import Reveal from "@/components/Reveal";
 import Placeholder from "@/components/Placeholder";
 import { leadership } from "@/lib/content";
 
-const iconFor = [Award, ScrollText, Globe2, Users2];
+/** Positional, so the order tracks lib/content.ts → leadership. */
+const iconFor = [Globe2, ScrollText, Users2, Award];
 
 /**
  * Leadership & expertise block.

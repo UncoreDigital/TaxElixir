@@ -19,3 +19,4 @@ Thumbs.db
 .vercel
 npm-debug.log*
 yarn-error.log*
+/changes

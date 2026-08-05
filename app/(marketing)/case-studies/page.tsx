@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowRight, Building2 } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CoverFallback from "@/components/CoverFallback";
 import CTA from "@/components/sections/CTA";
 import Placeholder from "@/components/Placeholder";
 import { getResources } from "@/lib/resources";
+import { features } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -18,6 +20,10 @@ export const metadata: Metadata = {
 };
 
 export default async function CaseStudiesPage() {
+  // Parked with the rest of the Resources group — see features.resources. The
+  // client-success figures the client asked to lead with now live on /about.
+  if (!features.resources) notFound();
+
   const studies = await getResources("case_study");
 
   return (

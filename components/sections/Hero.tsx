@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import {
   motion,
@@ -10,9 +9,10 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, Check, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
-import { services } from "@/lib/services-data";
+import HeroCarousel from "@/components/sections/HeroCarousel";
+import { successProof } from "@/lib/content";
 import {
   heroContainer,
   heroHeadline,
@@ -26,10 +26,14 @@ import {
 const HERO_BLUR =
   "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADwAQCdASoQAAkAA4BaJZACdAEPCmYGzkAA/veV8FIOVWqVB+Wskhe9dOitaHq34waAAA==";
 
+/**
+ * Short enough to be read at a glance, per the client's note (Website Updates
+ * sheet, row 7): "short and crisp slogans rather than long sentences".
+ */
 const proofPoints = [
-  "We work inside your software and workpaper standards",
-  "Review-ready output, with a self-review already done",
-  "Scale from one preparer to a seasonal team",
+  "Your software. Your workpaper standards.",
+  "Review-ready, self-review already done.",
+  "One preparer to a full season team.",
 ];
 
 export default function Hero() {
@@ -138,13 +142,14 @@ export default function Hero() {
             Offshore Support for US CPA Firms
           </motion.p>
 
-          {/* The page's only <h1>. */}
+          {/* The page's only <h1>. Wording set by the client — Website Updates
+              sheet, row 3. */}
           <motion.h1
             variants={headline}
             className="mt-4 text-4xl leading-[1.08] text-white md:text-5xl lg:text-[3.5rem]"
           >
-            Scale Your CPA Firm with{" "}
-            <span className="text-gradient-gold">Offshore Excellence</span>
+            Scale Your Firm with{" "}
+            <span className="text-gradient-gold">Offshore CPA Excellence</span>
           </motion.h1>
 
           <motion.span
@@ -153,13 +158,21 @@ export default function Hero() {
             aria-hidden="true"
           />
 
+          {/*
+            Repositioned per the client (Website Updates sheet, row 7): the
+            offer is partner hours back for tax strategy, not cheaper
+            preparation. Two sentences instead of three, and the "dedicated
+            professionals who become a seamless extension of your team" line —
+            true but generic enough to sit on any competitor's homepage — is
+            gone.
+          */}
           <motion.p
             variants={item}
             className="mt-7 max-w-xl text-lg leading-relaxed text-white/75"
           >
-            India-Based US Tax, Accounting, and Audit Experts. We don&rsquo;t just
-            outsource; we provide dedicated professionals who become a seamless
-            extension of your team.
+            Spend your hours on tax strategy, not tax prep. India-based CPAs,
+            accountants and audit specialists take the compliance load — inside
+            your systems, to your review standards.
           </motion.p>
 
           <motion.ul variants={container} className="mt-8 space-y-3">
@@ -200,44 +213,15 @@ export default function Hero() {
           </motion.p>
         </motion.div>
 
-        {/* Service index — gives the hero a job beyond decoration. */}
-        <motion.div
-          variants={panel}
-          initial="hidden"
-          animate="visible"
-          className="rounded-2xl border border-white/12 bg-white/[0.06] p-2 backdrop-blur-sm"
-        >
-          {services.slice(0, 4).map((service) => (
-            <Link
-              key={service.slug}
-              href={`/services/${service.slug}`}
-              data-cursor="grow"
-              className="group flex items-center gap-5 rounded-xl px-5 py-5 transition-colors hover:bg-white/[0.07]"
-            >
-              <span className="font-display text-2xl text-gold/70">{service.number}</span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-display text-lg text-white">
-                  {service.title}
-                </span>
-                <span className="mt-1 block text-sm leading-snug text-white/60">
-                  {service.teaser}
-                </span>
-              </span>
-              <ArrowRight
-                className="h-4 w-4 shrink-0 text-gold opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
-                aria-hidden="true"
-              />
-            </Link>
-          ))}
-
-          <Link
-            href="/services"
-            data-cursor="grow"
-            className="flex items-center justify-between gap-4 rounded-xl border-t border-white/10 px-5 py-4 text-sm font-medium text-gold-light transition-colors hover:bg-white/[0.07]"
-          >
-            All {services.length} services
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
+        {/*
+          Was a four-item service index with an "all nine services" link. The
+          client asked for it to go (Website Updates sheet, row 5) because the
+          same nine services are one hover away in the nav, and asked for a
+          rotating panel in its place (rows 6 and 17). It now earns the slot by
+          carrying the three proof figures instead of repeating the menu.
+        */}
+        <motion.div variants={panel} initial="hidden" animate="visible">
+          <HeroCarousel slides={successProof} />
         </motion.div>
       </div>
     </section>

@@ -138,7 +138,11 @@ export default function ResourcesTable({
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center justify-end gap-1">
-                      {item.status === "published" && item.kind === "case_study" && (
+                      {/* /case-studies 404s while features.resources is off —
+                          see the note in PostsTable. */}
+                      {item.status === "published" &&
+                        item.kind === "case_study" &&
+                        features.resources && (
                         <a
                           href={`/case-studies/${item.slug}`}
                           target="_blank"

@@ -10,15 +10,56 @@ an em dash in production. Nothing has been invented to fill a space.
 
 ---
 
+## ⚪ Round 2 — `changes/Website Updates.xlsx` (August 2026)
+
+The client returned 18 change requests plus two assets. All 18 are implemented. This
+section records what that round **closed** and what it **opened**, so the tables below can
+be read against it.
+
+**Closed by this round**
+
+- **Gaps 7–10** (years in business, professionals, firms supported, returns annually) are
+  no longer gaps. The client replaced all four headline figures with operational facts they
+  are willing to state — three-level review, licensed-CPA-led, 100% onsite secured
+  operation, 24-hour software utilisation. Migration `0005_highlight_figures.sql` swaps the
+  `site_settings` rows to match; the four old volume counters are deleted, not hidden.
+- **Gap 5** (phone number) is resolved — a number is set in `site_settings` and rendering.
+  See the formatting note below.
+- **Gap 2** (certifications) no longer appears on the site: the client asked for the
+  "Independent certifications" section to be removed from `/security` entirely. The
+  underlying question is still open, but nothing on the site now depends on the answer.
+- **Gap 22** (case studies) is parked rather than closed — `/case-studies` is behind
+  `features.resources` with the rest of the Resources group.
+- **Gap 15** (logo variants) is partly closed: the client supplied a dark-background
+  export, now serving the footer as `public/assets/footer-logo.png`.
+
+**Opened by this round**
+
+| # | Item | Where | Notes |
+|---|---|---|---|
+| 31 | **Three hero carousel images** | Homepage hero panel | The rotating panel replacing the old service index is built and running on the three proof figures. Each slide has an image slot rendering the brand's grid-and-shield surface until artwork lands. Drop files into `public/assets/success/` and set `image` in `lib/content.ts → successProof` |
+| 32 | **Three named client success stories, each with its industry** | `/about` | The client asked for industry, the 55–75% cost range, the 48-hour turnaround and capacity. Three of those four are live as figures. Industry needs an actual engagement to name and none was supplied — an invented one would be the single line on the page a prospect could catch us on |
+| 33 | **Software artwork for CaseWare, UltraTax CS and Lacerte** | Homepage, `/software` | Narrows gap 20a: 7 of the 10 tools now have normalised logos. These three still render as wordmark cards. Client is supplying the artwork |
+| 34 | **Footer logo lettering — white or gold?** | Footer | The sheet says *"Letter should be in Golden"*; the file supplied has **white** lettering. Built with the supplied file. One-line swap in `lib/site.ts → footerLogo` if gold was meant literally |
+| 35 | **Phone number formatting** | Top bar, footer, contact page | The stored value is `+918552859594` and renders exactly as stored — an unbroken 12-digit run. Re-enter it as `+91 85528 59594` under **Admin → Site Settings**; the `tel:` link strips the spaces itself, so display and dialling stay in sync |
+
+**Deliberately not reinstated:** the partnership-specific FAQ block. Row 15 of the sheet
+confines FAQ sections to the homepage, `/software` and `/faqs`, so it was removed from
+`/partnership` along with the Software and FAQ blocks on `/services`, `/services/[slug]`,
+`/how-we-work` and `/hire/[slug]`. The four questions it carried are answered by the shared
+set on `/faqs`; the copy is in git if it is wanted back.
+
+---
+
 ## 🔴 Blockers — the site should not go live until these are resolved
 
 | # | Item | Where it appears | Why it blocks |
 |---|---|---|---|
 | 1 | **Brand spelling confirmation** | Everywhere | The logo reads `TaxElixir`; the deck writes `TaxEliXir` in 9 of 11 headers. Built with the logo spelling. One-line change in `lib/site.ts` if wrong — but wrong on launch day means every page, title and URL |
-| 2 | **Certifications — do you hold ISO 27001 / SOC 2 / GDPR?** | `/security` | Currently claims **none**. Publishing an unevidenced badge on a page selling data security to CPA firms is the fastest way to fail a due-diligence review. If held, supply certificate numbers and PDFs; if not held, we position around the control set instead |
+| 2 | ~~**Certifications — do you hold ISO 27001 / SOC 2 / GDPR?**~~ | ~~`/security`~~ | **Closed in round 2** — the client removed the certifications section from `/security`. The site now claims nothing either way. If certifications are later held and a badge is wanted back, the original rule still governs: nothing goes on that page until it can be evidenced |
 | 3 | **Verify the security control set** | `/security` (8 controls) | The eight controls listed are the ones a CPA firm's vendor questionnaire asks about. Each is drafted. Any that is not actually in place must be removed before launch, not after a prospect asks |
 | 4 | **Legal review of the privacy policy** | `/privacy-policy` | Drafted skeleton, not legal advice. Counsel must confirm: retention period, lawful basis for transferring data to India, and CCPA/CPRA rights |
-| 5 | **Phone number** | Contact page, footer | No phone number was supplied. US firms expect one from an offshore provider — its absence is read as a red flag |
+| 5 | ~~**Phone number**~~ | ~~Contact page, footer~~ | **Closed in round 2** — set in `site_settings` and rendering in the top bar, footer and contact page. Formatting still needs a pass; see gap 35 |
 | 6 | **Registered office address** | Contact page, footer, schema | Same reason. Also feeds `ProfessionalService` structured data |
 
 ---
@@ -27,16 +68,14 @@ an em dash in production. Nothing has been invented to fill a space.
 
 | # | Item | Where | Notes |
 |---|---|---|---|
-| 7 | **Years in business** | Homepage, About, `/admin/settings` | Renders as an em dash today |
-| 8 | **Number of professionals** | Homepage, About | " |
-| 9 | **Number of CPA firms supported** | Homepage, About | " |
-| 10 | **Returns prepared annually** | Homepage, About | Strongest single number for this audience — a CPA firm evaluating a partner wants throughput |
+| 7–10 | ~~**Years in business · professionals · CPA firms supported · returns annually**~~ | ~~Homepage, About~~ | **Withdrawn in round 2.** The client replaced all four volume counters with operational facts (see the round 2 section above), so none of these renders anywhere and `site_settings` no longer carries their rows. Worth revisiting later regardless: throughput is still the strongest single number for this audience, and nothing stops a fifth figure being added back once there is one worth publishing |
 | 11 | **Client testimonials** (3–5, named person + firm) | Homepage, service pages | The competitor uses five named testimonials from named firms as its main trust signal. `lib/content.ts → testimonials` is an empty array; the section stays hidden until filled |
 | 12 | **Leadership team** — names, titles, short bios, photos | `/about` | **Partly supplied.** Dhara Jain (founder) is live with photo and bio; her *title* is our inference from "owner" and needs confirming. Anyone else on the leadership bench is still outstanding — offshore providers get asked "who is actually accountable?", and one name only answers part of it |
 | 13 | **Software licences** — which of QuickBooks, Xero, UltraTax, Lacerte, Drake, ProConnect, Sage, NetSuite do you actually work in? | `/software`, service pages | Only **CCH Axcess** and **CaseWare** are confirmed, from the audit sheet. The rest are drafted and marked `verified: false` in `lib/content.ts` |
 
-Set 7–10 once in **Admin → Site Settings** and every page picks them up. They deliberately
-cannot be hard-coded per page.
+The four highlighted figures that replaced 7–10 are edited the same way — set them once in
+**Admin → Site Settings** and every page picks them up. They deliberately cannot be
+hard-coded per page.
 
 ---
 
@@ -132,7 +171,7 @@ Two further items from the same brief were not built, for reasons worth stating 
 | # | Item | Where |
 |---|---|---|
 | 21 | LinkedIn / social URLs | Footer |
-| 22 | Case studies — even one, anonymised ("a 12-partner firm in Ohio…") | New `/case-studies` section |
+| 22 | Case studies — even one, anonymised ("a 12-partner firm in Ohio…") | `/case-studies`, **parked** behind `features.resources` — see gap 32 for the version now on `/about` |
 | 23 | Engagement pricing or a starting rate | `/how-we-work` |
 | 24 | Typical turnaround times per work type | `/how-we-work`, service pages |
 | 25 | Team size / working hours overlap with US time zones | `/about`, `/how-we-work` |

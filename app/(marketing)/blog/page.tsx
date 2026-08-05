@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CoverFallback from "@/components/CoverFallback";
 import CTA from "@/components/sections/CTA";
 import { getPublishedPosts } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
+import { features } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -18,6 +20,10 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
+  // Parked with the rest of the Resources group — see features.resources. 404s
+  // rather than rendering an empty shelf, and the sitemap drops the URL to match.
+  if (!features.resources) notFound();
+
   const posts = await getPublishedPosts();
   const [featured, ...rest] = posts;
 

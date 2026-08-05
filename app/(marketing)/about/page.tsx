@@ -5,6 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Placeholder from "@/components/Placeholder";
 import Stats from "@/components/sections/Stats";
+import SuccessStories from "@/components/sections/SuccessStories";
 import WhyUs from "@/components/sections/WhyUs";
 import CoreServices from "@/components/sections/CoreServices";
 import CTA from "@/components/sections/CTA";
@@ -36,10 +37,17 @@ const values = [
   },
 ];
 
-/** Drawn only from what the client wrote — nothing here is inferred. */
+/**
+ * Drawn only from what the client wrote — nothing here is inferred.
+ *
+ * "In practice since 2003" is the client's own start date, not 2026 minus the
+ * "20+ years" figure: the two are stated separately in the bio and would only
+ * agree by coincidence.
+ */
 const credentials = [
   "Licensed CPA",
-  "20+ years in finance & accounting",
+  "MBA, Finance",
+  "In practice since 2003",
   "Middle East industry exposure",
   "AI & Automation Committee member",
 ];
@@ -113,6 +121,7 @@ export default function AboutPage() {
       </section>
 
       <Stats />
+      <SuccessStories />
 
       <section className="section bg-muted/50">
         <div className="container">
@@ -208,28 +217,27 @@ export default function AboutPage() {
 
                   <div className="mt-6 space-y-5 text-sm leading-relaxed text-ink-muted md:text-base">
                     <p>
-                      Dhara Jain is a licensed CPA with over 20 years of experience in
-                      finance and accounting. She has built her career through a strong
-                      commitment to accuracy, accountability and continuous professional
-                      growth. Her professional journey began with resolving complex
-                      accounts receivable challenges, where she developed a reputation for
-                      handling responsibilities with diligence and precision.
+                      Dhara Jain is a seasoned finance and accounting professional with
+                      over 20 years of experience and unparalleled expertise in delivering
+                      accurate and timely financial information. Dhara is committed to her
+                      values of accountability, financial data accuracy and continued
+                      professional growth. Her professional journey began in 2003 as an MBA
+                      Finance professional, solving complex accounts receivable challenges
+                      and handling responsibilities with diligence and precision.
                     </p>
                     <p>
                       Over the years, Dhara has gained valuable industry exposure in the
                       Middle East, which enriched her global perspective and strengthened
-                      her adaptability in diverse business environments. She continued to
-                      advance her expertise by completing her CPA certification and
-                      obtaining her license, reflecting her dedication to lifelong learning
-                      and professional excellence.
+                      her adaptability in diverse business environments. She advanced her
+                      expertise by completing her CPA certification and obtaining her
+                      license, showing her dedication to lifelong learning and professional
+                      excellence.
                     </p>
                     <p>
                       She has also remained actively engaged in emerging developments such
-                      as AI and automation, and has contributed as a member of an AI and
-                      Automation Committee within her organisation. Her analytical skills
-                      and dedication to her work have consistently enabled her to deliver
-                      assignments in a timely manner while maintaining high standards of
-                      accuracy and compliance.
+                      as AI and automation, and has contributed knowledge of R&amp;D tax
+                      credit calculation as a member of an AI and Automation Committee
+                      within her previous organisation.
                     </p>
                   </div>
 
@@ -239,16 +247,14 @@ export default function AboutPage() {
                     invented words inside quote marks beside a real person's photograph.
                   */}
                   <p className="mt-7 border-l-2 border-gold bg-gold/[0.06] py-4 pl-5 pr-4 text-sm leading-relaxed text-navy md:text-base">
-                    Her approach to work is guided by the belief that accuracy and speed
-                    are both essential to delivering timely, compliant and high-quality
-                    results.
+                    Her working approach is guided by the belief that accuracy and speed
+                    are essential to delivering timely, compliant and high-quality results.
                   </p>
 
                   <p className="mt-7 text-sm leading-relaxed text-ink-muted">
-                    Beyond her professional commitments, Dhara enjoys swimming, playing
-                    tennis and trekking. Staying active is one of her core personal
-                    values — she believes an active lifestyle helps sustain energy, focus
-                    and overall momentum in life.
+                    Apart from her professional commitments, Dhara enjoys swimming, playing
+                    tennis and trekking. She believes that an active lifestyle helps
+                    sustain energy, focus and overall momentum in life.
                   </p>
                 </div>
               </div>

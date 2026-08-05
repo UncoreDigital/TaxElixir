@@ -18,32 +18,13 @@ export default async function TopBar() {
   return (
     <div className="hidden border-b border-white/10 bg-navy-deep text-white/70 md:block">
       <div className="container flex h-10 items-center justify-between gap-6 text-xs">
-        <div className="flex items-center gap-6">
-          {contact.phone ? (
-            <a
-              href={contact.phoneHref ?? undefined}
-              className="flex items-center gap-2 transition-colors hover:text-gold-light"
-            >
-              <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="font-medium tracking-wide">{contact.phone}</span>
-            </a>
-          ) : (
-            <span className="flex items-center gap-2">
-              <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-              <span>Phone</span>
-              <Placeholder label="client to supply" />
-            </span>
-          )}
-
-          <a
-            href={site.emailHref}
-            className="flex items-center gap-2 transition-colors hover:text-gold-light"
-          >
-            <Mail className="h-3.5 w-3.5" aria-hidden="true" />
-            <span className="font-medium tracking-wide">{site.email}</span>
-          </a>
-        </div>
-
+        {/*
+          Contact moved from the left of this strip to the right at the client's
+          request (Website Updates sheet, row 4). The utility links lead instead,
+          which puts the phone and email at the end of the scan rather than the
+          start — the position a reader's eye returns to when they have decided
+          to make contact.
+        */}
         <div className="flex items-center gap-5">
           <Link
             href="/security"
@@ -78,6 +59,40 @@ export default async function TopBar() {
               </Link>
             </>
           )}
+        </div>
+
+        <div className="flex items-center gap-6">
+          {contact.phone ? (
+            <a
+              href={contact.phoneHref ?? undefined}
+              className="flex items-center gap-2 transition-colors hover:text-gold-light"
+            >
+              <Phone className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
+              <span className="font-medium tracking-wide">{contact.phone}</span>
+            </a>
+          ) : (
+            /*
+              Rendered only in development. A phone row that reads "Phone —
+              client to supply" is a note to the client, not something to show a
+              CPA firm partner; in production the strip simply carries the email
+              until a number is entered under Admin → Site Settings.
+            */
+            process.env.NODE_ENV !== "production" && (
+              <span className="flex items-center gap-2">
+                <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+                <span>Phone</span>
+                <Placeholder label="client to supply" />
+              </span>
+            )
+          )}
+
+          <a
+            href={site.emailHref}
+            className="flex items-center gap-2 transition-colors hover:text-gold-light"
+          >
+            <Mail className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
+            <span className="font-medium tracking-wide">{site.email}</span>
+          </a>
         </div>
       </div>
     </div>

@@ -12,7 +12,10 @@ import { features, site } from "@/lib/site";
  *
  * /upload and /admin are deliberately excluded (noindex), as is /guides while
  * features.guides is off — both routes 404, and listing a 404 in the sitemap is
- * a crawl error you volunteer for.
+ * a crawl error you volunteer for. The whole Resources group drops out the same
+ * way while features.resources is off, including the per-post and per-case-study
+ * URLs below: those routes 404 too, so generating them from published rows would
+ * put a few dozen dead URLs in front of a crawler.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -37,6 +40,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ] as const
   )
     .filter((entry) => features.guides || entry.url !== "/guides")
+    .filter(
+      (entry) =>
+        features.resources ||
+        !["/blog", "/case-studies", "/events", "/partnership"].includes(entry.url)
+    )
     .map((entry) => ({ ...entry, url: `${site.url}${entry.url}`, lastModified: now }));
 
   const serviceRoutes: MetadataRoute.Sitemap = services.map((s) => ({
@@ -53,7 +61,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const posts = await getPublishedPosts();
+  // Both detail routes sit inside the parked Resources group, so skip the
+  // queries entirely rather than fetching rows only to filter them away.
+  const posts = features.resources ? await getPublishedPosts() : [];
   const postRoutes: MetadataRoute.Sitemap = posts.map((p) => ({
     url: `${site.url}/blog/${p.slug}`,
     lastModified: new Date(p.updated_at),
@@ -62,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Only case studies get their own page; events and guides live on their index.
-  const caseStudies = await getResources("case_study");
+  const caseStudies = features.resources ? await getResources("case_study") : [];
   const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((c) => ({
     url: `${site.url}/case-studies/${c.slug}`,
     lastModified: new Date(c.updated_at),

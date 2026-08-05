@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
-import Logo from "@/components/brand/Logo";
 import NewsletterForm from "@/components/NewsletterForm";
 import Placeholder from "@/components/Placeholder";
 import { getContactDetails } from "@/lib/settings";
@@ -16,12 +16,30 @@ export default async function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="max-w-sm">
             {/*
-              The supplied logo.jpeg carries a near-white field, so placing it
-              here left a white patch on the navy. The vector lockup recolours
-              for dark backgrounds and stays crisp at any size.
+              The real artwork, not a rebuild of it.
+
+              This slot used to render the live-text `Logo` lockup, because the
+              only file we had was logo.jpeg on a near-white field and dropping
+              that onto navy left a white patch. The redrawn version set the
+              wordmark in Playfair and the client spotted the difference
+              immediately (Website Updates sheet, row 2: "Logo is different,
+              please change to original one").
+
+              footer-logo.png is the client's own dark-background export of the
+              same lockup — transparent field, gold shield, and the tagline
+              already set inside the artwork, so `showTagline` has no equivalent
+              here and none is needed. Same 3010x804 as the header file, so the
+              two lockups are optically identical top and bottom.
             */}
-            <Link href="/" aria-label={`${site.name} — home`} className="inline-flex h-12">
-              <Logo tone="light" showTagline idPrefix="footer" />
+            <Link href="/" aria-label={`${site.name} — home`} className="inline-flex">
+              <Image
+                src={site.footerLogo}
+                alt={`${site.name} — ${site.tagline}`}
+                width={site.headerLogoWidth}
+                height={site.headerLogoHeight}
+                sizes="320px"
+                className="h-20 w-auto"
+              />
             </Link>
             <p className="mt-6 text-sm leading-relaxed">{site.description}</p>
 

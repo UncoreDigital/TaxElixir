@@ -27,10 +27,15 @@ export default function SecurityPage() {
 
       <section className="section">
         <div className="container">
+          {/* The opening sentence — "These are the controls a US CPA firm's
+              vendor questionnaire will ask about." — was struck by the client
+              (Website Updates sheet, row 16). The offer to complete the
+              questionnaire stays: that is the useful half of the paragraph, and
+              the due-diligence block further down depends on it. */}
           <SectionHeading
             eyebrow="Controls"
             title="The control set we operate"
-            intro="These are the controls a US CPA firm's vendor questionnaire will ask about. We are happy to complete your questionnaire in full and to walk your IT or risk lead through any of them."
+            intro="We are happy to complete your vendor questionnaire in full and to walk your IT or risk lead through any of the controls below."
           />
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -51,24 +56,19 @@ export default function SecurityPage() {
       </section>
 
       {/*
-        Certifications are intentionally NOT claimed. Publishing an unverified
-        ISO 27001 or SOC 2 badge on a page selling data security to CPA firms is
-        the fastest way to fail a due-diligence review.
-      */}
-      <section className="section bg-muted/50">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Certifications"
-            title="Independent certifications"
-            intro="We will list only certifications TaxElixir actually holds, with the certificate available on request. Nothing is claimed here until it can be evidenced."
-          />
-          <div className="mt-8">
-            <Placeholder label="client to supply: ISO 27001 / SOC 2 / GDPR status + certificate numbers" />
-          </div>
-        </div>
-      </section>
+        The "Independent certifications" section was removed at the client's
+        request (Website Updates sheet, row 16). It held no claim — only a note
+        that certifications would be listed once evidenced — so nothing factual
+        is lost with it.
 
-      <section className="section">
+        The original reasoning still stands and should govern anything that
+        replaces it: certifications are not to be claimed here until they can be
+        evidenced. Publishing an unverified ISO 27001 or SOC 2 badge on a page
+        selling data security to CPA firms is the fastest way to fail a
+        due-diligence review.
+      */}
+
+      <section className="section bg-muted/50">
         <div className="container">
           <div className="rounded-2xl border border-border bg-white p-8 shadow-soft md:p-12">
             <SectionHeading

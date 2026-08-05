@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowUpRight, CalendarDays, MapPin, Video } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CTA from "@/components/sections/CTA";
 import Placeholder from "@/components/Placeholder";
 import { getResources, splitEvents } from "@/lib/resources";
 import type { Resource } from "@/lib/supabase/types";
+import { features } from "@/lib/site";
 
 export const revalidate = 300;
 
@@ -86,6 +88,9 @@ function EventRow({ event, past }: { event: Resource; past: boolean }) {
 }
 
 export default async function EventsPage() {
+  // Parked with the rest of the Resources group — see features.resources.
+  if (!features.resources) notFound();
+
   const events = await getResources("event");
   const { upcoming, past } = splitEvents(events);
 

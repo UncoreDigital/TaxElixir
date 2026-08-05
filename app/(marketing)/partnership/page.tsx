@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Check, Handshake } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
-import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
 import { partnershipModels } from "@/lib/content";
+import { features } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Partnership — White-Label & Referral",
@@ -15,26 +16,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/partnership" },
 };
 
-const partnershipFaqs = [
-  {
-    q: "Will our clients know you are involved?",
-    a: "Not unless you tell them. Under a white-label arrangement, deliverables carry your templates and your letterhead, nothing we produce is branded, and we do not contact your clients directly. If you would rather introduce us openly, that works too — it is your call and it goes into the scope document either way.",
-  },
-  {
-    q: "Do you ever compete with us for our clients?",
-    a: "No. TaxElixir works exclusively with CPA firms and does not sell services to end taxpayers. Your client relationships are the thing we are least willing to put at risk, because our whole model depends on firms trusting us with them.",
-  },
-  {
-    q: "How are partnership terms structured?",
-    a: "In writing, before any work starts. Scope, volumes, turnaround expectations, escalation path and commercial terms are agreed up front. Reserved-capacity arrangements also fix the volume and the window ahead of your busy season.",
-  },
-  {
-    q: "Can we start small?",
-    a: "Yes, and we recommend it. Most partnerships begin as a single pilot engagement or one dedicated resource, and expand once you have judged our output against your own review standards.",
-  },
-];
+/*
+  The partnership-specific FAQ block was removed here per the client's Website
+  Updates sheet, row 15: FAQ sections belong only on the home page, /software
+  and /faqs. The four questions it carried — white-label visibility, whether we
+  compete for their clients, how terms are structured, and starting small — are
+  answered by the shared set on /faqs, and the copy is recoverable from git if
+  the client wants it reinstated.
+*/
 
 export default function PartnershipPage() {
+  // Parked with the rest of the Resources group — see features.resources. It
+  // sits in that dropdown, so it goes dark with the group rather than being
+  // orphaned into the top-level nav.
+  if (!features.resources) notFound();
+
   return (
     <>
       <PageBanner
@@ -79,11 +75,6 @@ export default function PartnershipPage() {
       </section>
 
       <Workflow />
-      <FaqSection
-        items={partnershipFaqs}
-        eyebrow="Partnership FAQs"
-        title="What firms ask before partnering"
-      />
       <CTA
         title="Let's talk about how this would work"
         body="Tell us how your firm is structured and what you would want covered. We will come back with a model, terms and a pilot."

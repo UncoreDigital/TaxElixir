@@ -29,6 +29,13 @@ export const site = {
   headerLogo: "/assets/header-logo.png",
   headerLogoWidth: 3010,
   headerLogoHeight: 804,
+  /**
+   * The same lockup exported for dark backgrounds — transparent field, gold
+   * shield, white wordmark and tagline. Supplied by the client alongside the
+   * Website Updates sheet and identical in dimensions to headerLogo, so the two
+   * render at matching proportions.
+   */
+  footerLogo: "/assets/footer-logo.png",
   email: "info@taxelixir.com",
   emailHref: "mailto:info@taxelixir.com",
 
@@ -87,6 +94,23 @@ export const features = {
    * The table, its rows and the lead-notification handler are all untouched.
    */
   newsletter: false,
+
+  /**
+   * The whole Resources track — the nav dropdown, the footer column, and the
+   * /blog, /case-studies, /events and /partnership routes behind them.
+   *
+   * Off at the client's request (Website Updates sheet, row 14) because there
+   * is nothing published in any of them yet, and four routes that each render
+   * their own "nothing here yet" empty state is worse than not offering the
+   * section. Partnership goes with the group: it lives in that dropdown and
+   * orphaning it into the top-level nav is a layout decision, not a flag.
+   *
+   * Off means unreachable, not merely unlinked — the routes 404 while this is
+   * false, matching how `guides` and `clientPortal` behave. Nothing is deleted:
+   * the pages, the resources table and every row in it stay exactly as they are
+   * and come back the moment this goes true.
+   */
+  resources: false,
 } as const;
 
 export type NavItem = {
@@ -135,19 +159,25 @@ export const navItems: NavItem[] = [
       { name: "FAQs", href: "/faqs" },
     ],
   },
-  {
-    name: "Resources",
-    href: "/blog",
-    dropdown: [
-      { name: "Insights", href: "/blog", blurb: "Writing for CPA firm owners" },
-      { name: "Case Studies", href: "/case-studies", blurb: "How firms use us in practice" },
-      { name: "Events & Webinars", href: "/events", blurb: "Sessions we are running or speaking at" },
-      ...(features.guides
-        ? [{ name: "Guides & Ebooks", href: "/guides", blurb: "Free downloads for firm owners" }]
-        : []),
-      { name: "Partnership", href: "/partnership", blurb: "White-label and referral arrangements" },
-    ],
-  },
+  // Parked behind features.resources — every route in this group 404s while
+  // the flag is off, so the dropdown must not be rendered.
+  ...(features.resources
+    ? [
+        {
+          name: "Resources",
+          href: "/blog",
+          dropdown: [
+            { name: "Insights", href: "/blog", blurb: "Writing for CPA firm owners" },
+            { name: "Case Studies", href: "/case-studies", blurb: "How firms use us in practice" },
+            { name: "Events & Webinars", href: "/events", blurb: "Sessions we are running or speaking at" },
+            ...(features.guides
+              ? [{ name: "Guides & Ebooks", href: "/guides", blurb: "Free downloads for firm owners" }]
+              : []),
+            { name: "Partnership", href: "/partnership", blurb: "White-label and referral arrangements" },
+          ],
+        },
+      ]
+    : []),
   { name: "Contact", href: "/contact" },
 ];
 
@@ -188,16 +218,20 @@ export const footerNav = [
       { name: "FAQs", href: "/faqs" },
     ],
   },
-  {
-    heading: "Resources",
-    links: [
-      { name: "Insights", href: "/blog" },
-      { name: "Case Studies", href: "/case-studies" },
-      { name: "Events & Webinars", href: "/events" },
-      ...(features.guides ? [{ name: "Guides & Ebooks", href: "/guides" }] : []),
-      { name: "Partnership", href: "/partnership" },
-    ],
-  },
+  ...(features.resources
+    ? [
+        {
+          heading: "Resources",
+          links: [
+            { name: "Insights", href: "/blog" },
+            { name: "Case Studies", href: "/case-studies" },
+            { name: "Events & Webinars", href: "/events" },
+            ...(features.guides ? [{ name: "Guides & Ebooks", href: "/guides" }] : []),
+            { name: "Partnership", href: "/partnership" },
+          ],
+        },
+      ]
+    : []),
   {
     heading: "Company",
     links: [

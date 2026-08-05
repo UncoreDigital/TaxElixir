@@ -6,13 +6,10 @@ import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
-import Software from "@/components/sections/Software";
-import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
 import ProvisionalNotice from "@/components/ProvisionalNotice";
 import { services, getService } from "@/lib/services-data";
 import { getRole } from "@/lib/hire-data";
-import { faqs } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -214,9 +211,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
+      {/* Software and FAQ blocks removed per the client's Website Updates
+          sheet, row 15: both belong only on the home page, /software and /faqs.
+          Repeating them under every service page pushed the CTA below two
+          sections the reader had already scrolled past elsewhere. */}
       <Workflow />
-      <Software />
-      <FaqSection items={faqs.slice(0, 5)} />
       <CTA />
 
       <script

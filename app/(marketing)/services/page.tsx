@@ -5,7 +5,6 @@ import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Workflow from "@/components/sections/Workflow";
-import Software from "@/components/sections/Software";
 import CTA from "@/components/sections/CTA";
 import { services } from "@/lib/services-data";
 import { getIcon } from "@/lib/icons";
@@ -93,8 +92,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Software block removed — see the client's Website Updates sheet, row
+          15. It lives on the home page and /software. */}
       <Workflow />
-      <Software />
       <CTA />
     </>
   );

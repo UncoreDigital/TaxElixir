@@ -15,18 +15,36 @@
 export type Stat = { key: string; value: string | null; suffix?: string; label: string; needsClient?: boolean };
 
 /**
- * CLIENT TO SUPPLY — every value below is null until the client confirms it.
- * The Stats component renders a labelled placeholder rather than a zero.
- * (unisonglobus.com renders literal "0 +" for every counter without JS.)
+ * The four highlighted figures, specified by the client (Website Updates sheet,
+ * row 8): three-level review, licensed-CPA-led, 100% onsite operation, and
+ * round-the-clock software utilisation from offshore timings.
+ *
+ * These describe how we operate, so unlike a client count they are ours to
+ * state — no `needsClient` flag. They are still driven through `site_settings`
+ * so the admin can correct one without a deploy; migration 0005 replaces the
+ * old volume-counter rows with these keys.
+ *
+ * Two are genuine counters and animate; "CPA-Led" is a non-numeric highlight
+ * that Stats echoes verbatim. Nothing here is a volume claim we cannot evidence.
  */
 export const stats: Stat[] = [
-  { key: "years", value: null, suffix: "+", label: "Years Serving US CPA Firms", needsClient: true },
-  { key: "professionals", value: null, suffix: "+", label: "Accounting & Tax Professionals", needsClient: true },
-  { key: "firms", value: null, suffix: "+", label: "CPA Firms Supported", needsClient: true },
-  { key: "returns", value: null, suffix: "+", label: "Returns Prepared Annually", needsClient: true },
+  { key: "review_levels", value: "3", suffix: "-Level", label: "Review on every file before it reaches your reviewer" },
+  { key: "cpa_led", value: "CPA-Led", label: "Licensed CPA leads and signs off the delivery standard" },
+  { key: "onsite_secure", value: "100", suffix: "%", label: "Onsite secured operation — no client work leaves the floor" },
+  { key: "software_hours", value: "24", suffix: " Hrs", label: "Your software in use round the clock on offshore timings" },
 ];
 
 export const whyUs = [
+  /*
+   * Lead card, and the client's own framing (Website Updates sheet, rows 7 and
+   * 12): the sale is not cheaper preparation, it is partner hours moved off
+   * compliance work and onto advisory. Everything below it is a reason to
+   * believe this one.
+   */
+  {
+    title: "Your Partners Back on Strategy",
+    body: "Compliance work is the cheapest hour your firm bills and the most expensive one to staff. Moving preparation to us puts partner and senior time back into tax strategy, client servicing and the advisory work that actually raises profitability.",
+  },
   {
     title: "Built Only for CPA Firms",
     body: "We do not serve end taxpayers and we do not compete with you for your clients. Every process we run is designed around a CPA firm's review standards, engagement letters and deadlines.",
@@ -128,7 +146,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Which returns do you prepare?",
-    a: "Individual (1040), expatriate (1040), non-resident individual (1040NR), partnership (1065), S corporation (1120-S), C corporation (1120) and non-profit (990) returns, along with tax calculation, validation, liability calculation and back year filings.",
+    a: "Individual (1040), expatriate (1040), non-resident individual (1040NR), partnership (1065), S corporation (1120-S), C corporation (1120) and non-profit (990) returns, along with tax calculation, validation, liability calculation and back year filings. On the cross-border side we also prepare Form 5471 (controlled foreign corporations), Form 5472 (25% foreign-owned US corporations), FBAR / FinCEN 114 and foreign tax credit (Form 1116 and 1118) computations.",
   },
   {
     q: "Do we have to change our software?",
@@ -157,6 +175,51 @@ export const faqs: { q: string; a: string }[] = [
 ];
 
 /**
+ * Client success proof points — the client's own figures (Website Updates
+ * sheet, rows 10 and 17).
+ *
+ * One array, two consumers: the rotating panel in the hero and the Client
+ * Success Stories block on /about. They were specified as the same three
+ * claims, so they read from the same place and cannot drift apart.
+ *
+ * `image` is the slot for the photography behind each slide. Null until the
+ * client supplies artwork — the panel renders its patterned brand surface
+ * instead, which is a finished-looking state rather than a broken one. Drop a
+ * file into public/assets/success/ and set the path here.
+ */
+export type SuccessProof = {
+  key: string;
+  value: string;
+  headline: string;
+  body: string;
+  image: string | null;
+};
+
+export const successProof: SuccessProof[] = [
+  {
+    key: "cost",
+    value: "55–75%",
+    headline: "Lower cost per engagement",
+    body: "Offshore delivery at a fraction of the fully loaded cost of a US hire — without the recruitment cycle or the off-season payroll.",
+    image: null,
+  },
+  {
+    key: "turnaround",
+    value: "48 hrs",
+    headline: "Turnaround on prepared work",
+    body: "Files handed over at the end of your day come back review-ready inside two working days, with the self-review already done.",
+    image: null,
+  },
+  {
+    key: "capacity",
+    value: "Peak-Season",
+    headline: "Capacity to scale into",
+    body: "Go from one dedicated preparer to a full seasonal team and back again, sized to your filing calendar rather than your headcount.",
+    image: null,
+  },
+];
+
+/**
  * Homepage social proof. CLIENT TO SUPPLY — no testimonials were provided.
  * The carousel in components/sections/Testimonials.tsx is built and renders as
  * soon as this array has entries. Each needs a real name and a real firm; an
@@ -167,16 +230,19 @@ export const testimonials: { quote: string; name: string; firm: string }[] = [];
 /**
  * Leadership & expertise claims.
  *
- * Every item is `needsClient: true` on purpose. These are precisely the claims
- * a prospect checks on LinkedIn before a first call — "Big 4-trained" and
- * "US-based leadership" are verifiable, and being caught overstating either
- * ends the conversation. Confirm each, then flip the flag.
+ * Most items stay `needsClient: true` on purpose. These are precisely the
+ * claims a prospect checks on LinkedIn before a first call — "US-based
+ * leadership" is verifiable, and being caught overstating it ends the
+ * conversation. Confirm each, then flip the flag.
+ *
+ * The Big 4 claim was withdrawn by the client (Website Updates sheet, row 9)
+ * and replaced with multi-industry global experience — which the About page
+ * already evidences through the founder's Middle East industry exposure.
  */
 export const leadership = [
   {
-    title: "Big 4-trained leadership",
-    body: "Engagement leads whose training came from Big 4 audit and tax practices, so your reviewers are talking to people who already know your standards.",
-    needsClient: true,
+    title: "Multi-industry global experience",
+    body: "Engagement leads who have worked across industries and across markets, so the judgement calls on your files come from people who have seen the pattern before.",
   },
   {
     title: "US GAAP and IRS fluency",

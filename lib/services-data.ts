@@ -74,7 +74,7 @@ export const services: Service[] = [
           "Tax Calculation & Return Preparation",
           "Tax Validation",
           "Liability Calculation",
-          "Returns Preparation",
+          "Review of AI Inputs in Return",
           "Back Year Tax Services",
           "Organization & Digitization of Financial Records",
           "Comprehensive Tax Preparation",

@@ -6,11 +6,15 @@ import DOMPurify from "isomorphic-dompurify";
 import { ArrowLeft } from "lucide-react";
 import CTA from "@/components/sections/CTA";
 import { getResourceBySlug, getResources } from "@/lib/resources";
-import { site } from "@/lib/site";
+import { features, site } from "@/lib/site";
 
 export const revalidate = 300;
 
 export async function generateStaticParams() {
+  // No params while the Resources group is parked — every one of these routes
+  // 404s, and prerendering them would build pages nothing can reach.
+  if (!features.resources) return [];
+
   const studies = await getResources("case_study");
   return studies.map((s) => ({ slug: s.slug }));
 }
@@ -38,6 +42,9 @@ export async function generateMetadata({
 }
 
 export default async function CaseStudyPage({ params }: { params: { slug: string } }) {
+  // Parked with the rest of the Resources group — see features.resources.
+  if (!features.resources) notFound();
+
   const study = await getResourceBySlug(params.slug);
   if (!study || study.kind !== "case_study") notFound();
 

@@ -5,13 +5,15 @@ import SectionHeading from "@/components/SectionHeading";
 import { getStats } from "@/lib/settings";
 
 /**
- * Headline figures — "by the numbers".
+ * Headline figures — the four operational facts the client chose to lead with
+ * (Website Updates sheet, row 8).
  *
  * Values come from one source (lib/content.ts, mirrored by the site_settings
  * table the admin edits) so they cannot contradict each other page to page.
  *
- * A confirmed figure is server-rendered and then animated by CountUp. An
- * unconfirmed one renders an em dash — never a zero, never an invented number.
+ * A numeric figure is server-rendered and then animated by CountUp. A
+ * non-numeric one ("CPA-Led") is echoed verbatim, and an unset one renders an
+ * em dash — never a zero, never an invented number.
  */
 export default async function Stats({
   heading = true,
@@ -28,9 +30,9 @@ export default async function Stats({
         {heading && (
           <SectionHeading
             align="center"
-            eyebrow="By The Numbers"
-            title="Capacity, measured"
-            intro="Figures we are willing to put a name to. Where a number is not shown, it is because we have not yet published it — not because it is being rounded up."
+            eyebrow="How We Deliver"
+            title="The standard behind every file"
+            intro="Four things that are true of every engagement, not averages across a good year. Ask us to evidence any of them before you send us work."
           />
         )}
 
@@ -53,15 +55,18 @@ export default async function Stats({
               <Reveal key={stat.key} delay={i * 0.07}>
                 <div className="flex h-full flex-col items-center bg-white px-6 py-10 text-center">
                   <p
-                    className={`font-display text-4xl font-bold md:text-5xl ${
-                      stat.value ? "text-gradient-gold" : "text-border"
-                    }`}
+                    className={`font-display font-bold ${
+                      // A word sits a step down from a numeral: "CPA-Led" set at
+                      // the counters' size is wider than its column and breaks
+                      // the row's shared baseline.
+                      isNumeric ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"
+                    } ${stat.value ? "text-gradient-gold" : "text-border"}`}
                   >
                     {isNumeric ? (
                       <CountUp value={numeric} suffix={stat.suffix ?? ""} />
                     ) : stat.value ? (
-                      // Non-numeric: echo it back so a placeholder is visibly a
-                      // placeholder. No suffix — we do not know what it means.
+                      // Non-numeric: echo it back verbatim. No suffix appended —
+                      // a suffix is defined against a number, not a word.
                       <>{stat.value}</>
                     ) : (
                       <span aria-label="Figure to be confirmed">—</span>

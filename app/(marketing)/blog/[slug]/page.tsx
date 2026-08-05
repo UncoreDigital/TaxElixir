@@ -7,11 +7,15 @@ import { ArrowLeft } from "lucide-react";
 import CTA from "@/components/sections/CTA";
 import { getPostBySlug, getPublishedPosts } from "@/lib/posts";
 import { formatDate, readingTime } from "@/lib/utils";
-import { site } from "@/lib/site";
+import { features, site } from "@/lib/site";
 
 export const revalidate = 300;
 
 export async function generateStaticParams() {
+  // No params while the Resources group is parked — every one of these routes
+  // 404s, and prerendering them would build pages nothing can reach.
+  if (!features.resources) return [];
+
   const posts = await getPublishedPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }
@@ -42,6 +46,9 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  // Parked with the rest of the Resources group — see features.resources.
+  if (!features.resources) notFound();
+
   const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 
