@@ -2,7 +2,7 @@ import SectionHeading from "@/components/SectionHeading";
 import Placeholder from "@/components/Placeholder";
 import SoftwareCarousel, { type SoftwareItem } from "@/components/sections/SoftwareCarousel";
 import { software } from "@/lib/content";
-came, camic hour solve business and great for increase in a street train with the digital on the open strategic they allow monitors attend that ice range motions far enough you have constantine all waves in a leading yes here guys you are speeding because I wonder if there are any others here or isn't a father a lot I swear you to get find a different Feeling products zero transports. people carry their trans annual channel if you finish a drink or a sand in public you put the rainberg in your bag can't take it with you not because there is a fine, not because someone is watching, just because that is what you do responsibility is to teach Japanese students clean their own classrooms, hallways, and toilets from elementary school cle anliness is not outsourced it is personal third it makes Americans feel em Embarrassed visitors from the US litter freely at home to find themselves. molding their trash blocks, looking for a can that does not exist slowly realizing what the rest of the world is missing. Japan does not need signs that stay headed clean. Its people already decided that on their own three reasons Japan has zero trash chances but clean a street first people my hips to hitcharity, only a million, does grow it merit, a chart no mill, chart stu na, sorryimport { softwareLogo, softwareLogoCount } from "@/lib/software-logos";
+import { softwareLogo, softwareLogoCount } from "@/lib/software-logos";
 
 /**
  * Logo wall for the platforms we work inside.
