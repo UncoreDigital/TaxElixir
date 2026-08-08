@@ -4,13 +4,11 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
-import Placeholder from "@/components/Placeholder";
 import { cn } from "@/lib/utils";
 
 export type SoftwareItem = {
   name: string;
   slug: string;
-  verified: boolean;
   /** Resolved on the server — null means no artwork supplied yet. */
   logo: string | null;
 };
@@ -113,11 +111,6 @@ export default function SoftwareCarousel({ items }: { items: SoftwareItem[] }) {
               )}
             </div>
 
-            {!tool.verified && (
-              <span className="mt-2 flex justify-center">
-                <Placeholder label="verify" />
-              </span>
-            )}
           </li>
         ))}
       </ul>

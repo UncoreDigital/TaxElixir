@@ -7,9 +7,9 @@ export default function WhyUs() {
     <section className="section">
       <div className="container">
         <SectionHeading
-          eyebrow="Why Firms Work With Us"
-          title="Built around how a CPA firm actually operates"
-          intro="Outsourcing fails when the provider optimises for their own throughput instead of your review process. Every decision below is made the other way round."
+          eyebrow="Why TaxElixir"
+          title="Why firms work with us"
+          intro="Experienced help, consistent work and clear communication for every US tax and audit engagement."
         />
 
         <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">

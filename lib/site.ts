@@ -10,8 +10,9 @@ export const site = {
   name: "TaxElixir",
   legalName: "TaxElixir",
   tagline: "Where Trust Meets CPA Excellence",
+  /** Section 12 of the client's content document — the footer blurb. */
   description:
-    "TaxElixir is an India-based offshore outsourcing partner for US CPA firms — tax preparation, accounting, audit support and dedicated offshore staffing that scales your capacity without adding headcount.",
+    "TaxElixir is an India-based outsourcing partner for US CPA firms. Tax preparation, accounting, audit support and offshore staffing built inside your systems.",
   /**
    * Canonical origin. Env-driven so preview and staging deploys emit their own
    * canonical tags — a preview that canonicalises to production can get itself
@@ -54,7 +55,7 @@ export const site = {
    * Do not soften this and do not let copy elsewhere imply otherwise.
    */
   disclaimer:
-    "TaxElixir is not a CPA Firm. We are a professional outsourcing partner exclusively serving US CPA Firms.",
+    "TaxElixir is not a CPA firm. We serve US CPA firms exclusively.",
 } as const;
 
 /**
@@ -127,12 +128,12 @@ export const navItems: NavItem[] = [
     dropdown: [
       { name: "Tax Preparation", href: "/services/tax", blurb: "1040, 1065, 1120, 1120-S, 990 and expat returns" },
       { name: "Back Year Tax Services", href: "/services/back-year-tax", blurb: "Bring delinquent filings current" },
-      { name: "Accounting & CAAS", href: "/services/accounting", blurb: "AP/AR, month-end close, advisory reporting" },
+      { name: "Accounting and Client Advisory", href: "/services/accounting", blurb: "AP/AR, month-end close, advisory reporting" },
       { name: "Bookkeeping", href: "/services/bookkeeping", blurb: "Daily transactions, reconciliations, clean books" },
       { name: "Payroll Services", href: "/services/payroll", blurb: "Processing, multi-state compliance, reporting" },
       { name: "Sales Tax Services", href: "/services/sales-tax", blurb: "Multi-state returns, reconciliation, calendars" },
-      { name: "Filing 1099 & Issue Forms", href: "/services/filing-1099", blurb: "1099-NEC and MISC, TIN matching, e-filing" },
-      { name: "Management Consultation", href: "/services/management-consultation", blurb: "Forecasting, break-even, cash flow modelling" },
+      { name: "1099 and Information Returns", href: "/services/filing-1099", blurb: "1099-NEC and MISC, TIN matching, e-filing" },
+      { name: "Management and Advisory Support", href: "/services/management-consultation", blurb: "Forecasting, break-even, cash flow modelling" },
       { name: "Audit Support", href: "/services/audit", blurb: "Workpapers, procedures, compilations, reviews" },
     ],
   },
@@ -188,12 +189,12 @@ export const footerNav = [
     links: [
       { name: "Tax Preparation", href: "/services/tax" },
       { name: "Back Year Tax Services", href: "/services/back-year-tax" },
-      { name: "Accounting & CAAS", href: "/services/accounting" },
+      { name: "Accounting and Client Advisory", href: "/services/accounting" },
       { name: "Bookkeeping", href: "/services/bookkeeping" },
       { name: "Payroll Services", href: "/services/payroll" },
       { name: "Sales Tax Services", href: "/services/sales-tax" },
-      { name: "Filing 1099 & Issue Forms", href: "/services/filing-1099" },
-      { name: "Management Consultation", href: "/services/management-consultation" },
+      { name: "1099 and Information Returns", href: "/services/filing-1099" },
+      { name: "Management and Advisory Support", href: "/services/management-consultation" },
       { name: "Audit Support", href: "/services/audit" },
     ],
   },

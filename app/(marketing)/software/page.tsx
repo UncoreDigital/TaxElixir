@@ -32,9 +32,9 @@ export default function SoftwarePage() {
     <>
       <PageBanner
         eyebrow="Technology"
-        title="We work in your software, not ours"
+        title="We work in your software"
         crumbs={[{ name: "Software" }]}
-        intro="The most common reason outsourcing fails is that the provider makes the firm adopt their tooling. We do the opposite — there is nothing to migrate and nothing new for your staff to learn."
+        intro="Nothing to migrate to. Nothing new to learn. The most common reason outsourcing fails is that the provider makes the firm adopt their tooling — we do the opposite."
       />
 
       <section className="section">

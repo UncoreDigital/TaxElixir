@@ -13,7 +13,7 @@ import { getIcon } from "@/lib/icons";
 export const metadata: Metadata = {
   title: "Services for US CPA Firms",
   description:
-    "Outsourced tax preparation, back year filings, accounting, bookkeeping, CAAS and audit support for US CPA firms — delivered by dedicated offshore professionals inside your own workflow and software.",
+    "Outsourced tax preparation, back year filings, accounting and client advisory, bookkeeping and audit support for US CPA firms — delivered by dedicated offshore professionals inside your own workflow and software.",
   alternates: { canonical: "/services" },
 };
 
@@ -24,7 +24,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Outsourced support across the full CPA engagement cycle"
         crumbs={[{ name: "Services" }]}
-        intro="Four service lines covering the work that fills your team's calendar — returns, books, close and audit fieldwork. All delivered by dedicated offshore professionals integrated with your existing workflow and software."
+        intro="Nine service lines, one way of working. Every engagement is handled by offshore professionals working inside your tax, audit and accounting systems, so your team does not have to migrate data or learn a new platform."
       />
 
       <section className="section">

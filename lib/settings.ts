@@ -40,7 +40,7 @@ export async function getStats(): Promise<Stat[]> {
   const settings = await getSettings();
   return statDefinitions.map((stat) => {
     const value = settings[stat.key] ?? stat.value;
-    return { ...stat, value, needsClient: stat.needsClient && !value };
+    return { ...stat, value };
   });
 }
 

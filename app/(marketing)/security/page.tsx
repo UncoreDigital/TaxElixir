@@ -3,7 +3,6 @@ import { ShieldCheck } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
-import Placeholder from "@/components/Placeholder";
 import CTA from "@/components/sections/CTA";
 import { securityControls } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -47,7 +46,6 @@ export default function SecurityPage() {
                   </span>
                   <h3 className="mt-4 text-base leading-snug">{control.title}</h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">{control.body}</p>
-                  {control.needsClient && <Placeholder label="verify before launch" className="mt-3" />}
                 </div>
               </Reveal>
             ))}

@@ -8,8 +8,8 @@ export default function Workflow() {
       <div className="container">
         <SectionHeading
           eyebrow="How We Work"
-          title="Five steps from first call to steady state"
-          intro="No client data moves before scope and terms are agreed in writing, and no volume ramps before you have inspected a pilot batch against your own standards."
+          title="Five steps to steady state"
+          intro="Nothing moves until the scope is agreed upon in writing. Nothing scales until you have reviewed a pilot batch."
         />
 
         <ol className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-5">

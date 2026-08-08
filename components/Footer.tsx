@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import NewsletterForm from "@/components/NewsletterForm";
-import Placeholder from "@/components/Placeholder";
 import { getContactDetails } from "@/lib/settings";
 import { features, footerNav, site } from "@/lib/site";
 
@@ -126,10 +125,7 @@ export default async function Footer() {
                   {contact.phone}
                 </a>
               ) : (
-                <span className="flex flex-wrap items-center gap-2">
-                  Not yet published
-                  <Placeholder label="client to supply" />
-                </span>
+                <span>Not yet published</span>
               )}
             </p>
           </div>
@@ -143,10 +139,7 @@ export default async function Footer() {
               {contact.address ? (
                 contact.address
               ) : (
-                <span className="flex flex-wrap items-center gap-2">
-                  India — serving US CPA firms
-                  <Placeholder label="address to supply" />
-                </span>
+                <span>India — serving US CPA firms</span>
               )}
             </p>
           </div>

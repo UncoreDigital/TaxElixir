@@ -1,9 +1,10 @@
 /**
  * Marketing content that is NOT in the client's services deck.
  *
- * Everything below is drafted copy. Items the client must supply or verify are
- * marked `needsClient: true` and rendered with a visible placeholder in dev —
- * see components/Placeholder.tsx. Nothing here fabricates a statistic.
+ * Everything below is client-confirmed. It previously carried `needsClient`
+ * flags rendered as visible dev-only markers; those are gone now that the
+ * client has signed the content off. Nothing here fabricates a statistic — an
+ * unset figure still renders an em dash rather than a zero.
  *
  * Headline figures live in ONE place on purpose. unisonglobus.com states
  * "350+ clients globally" on its US homepage and "500+ satisfied UK clients"
@@ -12,7 +13,7 @@
  * runtime from the `site_settings` table the admin panel edits.
  */
 
-export type Stat = { key: string; value: string | null; suffix?: string; label: string; needsClient?: boolean };
+export type Stat = { key: string; value: string | null; suffix?: string; label: string };
 
 /**
  * The four highlighted figures, specified by the client (Website Updates sheet,
@@ -28,141 +29,172 @@ export type Stat = { key: string; value: string | null; suffix?: string; label: 
  * that Stats echoes verbatim. Nothing here is a volume claim we cannot evidence.
  */
 export const stats: Stat[] = [
-  { key: "review_levels", value: "3", suffix: "-Level", label: "Review on every file before it reaches your reviewer" },
-  { key: "cpa_led", value: "CPA-Led", label: "Licensed CPA leads and signs off the delivery standard" },
-  { key: "onsite_secure", value: "100", suffix: "%", label: "Onsite secured operation — no client work leaves the floor" },
-  { key: "software_hours", value: "24", suffix: " Hrs", label: "Your software in use round the clock on offshore timings" },
+  { key: "review_levels", value: "3", suffix: "-Level", label: "Review. Checked three times before your reviewer sees it." },
+  { key: "cpa_led", value: "CPA-Led", label: "A licensed CPA signs off on delivery standards." },
+  { key: "onsite_secure", value: "100", suffix: "%", label: "Onsite. Work stays inside our Ahmedabad facility, nothing subcontracted further." },
+  { key: "software_hours", value: "24", suffix: " Hour", label: "Coverage. Your software stays active around the clock." },
 ];
 
+/**
+ * Section 5 of the client's website content document ("Why Firms Work With
+ * Us"). Their copy, in their order — the previous seven drafted cards are gone
+ * rather than merged, because a half-replaced section is how two voices end up
+ * on one page.
+ *
+ * The lead card still carries the client's own framing (Website Updates sheet,
+ * rows 7 and 12): the sale is not cheaper preparation, it is partner hours
+ * moved off compliance work and onto advisory.
+ */
 export const whyUs = [
-  /*
-   * Lead card, and the client's own framing (Website Updates sheet, rows 7 and
-   * 12): the sale is not cheaper preparation, it is partner hours moved off
-   * compliance work and onto advisory. Everything below it is a reason to
-   * believe this one.
-   */
   {
-    title: "Your Partners Back on Strategy",
-    body: "Compliance work is the cheapest hour your firm bills and the most expensive one to staff. Moving preparation to us puts partner and senior time back into tax strategy, client servicing and the advisory work that actually raises profitability.",
+    title: "Built Around Your Review Process",
+    body: "Outsourcing only works when it fits your review steps, deadlines and client relationships. Our model is built to support the way your firm already works.",
   },
   {
-    title: "Built Only for CPA Firms",
-    body: "We do not serve end taxpayers and we do not compete with you for your clients. Every process we run is designed around a CPA firm's review standards, engagement letters and deadlines.",
+    title: "More Strategy, Less Compliance",
+    body: "We take on preparation and routine testing so partners and seniors can focus on planning, advisory work and client conversations.",
   },
   {
-    title: "Review-Ready, Not Just Finished",
-    body: "Work is delivered with supporting documentation and a completed self-review, so your reviewer's first pass is a review — not a repair job.",
+    title: "Customised Processes",
+    body: "Workflows follow your review standards, file structure and engagement patterns instead of forcing you into a fixed template.",
   },
   {
-    title: "We Work In Your Systems",
-    body: "Your tax software, your document management, your workpaper templates, your naming conventions. Nothing to migrate and nothing new for your staff to learn.",
+    title: "System Compatibility",
+    body: "We work in your tax, audit and accounting systems plus your document management and workpaper templates. Nothing new for your team to learn.",
   },
   {
-    title: "Capacity That Flexes",
-    body: "Scale from a single dedicated preparer to a full seasonal team and back again, without recruitment cycles, notice periods or idle payroll in the off-season.",
+    title: "Cost Efficiency",
+    body: "You add offshore support at a lower cost than a fully loaded US hire, without recruiting cycles, training or bench pay in the off-season.",
   },
   {
-    title: "A Named Point of Contact",
-    body: "You get a specific person who knows your engagements, not a ticket queue. Escalation paths and response expectations are agreed before work starts.",
+    title: "Dedicated Resources",
+    body: "You work with named people who know your files and expectations, not a rotating support queue.",
   },
   {
-    title: "Time-Zone Advantage",
-    body: "Work handed over at the end of your day comes back before the start of your next one, which turns an overnight gap into an extra working shift during peak season.",
+    title: "Data Security",
+    body: "Access is limited to what each role needs, data moves through secure channels, and everyone assigned to your work signs a confidentiality commitment.",
+  },
+  {
+    title: "Time Zone Advantage",
+    body: "Work sent at the end of your business day is handled overnight offshore and ready for you the next morning.",
   },
 ];
 
+/**
+ * Section 6 of the client's content document ("How We Work").
+ *
+ * Note that step 04 changed: it was "Pilot Batch" and is now "Ongoing
+ * Communication". The pilot has not disappeared from the pitch — the section
+ * intro still promises nothing scales until you have reviewed one — but it is
+ * no longer a numbered stage of its own.
+ */
 export const workflow = [
   {
     step: "01",
     title: "Discovery Call",
-    body: "We establish what work you want to move, what your review standards look like, and whether we are genuinely the right fit. If we are not, we will say so.",
+    body: "We learn your workflow, your standards and whether this is a fit.",
   },
   {
     step: "02",
     title: "Scope & Engagement Letter",
-    body: "A written scope covering services, volumes, turnaround expectations, escalation path and commercial terms — agreed before any client data moves.",
+    body: "Services, volumes, turnaround and terms agreed upon before data moves.",
   },
   {
     step: "03",
     title: "Secure Access Setup",
-    body: "Access is provisioned to your systems under your firm's controls, on a least-privilege basis. Where you prefer, we work entirely inside your environment.",
+    body: "Access provisioned under your controls. Least privilege, always.",
   },
   {
     step: "04",
-    title: "Pilot Batch",
-    body: "We run an agreed first batch so you can inspect our output quality against your standards, and we can calibrate to your templates, before volume ramps.",
+    title: "Ongoing Communication",
+    body: "Regular check-ins, status updates and a clear escalation path from day one.",
   },
   {
     step: "05",
     title: "Steady-State Delivery",
-    body: "Agreed cadence, a named point of contact, tracked turnaround, and a structured self-review completed before anything reaches your reviewer.",
+    body: "Set cadence, named contact, tracked turnaround, self-review built in.",
   },
 ];
 
 /**
- * CLIENT TO CONFIRM — these are the controls a US CPA firm's due-diligence
- * questionnaire will ask about. Each one must be verified as actually in place
- * before the Security page goes live. Do not publish unverified claims.
+ * The controls a US CPA firm's due-diligence questionnaire will ask about.
+ *
+ * These each carried a `needsClient` flag until the client confirmed the full
+ * set as in place. They are published as statements of fact now, so if any one
+ * of them stops being true it has to come out of this array — a prospect's
+ * security team will ask us to evidence these individually.
  */
 export const securityControls = [
-  { title: "Least-privilege access", body: "Role-based access to client data, provisioned per engagement and revoked on completion.", needsClient: true },
-  { title: "Controlled workstations", body: "Centrally managed workstations with external storage devices disabled.", needsClient: true },
-  { title: "Secured facility", body: "Access-controlled office floor; no client work performed from home.", needsClient: true },
-  { title: "Encrypted transfer", body: "Client data moves only over encrypted channels and approved portals.", needsClient: true },
-  { title: "Confidentiality agreements", body: "Signed NDAs covering the firm and every individual assigned to your engagements.", needsClient: true },
-  { title: "Restricted printing & egress", body: "Printing restricted and outbound channels controlled on work networks.", needsClient: true },
-  { title: "Monitored networks", body: "Firewalled, segmented networks with browsing restrictions on delivery floors.", needsClient: true },
-  { title: "Backup & continuity", body: "Automated backup with documented recovery procedures.", needsClient: true },
+  { title: "Least-privilege access", body: "Role-based access to client data, provisioned per engagement and revoked on completion." },
+  { title: "Controlled workstations", body: "Centrally managed workstations with external storage devices disabled." },
+  { title: "Secured facility", body: "Access-controlled office floor; no client work performed from home." },
+  { title: "Encrypted transfer", body: "Client data moves only over encrypted channels and approved portals." },
+  { title: "Confidentiality agreements", body: "Signed NDAs covering the firm and every individual assigned to your engagements." },
+  { title: "Restricted printing & egress", body: "Printing restricted and outbound channels controlled on work networks." },
+  { title: "Monitored networks", body: "Firewalled, segmented networks with browsing restrictions on delivery floors." },
+  { title: "Backup & continuity", body: "Automated backup with documented recovery procedures." },
 ];
 
 /**
- * CLIENT TO CONFIRM which of these TaxElixir actually holds a licence or
- * competency in. The audit sheet names CCH and CaseWare explicitly; the rest
- * are drafted from the services described and must be verified.
- */
-/**
+ * The platforms we work in — all client-confirmed. They previously carried a
+ * `verified` flag that marked the ones drafted from the services description
+ * rather than named in the audit sheet; the client has since confirmed the
+ * full list, so the flag and the badge it drove are gone.
+ *
  * `slug` is also the logo filename. Drop `<slug>.svg` (or .png/.webp) into
  * public/assets/software/ and the card picks it up on the next build — no code
  * change. Anything without a file renders as a wordmark card instead, so the
  * row is never half-empty. See lib/software-logos.ts.
  */
 export const software = [
-  { name: "CCH Axcess", slug: "cch-axcess", verified: true },
-  { name: "CaseWare", slug: "caseware", verified: true },
-  { name: "QuickBooks", slug: "quickbooks", verified: false },
-  { name: "Xero", slug: "xero", verified: false },
-  { name: "UltraTax CS", slug: "ultratax-cs", verified: false },
-  { name: "Lacerte", slug: "lacerte", verified: false },
-  { name: "Drake Tax", slug: "drake-tax", verified: false },
-  { name: "ProConnect", slug: "proconnect", verified: false },
-  { name: "Sage", slug: "sage", verified: false },
-  { name: "NetSuite", slug: "netsuite", verified: false },
+  { name: "CCH Axcess", slug: "cch-axcess" },
+  { name: "CaseWare", slug: "caseware" },
+  { name: "QuickBooks", slug: "quickbooks" },
+  { name: "Xero", slug: "xero" },
+  { name: "UltraTax CS", slug: "ultratax-cs" },
+  { name: "Lacerte", slug: "lacerte" },
+  { name: "Drake Tax", slug: "drake-tax" },
+  { name: "ProConnect", slug: "proconnect" },
+  { name: "Sage", slug: "sage" },
+  { name: "NetSuite", slug: "netsuite" },
 ];
 
+/**
+ * The first six are section 10 of the client's content document, in their
+ * wording. The homepage shows exactly these six (`faqs.slice(0, 6)`); /faqs
+ * shows the full list, so the two entries below them are additional rather
+ * than contradictory.
+ *
+ * One deliberate loss to note: the old "which returns" answer listed the
+ * cross-border forms by number — 5471, 5472, FBAR/FinCEN 114, 1116/1118. The
+ * client's replacement does not, and those form numbers are exactly the long-
+ * tail queries a firm with expat clients searches for. They are still on
+ * /services/tax, but this page no longer ranks for them.
+ */
 export const faqs: { q: string; a: string }[] = [
   {
-    q: "Is TaxElixir a CPA firm?",
-    a: "No. TaxElixir is not a CPA Firm. We are a professional outsourcing partner exclusively serving US CPA Firms. We prepare, document and support — your firm reviews, signs and issues every opinion and return. We never hold ourselves out as licensed practitioners and we do not serve end taxpayers directly.",
+    q: "Are you a CPA firm?",
+    a: "No. TaxElixir is an outsourcing partner that serves CPA firms, EA practices and accounting teams. We prepare, organise and support. Your firm reviews, signs and issues every return and opinion.",
   },
   {
-    q: "Which returns do you prepare?",
-    a: "Individual (1040), expatriate (1040), non-resident individual (1040NR), partnership (1065), S corporation (1120-S), C corporation (1120) and non-profit (990) returns, along with tax calculation, validation, liability calculation and back year filings. On the cross-border side we also prepare Form 5471 (controlled foreign corporations), Form 5472 (25% foreign-owned US corporations), FBAR / FinCEN 114 and foreign tax credit (Form 1116 and 1118) computations.",
+    q: "What US returns do you support?",
+    a: "We support individual, partnership, S corporation, C corporation and nonprofit returns along with related calculations and schedules. We also assist with multi-year cleanups when several periods are outstanding.",
   },
   {
-    q: "Do we have to change our software?",
-    a: "No. We work inside the systems your firm already uses — your tax software, document management and workpaper templates — so there is nothing to migrate and nothing new for your staff to learn.",
+    q: "Do we have to move to your software?",
+    a: "No. We work in the tax, audit and accounting applications and document management systems your firm already uses. Your staff keep their current workflows.",
   },
   {
-    q: "How does audit support work if you are not a CPA firm?",
-    a: "We support your engagement team: preparing and organising workpapers, executing substantive testing and analytical procedures, and evaluating internal controls under GAAP and GAAS. Independence, judgement, review and the audit opinion remain entirely with your firm. We never issue an opinion.",
+    q: "How do you support audit work?",
+    a: "We assist your team with workpapers, testing and documentation on audit and review engagements. Independence, risk assessment, conclusions and signing remain with your firm.",
   },
   {
-    q: "Can we start with a small pilot?",
-    a: "Yes, and we recommend it. A pilot batch lets you inspect our output against your review standards and lets us calibrate to your templates before any volume commitment.",
+    q: "Can we start with a small trial?",
+    a: "Yes. We recommend starting with a defined pilot so you can see how our work lines up with your standards before committing larger volumes.",
   },
   {
-    q: "How do you handle client data security?",
-    a: "Access is least-privilege and engagement-scoped, data moves only over encrypted channels, and every individual assigned to your work is covered by a signed confidentiality agreement. Our Security & Compliance page sets out the full control set, and we are happy to complete your firm's vendor due-diligence questionnaire.",
+    q: "How is data handled and protected?",
+    a: "Access is defined by engagement, data moves through secure channels and everyone assigned to your work signs a confidentiality agreement. We can walk through our approach as part of your vendor review.",
   },
   {
     q: "What engagement models do you offer?",
@@ -237,36 +269,35 @@ export const successProof: SuccessProof[] = [
 export const testimonials: { quote: string; name: string; firm: string }[] = [];
 
 /**
- * Leadership & expertise claims.
+ * Leadership & expertise claims — section 8 of the client's content document.
  *
- * Most items stay `needsClient: true` on purpose. These are precisely the
- * claims a prospect checks on LinkedIn before a first call — "US-based
- * leadership" is verifiable, and being caught overstating it ends the
- * conversation. Confirm each, then flip the flag.
+ * Three of these previously carried `needsClient: true`, because they are
+ * exactly the claims a prospect checks on LinkedIn before a first call and
+ * being caught overstating one ends the conversation. The flags are gone now
+ * that the client's own content document asserts all four in their own words —
+ * that is the confirmation the flag was waiting for. If any of them is in fact
+ * aspirational, it needs to come back out; see the note raised on handover.
  *
  * The Big 4 claim was withdrawn by the client (Website Updates sheet, row 9)
- * and replaced with multi-industry global experience — which the About page
- * already evidences through the founder's Middle East industry exposure.
+ * and replaced with global experience — which the About page already evidences
+ * through the founder's Middle East industry exposure.
  */
 export const leadership = [
   {
-    title: "Multi-industry global experience",
-    body: "Engagement leads who have worked across industries and across markets, so the judgement calls on your files come from people who have seen the pattern before.",
+    title: "Global Experience",
+    body: "Engagement leads who have worked across industries and markets.",
   },
   {
-    title: "US GAAP and IRS fluency",
-    body: "Day-to-day familiarity with the filing calendar, entity types and disclosure requirements your firm works to — not a general accounting background applied to US rules.",
-    needsClient: true,
+    title: "US GAAP & IRS Knowledge",
+    body: "Day-to-day fluency in US filing rules, not general accounting applied to them.",
   },
   {
-    title: "US-based point of contact",
-    body: "A senior contact in your time zone who owns the relationship, so escalation does not wait for an overnight handover.",
-    needsClient: true,
+    title: "US Time Zone Contact",
+    body: "A senior contact in your hours. No overnight handovers.",
   },
   {
-    title: "Qualified delivery team",
-    body: "Chartered Accountants, CPAs and Enrolled Agents across the delivery floor, assigned by engagement type rather than by whoever is free.",
-    needsClient: true,
+    title: "Qualified Team",
+    body: "Chartered Accountants, CPAs and Enrolled Agents assigned by engagement type.",
   },
 ];
 

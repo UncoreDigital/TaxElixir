@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import Placeholder from "@/components/Placeholder";
 import { testimonials } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -90,7 +89,6 @@ export default function Testimonials() {
               are added. Each needs a quote, a named person and their firm —
               anonymous praise carries no weight with this audience.
             </p>
-            <Placeholder label="client to supply: 3–5 testimonials" className="mt-4" />
           </div>
         </div>
       </section>

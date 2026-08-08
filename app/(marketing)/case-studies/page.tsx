@@ -6,7 +6,6 @@ import { ArrowRight, Building2 } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CoverFallback from "@/components/CoverFallback";
 import CTA from "@/components/sections/CTA";
-import Placeholder from "@/components/Placeholder";
 import { getResources } from "@/lib/resources";
 import { features } from "@/lib/site";
 
@@ -46,7 +45,6 @@ export default async function CaseStudiesPage() {
                 they are published. Even one anonymised study — &ldquo;a
                 twelve-partner firm in Ohio&rdquo; — is enough to start.
               </p>
-              <Placeholder label="client to supply: at least one case study" className="mt-5" />
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2">

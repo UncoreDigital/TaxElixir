@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ChevronLeft, ChevronRight, Pause, Play, ShieldCheck } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Pause, Play, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { successProof } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -29,31 +29,27 @@ const INTERVAL = 6000;
  *   sharp(src).resize({ width: 20 }).blur(1.2).webp({ quality: 45 })
  */
 const SLIDE_BLUR: Record<string, string> = {
-  cost: "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAwCdASoUAAkAPt1qqU4opqQiMAgBEBuJQBdgDSwJXr5VQuG3OIAA/v2eOF8no3cj6waAA2zfWIKRod4o5+/F8ILACaUAAAA=",
+  cost: "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAwCdASoUAAsAPt1cqUyopSQiMAgBEBuJZQCdMoAKRqOhSDRjtXrAAP7+tzzhAP9/Ux8Avcz/K0iM2JyAgAAA",
   turnaround:
-    "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAwCdASoUAAkAPt0+s1SooiWjmAEQG4llAJ0ygANQE/hMjjy3u4AA/vKpte8Do+wnaVJQv65pMJDPwwxLo/I0hXSmueiKWog/JDoCUUAAAA==",
+    "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAABwAwCdASoUAAsAPt1gqU2opaQiMAgBEBuJYwC7AGk7mFaR4QAA/v5KsKhNP5YvkoWPBngqaEiTLV64Wbvk1k0Y9Cogl2rPcRKz/AAA",
   capacity:
-    "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAABwAwCdASoUAAkAPt1qqU4opqQiMAgBEBuJYwCdABjQcaqDGAAA/vK00zT6fh6LjG1ILF7588EgJghDVNg4vsFFkaEAAA==",
+    "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAwCdASoUAAsALqVut1ujKKioiICkSxgE6ZQANJfpPii0j2h90AAA/vhSAl6O/gBQrkYCvD+CBRLnf+cvKjTZMAA=",
 };
 
 /**
- * The client's three crisp slogans (Website Updates sheet, row 7: "short and
- * crisp slogans rather than long sentences"), paired one to a slide.
+ * Section 1 of the client's content document: "Three lines under the headline
+ * (keep tight, not a paragraph)."
  *
- * They used to sit in a static checklist beside a single photograph. Each is now
- * the line under its slide's figure, which is where the pairing earns
- * something: the cost slide's photograph is a lone accountant marking up a
- * workpaper, and "your software, your workpaper standards" is the caption that
- * picture was waiting for.
- *
- * Keyed rather than indexed so reordering successProof cannot silently shuffle
- * the captions onto the wrong photographs.
+ * All three show at once, unlike the proof figure below them, which rotates
+ * with the photography. That split is deliberate: these three are the standing
+ * claim and should never be one-third visible, while the figures are three
+ * different pieces of evidence and only make sense one at a time.
  */
-const slideTagline: Record<string, string> = {
-  cost: "Your software. Your workpaper standards.",
-  turnaround: "Review-ready, self-review already done.",
-  capacity: "One preparer to a full season team.",
-};
+const proofPoints = [
+  "U.S. CPA-led",
+  "Scales up for tax season",
+  "Review ready",
+];
 
 /**
  * Hero — three photographs, each carrying one proof figure.
@@ -117,8 +113,6 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
   const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.4 });
-  const photoY = useTransform(smooth, [0, 1], ["0%", "7%"]);
-  const photoScale = useTransform(smooth, [0, 1], [1.06, 1.14]);
   const gridY = useTransform(smooth, [0, 1], ["0%", "12%"]);
   const copyY = useTransform(smooth, [0, 1], ["0%", "18%"]);
   const copyOpacity = useTransform(smooth, [0, 0.75], [1, 0]);
@@ -133,24 +127,28 @@ export default function Hero() {
       ref={sectionRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative overflow-hidden bg-gradient-navy lg:min-h-[40rem]"
+      className="relative overflow-hidden bg-gradient-navy"
     >
       {/*
-        Photograph stack, furthest layer. Over-scaled and inset past the section
-        edges so the parallax translate can never expose a gap at the bottom.
+        Photograph stack, furthest layer.
+
+        `inset-0` with no over-scale and no parallax on this layer, because the
+        client asked for the full frame. The previous version inset the wrapper
+        past the section edges and scaled it 1.06→1.14 so a parallax translate
+        could never expose a gap — which cost roughly a fifth of every
+        photograph, cropped invisibly. The copy above still parallaxes; the art
+        no longer does.
 
         Decorative only — aria-hidden, empty alt. The figures beside them carry
         the meaning, and describing an office would be noise to a screen reader.
 
-        `object-right` because all three are composed with the subject in the
-        right 40%: when a narrow viewport forces object-cover to crop width, the
-        right edge is the half worth keeping.
+        `object-right` matters only below lg, where the section is taller than
+        16:9 and object-cover has to trim width. All three are composed with the
+        subject in the right 40%, so the right edge is the half worth keeping.
+        At lg and up the section is sized to the photographs' own aspect ratio
+        and nothing is cropped at all — see .hero-viewport in globals.css.
       */}
-      <motion.div
-        style={reduced ? undefined : { y: photoY, scale: photoScale }}
-        className="pointer-events-none absolute -inset-x-[4%] -top-[6%] bottom-[-12%]"
-        aria-hidden="true"
-      >
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         {slides.map((slide, i) => (
           <div
             key={slide.key}
@@ -179,7 +177,7 @@ export default function Hero() {
             )}
           </div>
         ))}
-      </motion.div>
+      </div>
 
       {/*
         Contrast scrim, in three tiers — measured against the supplied art
@@ -197,10 +195,13 @@ export default function Hero() {
         lg holds to 60%; xl holds to 48% and gives the photography the most room
         of the three, which is where it is most worth having.
 
-        Worst-pixel contrast for white text anywhere the copy can land, sampled
-        over all three photographs at every tier: 10.6:1 below lg (full frame,
-        crop-independent), 12.4:1 at lg, 13.9:1 at xl. All above WCAG AAA (7:1),
-        the lowest with 50% headroom.
+        Worst-pixel contrast for white text anywhere the copy can land,
+        re-measured over the current three photographs at every tier: 10.7:1
+        below lg (full frame, crop-independent), 12.4:1 at lg, 11.7:1 at xl. All
+        above WCAG AAA (7:1), the lowest with 50% headroom.
+
+        Re-measure when the art changes. These are properties of these specific
+        photographs, not of the gradients.
       */}
       <div
         className="pointer-events-none absolute inset-0 bg-navy/[0.45] lg:bg-navy/[0.28]"
@@ -247,7 +248,14 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="container relative flex items-center py-16 md:py-20 lg:min-h-[40rem] lg:py-24">
+      {/*
+        The height lives on this element rather than the <section> so there is
+        one source of truth: the section is in flow around it and takes the
+        same height, and `items-center` then centres the copy against the real
+        measurement instead of against a duplicate min-height that could drift
+        out of step. See .hero-viewport in globals.css.
+      */}
+      <div className="hero-viewport container relative flex items-center">
         <motion.div
           variants={container}
           initial="hidden"
@@ -256,14 +264,14 @@ export default function Hero() {
           className="max-w-xl"
         >
           <motion.p variants={item} className="eyebrow text-gold-light">
-            Offshore Support for US CPA Firms
+            Outsourcing Partner for US CPA Firms
           </motion.p>
 
           {/* The page's only <h1>, and the only one. Wording set by the client —
               Website Updates sheet, row 3. */}
           <motion.h1
             variants={headline}
-            className="mt-4 text-4xl leading-[1.08] text-white md:text-5xl lg:text-[3.5rem]"
+            className="mt-[var(--hero-gap-eyebrow)] text-[length:var(--hero-h1)] leading-[1.08] text-white"
           >
             Scale Your Firm with{" "}
             <span className="text-gradient-gold">Offshore CPA Excellence</span>
@@ -271,23 +279,42 @@ export default function Hero() {
 
           <motion.span
             variants={rule}
-            className="rule-gold mt-7 origin-left"
+            className="rule-gold mt-[var(--hero-gap-copy)] origin-left"
             aria-hidden="true"
           />
 
           <motion.p
             variants={item}
-            className="mt-7 text-lg leading-relaxed text-white/75"
+            className="mt-[var(--hero-gap-copy)] text-[length:var(--hero-lead)] leading-relaxed text-white/75"
           >
-            Spend your hours on tax strategy, not tax prep. India-based CPAs,
-            accountants and audit specialists take the compliance load — inside
-            your systems, to your review standards.
+            TaxElixir provides US tax preparation, audit support, outsourcing and offshoring services for CPA firms, EA practices and accounting teams that need experienced help, precise work and reliable turnaround.
           </motion.p>
 
+          <motion.ul
+            variants={container}
+            className="mt-[var(--hero-gap-block)] flex flex-wrap gap-x-7 gap-y-3"
+          >
+            {proofPoints.map((point) => (
+              <motion.li
+                key={point}
+                variants={item}
+                className="flex items-center gap-2.5 text-sm text-white/85"
+              >
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald/20">
+                  <Check className="h-3 w-3 text-emerald-light" aria-hidden="true" />
+                </span>
+                {point}
+              </motion.li>
+            ))}
+          </motion.ul>
+
           {/*
-            The rotating region is scoped to the figures and their controls, not
-            to the whole hero: the headline and CTAs above are not part of the
-            rotation and should not be announced as slides.
+            The proof figure for the current slide, back in the hero at the
+            client's request — each photograph now carries its own figure again
+            rather than the three sitting in a bar below the fold.
+
+            A real carousel region, because it carries content: the photographs
+            alone would only have justified image controls.
           */}
           <motion.div
             variants={item}
@@ -296,10 +323,15 @@ export default function Hero() {
             aria-label="What working with TaxElixir changes"
             onFocusCapture={() => setHovered(true)}
             onBlurCapture={() => setHovered(false)}
-            className="mt-9"
+            className="mt-[var(--hero-gap-block)]"
           >
-            {/* One grid cell, three slides stacked in it — the cell takes the
-                height of the tallest, so switching never reflows the CTAs. */}
+            {/*
+              One grid cell, three slides stacked in it. The cell takes the
+              height of the tallest, so the CTAs below cannot jump as "55–75%"
+              gives way to "Peak-Season" — and all three stay in the server HTML
+              for crawlers and for anyone whose JS never runs, which mounting
+              only the active slide would not.
+            */}
             <div className="grid">
               {slides.map((slide, i) => {
                 const isActive = i === index;
@@ -317,35 +349,21 @@ export default function Hero() {
                       reduced ? "duration-0" : "duration-700"
                     )}
                   >
-                    <p className="flex items-center gap-3">
-                      <span
-                        className="h-px w-8 bg-gradient-gold-x"
-                        aria-hidden="true"
-                      />
-                      <span className="eyebrow text-gold-light">{slide.label}</span>
-                    </p>
-
-                    <p className="mt-4 font-display text-4xl font-bold leading-none text-gradient-gold sm:text-5xl">
+                    <p className="font-display text-[length:var(--hero-figure)] font-bold leading-none text-gradient-gold">
                       {slide.value}
                     </p>
-                    <p className="mt-3 font-display text-xl text-white">
+                    <p className="mt-2.5 font-display text-base font-bold text-white sm:text-lg">
                       {slide.headline}
                     </p>
                     <p className="mt-2 text-sm leading-relaxed text-white/70">
-                      {slideTagline[slide.key]}
+                      {slide.body}
                     </p>
                   </div>
                 );
               })}
             </div>
 
-            {/*
-              Dots are real buttons, not decoration. `aria-current` rather than a
-              disabled state on the active one: the slide is still a valid
-              target, and disabling it would drop it out of the tab order
-              mid-rotation.
-            */}
-            <div className="mt-7 flex items-center gap-4">
+            <div className="mt-[var(--hero-gap-copy)] flex items-center gap-4">
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
@@ -406,7 +424,10 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <motion.div
+            variants={item}
+            className="mt-[var(--hero-gap-action)] flex flex-col gap-3 sm:flex-row"
+          >
             <ButtonLink href="/contact" variant="gold" size="lg" data-cursor="grow">
               Build Your Offshore Team
             </ButtonLink>
@@ -422,7 +443,7 @@ export default function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-7 flex items-center gap-2 text-xs text-white/50"
+            className="mt-[var(--hero-gap-copy)] flex items-center gap-2 text-xs text-white/50"
           >
             <ShieldCheck className="h-4 w-4 text-emerald-light" aria-hidden="true" />
             Least-privilege access · encrypted transfer · signed confidentiality

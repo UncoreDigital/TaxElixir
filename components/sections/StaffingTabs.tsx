@@ -53,9 +53,9 @@ export default function StaffingTabs() {
       <div className="container relative">
         <SectionHeading
           invert
-          eyebrow="Offshore Staffing Solutions"
-          title="Dedicated professionals who become part of your team"
-          intro="Hire a named individual rather than buying anonymous hours. Six roles, each scoped to a specific part of a CPA firm's workload."
+          eyebrow="Offshore Staffing"
+          title="Hire a person, not a ticket"
+          intro="Six roles built around a CPA firm's workload."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[19rem_1fr] lg:gap-12">

@@ -4,7 +4,6 @@ import { BookMarked, Download, Lock } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CoverFallback from "@/components/CoverFallback";
 import CTA from "@/components/sections/CTA";
-import Placeholder from "@/components/Placeholder";
 import GuideDownloadButton from "@/components/GuideDownloadButton";
 import { getResources } from "@/lib/resources";
 import { features } from "@/lib/site";
@@ -46,7 +45,6 @@ export default async function GuidesPage() {
                 capture the requester&rsquo;s details into the Leads area; ungated
                 ones download straight away.
               </p>
-              <Placeholder label="client to supply: guides / ebooks" className="mt-5" />
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

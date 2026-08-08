@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LogIn, Mail, Phone, ShieldCheck } from "lucide-react";
-import Placeholder from "@/components/Placeholder";
 import { getContactDetails } from "@/lib/settings";
 import { features, site } from "@/lib/site";
 
@@ -62,7 +61,10 @@ export default async function TopBar() {
         </div>
 
         <div className="flex items-center gap-6">
-          {contact.phone ? (
+          {/* No phone row at all until a number is entered under Admin → Site
+              Settings. A row that announces the absence of a phone number is
+              worse than no row. */}
+          {contact.phone && (
             <a
               href={contact.phoneHref ?? undefined}
               className="flex items-center gap-2 transition-colors hover:text-gold-light"
@@ -70,20 +72,6 @@ export default async function TopBar() {
               <Phone className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
               <span className="font-medium tracking-wide">{contact.phone}</span>
             </a>
-          ) : (
-            /*
-              Rendered only in development. A phone row that reads "Phone —
-              client to supply" is a note to the client, not something to show a
-              CPA firm partner; in production the strip simply carries the email
-              until a number is entered under Admin → Site Settings.
-            */
-            process.env.NODE_ENV !== "production" && (
-              <span className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>Phone</span>
-                <Placeholder label="client to supply" />
-              </span>
-            )
           )}
 
           <a

@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ArrowUpRight, CalendarDays, MapPin, Video } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import CTA from "@/components/sections/CTA";
-import Placeholder from "@/components/Placeholder";
 import { getResources, splitEvents } from "@/lib/resources";
 import type { Resource } from "@/lib/supabase/types";
 import { features } from "@/lib/site";
@@ -137,7 +136,6 @@ export default async function EventsPage() {
               <p className="text-sm leading-relaxed text-ink-muted">
                 No past sessions published yet.
               </p>
-              <Placeholder label="client to supply: webinar recordings" className="mt-4" />
             </div>
           ) : (
             <ul className="mt-6">

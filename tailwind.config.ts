@@ -64,6 +64,7 @@ export default {
           DEFAULT: "hsl(var(--emerald))",
           light: "hsl(var(--emerald-light))",
           dark: "hsl(var(--emerald-dark))",
+          mint: "hsl(var(--emerald-mint))",
         },
         slate: {
           50: "hsl(var(--slate-50))",

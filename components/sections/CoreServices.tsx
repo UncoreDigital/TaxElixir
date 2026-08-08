@@ -1,21 +1,34 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { services } from "@/lib/services-data";
-import { getIcon } from "@/lib/icons";
 import { gridCard, gridContainer, noMotion, viewportOnce } from "@/lib/motion";
 
 /**
- * Service grid.
+ * Service grid, built to the client's reference card.
  *
- * The hover border is a gradient, which CSS cannot apply to `border-color`
- * directly. The card sits on a gradient-filled parent with 1px of padding; the
- * inner surface covers all but that edge, so the "border" is the parent showing
- * through. Fading the parent's opacity animates a gradient border cheaply and
- * without a second paint layer.
+ * The proportions are the design, so they are worth stating rather than
+ * leaving to be re-derived from the class list:
+ *
+ *   - The photograph is 4:3 and takes roughly half the card's height. A wider
+ *     crop (16:9, 16:10) collapses the card into a caption with a strip above
+ *     it and stops reading as the reference at all.
+ *   - Radius is 1.5rem on the card, and the photo carries the top two corners
+ *     while the navy panel carries the bottom two, so the two halves read as
+ *     one shape rather than a picture resting on a box.
+ *   - The arrow button is two nested circles. The outer one is filled with the
+ *     section's own background and hangs 16px past the panel's right edge, so
+ *     it reads as a scoop bitten out of the navy rather than a disc floating on
+ *     top of it. Keep that fill (`bg-slate-50`) in step with the section
+ *     background — if the two drift apart the illusion breaks and it becomes a
+ *     grey ring. It clears the right edge only; the bottom stays inside.
+ *
+ * Mint, not gold. Gold is the logo and owns primary CTAs on light surfaces; on
+ * a navy panel it turns the whole grid into a wall of brass. See --emerald-mint.
  */
 export default function CoreServices() {
   const reduced = useReducedMotion();
@@ -25,8 +38,8 @@ export default function CoreServices() {
       <div className="container">
         <SectionHeading
           eyebrow="What We Do"
-          title="Nine service lines, one delivery standard"
-          intro="Everything below is delivered by dedicated offshore professionals working inside your existing workflow and software — not on a platform of ours that your team has to learn."
+          title="Nine service lines. One way of working."
+          intro="Every engagement is handled by offshore professionals working inside your tax, audit and accounting systems, so your team does not have to migrate data or learn a new platform."
         />
 
         <motion.div
@@ -34,56 +47,66 @@ export default function CoreServices() {
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="mx-auto mt-12 grid max-w-[68rem] gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-10"
         >
-          {services.map((service) => {
-            const Icon = getIcon(service.icon);
-            return (
-              <motion.div key={service.slug} variants={reduced ? noMotion : gridCard}>
-                <Link
-                  href={`/services/${service.slug}`}
-                  data-cursor="grow"
-                  className="group relative block h-full rounded-xl p-px transition-transform duration-300 hover:-translate-y-1"
-                >
-                  {/* Gradient edge, revealed on hover. */}
-                  <span
-                    className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
-                    style={{ background: "var(--gradient-edge)" }}
+          {services.map((service) => (
+            <motion.div
+              key={service.slug}
+              variants={reduced ? noMotion : gridCard}
+              className="h-full"
+            >
+              <Link
+                href={`/services/${service.slug}`}
+                data-cursor="grow"
+                className="group relative flex h-full flex-col rounded-3xl transition-transform duration-500 hover:-translate-y-1.5"
+              >
+                {/* Decorative — the name directly below already identifies the
+                    service, so a description here would only repeat it. */}
+                <span className="relative block aspect-[4/3] overflow-hidden rounded-t-3xl bg-navy/10">
+                  <Image
+                    src={service.image}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                     aria-hidden="true"
                   />
+                </span>
 
-                  <span className="relative flex h-full flex-col rounded-[calc(0.75rem-1px)] border border-slate-200 bg-white p-8 shadow-soft transition-shadow duration-300 group-hover:border-transparent group-hover:shadow-card">
-                    <span className="flex items-start justify-between gap-4">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-navy/5 text-navy transition-colors duration-300 group-hover:bg-gradient-gold-x">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                      <span className="font-display text-3xl text-slate-200 transition-colors duration-300 group-hover:text-gold/40">
-                        {service.number}
-                      </span>
-                    </span>
+                <span className="relative flex flex-1 flex-col rounded-b-3xl bg-navy p-6 sm:p-7 lg:p-8">
+                  <span className="block font-display text-lg font-bold leading-snug text-emerald-mint sm:text-xl lg:text-[1.375rem]">
+                    {service.title}
+                  </span>
+                  <span className="mt-3 block text-sm leading-relaxed text-white/75 lg:text-[0.9375rem]">
+                    {service.teaser}
+                  </span>
 
-                    <span className="mt-6 block font-display text-xl font-bold text-navy">
-                      {service.title}
-                    </span>
-                    <span className="mt-3 block flex-1 text-sm leading-relaxed text-ink-muted">
-                      {service.teaser}
-                    </span>
+                  {/* The button follows the blurb rather than being pinned to
+                      the foot of the panel, so a short card does not open a
+                      void of navy above it. In a row of equal-height cards the
+                      tallest one therefore sets where the button lands and the
+                      others sit a line or two higher — which is what the
+                      reference does too.
 
-                    {/* "View Details" slides in from the left on hover. */}
-                    <span className="relative mt-6 block h-5 overflow-hidden">
-                      <span className="absolute inset-0 flex items-center gap-1.5 text-sm font-semibold text-ink-muted transition-all duration-300 group-hover:-translate-y-full group-hover:opacity-0">
-                        Explore {service.navTitle}
-                      </span>
-                      <span className="absolute inset-0 flex translate-y-full items-center gap-1.5 text-sm font-semibold text-navy opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                        View Details
-                        <ArrowRight className="h-4 w-4 text-gold-dark" aria-hidden="true" />
+                      The negative margins cancel the panel's own padding and
+                      then add the overhang, so the scoop lands 16px past the
+                      right edge and 8px shy of the bottom. They therefore have
+                      to step with the padding above: -mr is padding + 1rem and
+                      -mb is padding - 0.5rem at every breakpoint. */}
+                  <span
+                    className="-mb-4 -mr-10 flex justify-end pt-6 sm:-mb-5 sm:-mr-11 lg:-mb-6 lg:-mr-12 lg:pt-8"
+                    aria-hidden="true"
+                  >
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full bg-slate-50 lg:h-[5.5rem] lg:w-[5.5rem]">
+                      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-mint text-navy transition-transform duration-300 group-hover:scale-105 lg:h-16 lg:w-16">
+                        <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
                       </span>
                     </span>
                   </span>
-                </Link>
-              </motion.div>
-            );
-          })}
+                </span>
+              </Link>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

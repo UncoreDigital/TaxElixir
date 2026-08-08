@@ -1,5 +1,4 @@
 import CountUp from "@/components/CountUp";
-import Placeholder from "@/components/Placeholder";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { getStats } from "@/lib/settings";
@@ -31,7 +30,7 @@ export default async function Stats({
           <SectionHeading
             align="center"
             eyebrow="How We Deliver"
-            title="The standard behind every file"
+            title="The standard on every file"
             intro="Four things that are true of every engagement, not averages across a good year. Ask us to evidence any of them before you send us work."
           />
         )}
@@ -76,10 +75,6 @@ export default async function Stats({
                   <span className="rule-gold mt-4" aria-hidden="true" />
 
                   <p className="mt-4 text-sm leading-snug text-ink-muted">{stat.label}</p>
-
-                  {stat.needsClient && !stat.value && (
-                    <Placeholder label="client to supply" className="mt-3" />
-                  )}
                 </div>
               </Reveal>
             );

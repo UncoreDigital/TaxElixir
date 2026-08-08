@@ -45,6 +45,16 @@
 
     --radius: 0.5rem;
 
+    /*
+      Height of the chrome that sits above the fold, so a full-height section
+      can subtract it and still fit the screen. Below md the utility strip is
+      hidden and only the header bar counts; from md up both do.
+
+      Keep in step with Header (h-24 / md:h-28) and TopBar (h-10) — if either
+      bar is resized and this is left behind, the hero stops fitting.
+    */
+    --header-h: 6rem;
+
     /* Brand tokens */
     --navy: 213 71% 16%;
     --navy-deep: 210 100% 14%;
@@ -75,12 +85,25 @@
     --emerald: 158 64% 34%;
     --emerald-light: 156 52% 46%;
     --emerald-dark: 160 68% 26%;
+    /*
+      Mint — the same hue lifted until it reads on navy. The emerald above is
+      tuned for white surfaces and goes muddy on a dark panel; this is the
+      on-navy variant, used for service card titles and their arrow buttons.
+      7.7:1 against --navy, so it is safe for body-sized text, not just accents.
+    */
+    --emerald-mint: 158 58% 62%;
 
     --gradient-navy: linear-gradient(135deg, hsl(210 100% 14%) 0%, hsl(212 45% 27%) 100%);
     --gradient-gold: linear-gradient(180deg, hsl(42 61% 61%) 0%, hsl(47 46% 54%) 100%);
     --gradient-gold-x: linear-gradient(100deg, hsl(42 61% 61%) 0%, hsl(43 51% 58%) 50%, hsl(47 46% 54%) 100%);
     /* Hover border for cards — gold into emerald, the two accents in sequence. */
     --gradient-edge: linear-gradient(130deg, hsl(42 61% 61%) 0%, hsl(43 51% 58%) 45%, hsl(158 64% 34%) 100%);
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --header-h: 9.5rem; /* h-28 bar + h-10 utility strip */
+    }
   }
 }
 
@@ -131,6 +154,83 @@
   .section {
     @apply py-16 md:py-24;
   }
+
+  /*
+    Hero sizing — one place, because the hero is the only block on the site
+    that has to fit a box it does not control: the screen, minus the chrome
+    above it.
+
+    Two halves to it.
+
+    1. Height. `min-height`, never `height`, so this only ever guarantees the
+       hero is at least a screenful — if the copy genuinely needs more room
+       (a narrow phone, a large text-zoom setting) it grows instead of
+       clipping. `svh` is the *small* viewport height, i.e. the screen with
+       mobile browser chrome showing, so the hero fits at the moment of
+       landing rather than only after the URL bar collapses. The `vh` line
+       above it is the fallback for browsers without svh and must stay first.
+
+    2. Rhythm. Every vertical step below is `clamp(floor, <n>vh, ceiling)`.
+       A viewport-height term is what fixed Tailwind steps could not do: at
+       1920x1080 the hero renders at its designed proportions (each clamp
+       pinned to its ceiling), and as the viewport gets shorter the whole
+       stack — padding, gaps, headline, lead — contracts together instead of
+       spilling past the fold. The floors are the point at which contracting
+       further would start to hurt legibility; below that the hero is allowed
+       to overflow and the page simply scrolls, which is the correct failure.
+
+    Measured against the fold (100vh - --header-h) at 1280x800, 1440x900 and
+    1920x1080 in landscape, and 390x844 / 414x896 in portrait.
+  */
+  .hero-viewport {
+    --hero-py: clamp(2rem, 5.5vh, 5rem);
+    --hero-gap-eyebrow: clamp(0.75rem, 1.6vh, 1rem);
+    --hero-gap-copy: clamp(1rem, 2.4vh, 1.75rem);
+    --hero-gap-block: clamp(1.25rem, 3vh, 2rem);
+    --hero-gap-action: clamp(1.25rem, 3.2vh, 2.25rem);
+    /*
+      `min(vw, vh)` rather than vh alone: the width term reproduces the old
+      text-4xl / md:text-5xl / lg:text-[3.5rem] ramp, the height term is what
+      pulls the headline in on a short viewport. Tuned so that anything with
+      the room to spare — 1440x900 and up, and portrait tablets — lands on the
+      same size it rendered at before, and only cramped viewports shrink.
+    */
+    --hero-h1: clamp(2.25rem, min(6.2vw, 6.4vh), 3.5rem);
+    --hero-lead: clamp(1rem, 2.1vh, 1.125rem);
+    /*
+      The rotating proof figure. Capped well below --hero-h1 so it reads as
+      support for the headline rather than competing with it, and floored at a
+      size that still holds the longest value ("Peak-Season") on one line inside
+      the copy column.
+    */
+    --hero-figure: clamp(1.75rem, min(4.4vw, 4.6vh), 2.75rem);
+
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100svh - var(--header-h));
+    padding-top: var(--hero-py);
+    padding-bottom: var(--hero-py);
+  }
+
+  /*
+    Deliberately NOT sized to the photographs' 16:9 here. An
+    `aspect-ratio: 16/9` on this element was tried and removed, because this
+    element is the `.container` — `max-width: 1320px` — so the ratio resolved
+    against 1320px rather than the viewport and pinned the hero to ~742px at
+    every width past that. Two things broke:
+
+      - The flat height replaced the fold calculation above, so on a short
+        window the hero stood 742px inside a ~568px fold and the CTAs fell off
+        the bottom of the screen.
+      - `.hero-viewport` is a flex *container*, not a flex item, so
+        `min-height: auto` does not apply to it: content taller than the ratio
+        does not expand the box, it overflows and is clipped by the section's
+        `overflow-hidden`. The eyebrow went under the header and the trust line
+        off the bottom edge.
+
+    It also bought nothing it was meant to. The photograph is an absolutely
+    positioned layer against the <section>, cropped by object-cover with
+    object-right — the container's own ratio never touched the crop.
+  */
 
   .eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.18em] text-gold-dark;

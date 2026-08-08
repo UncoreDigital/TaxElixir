@@ -1,7 +1,6 @@
 import { Building2 } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import Placeholder from "@/components/Placeholder";
 import { successProof } from "@/lib/content";
 
 /**
@@ -59,7 +58,6 @@ export default function SuccessStories() {
               success story with no industry attached tells you nothing about
               whether it resembles yours.
             </p>
-            <Placeholder label="client to supply: 3 engagements — industry, what moved, what changed" />
           </div>
         </Reveal>
       </div>

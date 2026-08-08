@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Mail, MapPin, Phone, ShieldCheck, Upload } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
 import ContactForm from "@/components/ContactForm";
-import Placeholder from "@/components/Placeholder";
 import { getContactDetails } from "@/lib/settings";
 import { features, site } from "@/lib/site";
 
@@ -56,9 +55,7 @@ export default async function ContactPage() {
                       {contact.phone}
                     </a>
                   ) : (
-                    <span className="text-ink-muted">
-                      Phone number <Placeholder label="client to supply" />
-                    </span>
+                    <span className="text-ink-muted">Phone number on request</span>
                   )}
                 </li>
                 <li className="flex items-start gap-3">
@@ -66,9 +63,7 @@ export default async function ContactPage() {
                   {contact.address ? (
                     <span className="text-ink-muted">{contact.address}</span>
                   ) : (
-                    <span className="text-ink-muted">
-                      Office address <Placeholder label="client to supply" />
-                    </span>
+                    <span className="text-ink-muted">India — serving US CPA firms</span>
                   )}
                 </li>
               </ul>

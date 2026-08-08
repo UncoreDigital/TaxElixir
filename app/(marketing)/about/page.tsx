@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
-import Placeholder from "@/components/Placeholder";
 import Stats from "@/components/sections/Stats";
 import SuccessStories from "@/components/sections/SuccessStories";
 import WhyUs from "@/components/sections/WhyUs";
@@ -86,7 +85,6 @@ export default function AboutPage() {
                 <dt className="font-semibold text-navy">Where we work</dt>
                 <dd className="mt-1 text-ink-muted">
                   India-based delivery teams working US business hours.{" "}
-                  <Placeholder label="office locations needed" />
                 </dd>
               </div>
               <div>

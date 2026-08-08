@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
-import Placeholder from "@/components/Placeholder";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -33,7 +32,7 @@ export default function PrivacyPolicyPage() {
             the client&apos;s counsel — in particular the retention period, the
             lawful basis for transferring data to India, and any US state privacy
             rights (CCPA/CPRA) that apply to your prospects.{" "}
-            <Placeholder label="legal review" />
+           
           </div>
 
           <div className="prose-brand">
@@ -80,14 +79,14 @@ export default function PrivacyPolicyPage() {
               {site.name} operates delivery teams in India. Information submitted
               through this site may be accessed by our personnel there, under
               contractual confidentiality obligations and access controls.{" "}
-              <Placeholder label="confirm transfer mechanism with counsel" />
+             
             </p>
 
             <h2>How long we keep it</h2>
             <p>
               Enquiry data is retained for as long as needed to respond and for a
               reasonable period afterwards for business records.{" "}
-              <Placeholder label="client to set retention period" />
+             
             </p>
 
             <h2>Security</h2>
@@ -104,7 +103,7 @@ export default function PrivacyPolicyPage() {
               You may ask us to access, correct or delete the personal information
               we hold about you, or to stop contacting you. Email{" "}
               <a href={site.emailHref}>{site.email}</a> and we will respond.{" "}
-              <Placeholder label="add CCPA/CPRA and any GDPR rights per counsel" />
+             
             </p>
 
             <h2>Contact</h2>
