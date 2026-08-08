@@ -14,6 +14,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [menuGroup, setMenuGroup] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -22,11 +23,25 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the mobile drawer on navigation.
+  // Close the mobile drawer and any open dropdown on navigation.
   useEffect(() => {
     setOpen(false);
     setOpenGroup(null);
+    setMenuGroup(null);
   }, [pathname]);
+
+  // Escape closes an open dropdown — expected of any menu, and the only way
+  // out for a keyboard user who opened one and does not want to tab through it.
+  useEffect(() => {
+    if (!menuGroup) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuGroup(null);
+    };
+
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuGroup]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -72,49 +87,101 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-          {navItems.map((item) => (
-            <div key={item.name} className="group relative">
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  isActive(item.href)
-                    ? "text-navy"
-                    : "text-ink-muted hover:text-navy"
-                )}
-              >
-                {item.name}
-                {item.dropdown && (
-                  <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" aria-hidden="true" />
-                )}
-                {isActive(item.href) && (
-                  <span className="absolute inset-x-3 -bottom-px h-0.5 bg-gradient-gold-x" aria-hidden="true" />
-                )}
-              </Link>
+        {/*
+          Dropdown visibility is state, not `group-hover`/`group-focus-within`.
 
-              {item.dropdown && (
-                <div className="invisible absolute left-0 top-full z-50 w-[19rem] translate-y-1 opacity-0 transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  <div className="mt-2 overflow-hidden rounded-lg border border-border bg-white p-1.5 shadow-lift">
-                    {item.dropdown.map((sub) => (
-                      <Link
-                        key={sub.href}
-                        href={sub.href}
-                        className="block rounded-md px-3 py-2.5 transition-colors hover:bg-muted"
-                      >
-                        <span className="block text-sm font-medium text-navy">{sub.name}</span>
-                        {sub.blurb && (
-                          <span className="mt-0.5 block text-xs leading-snug text-ink-muted">
-                            {sub.blurb}
-                          </span>
-                        )}
-                      </Link>
-                    ))}
+          As pure CSS it could not close on click, which is what made choosing an
+          item feel broken: the click focuses the link, focus-within holds the
+          panel open, and the App Router navigates without unmounting the header
+          — so the reader arrived on the new page with the menu still hanging
+          over it, until they happened to move the mouse away.
+
+          Closing a focused panel does not strand focus inside hidden content:
+          `invisible` is visibility:hidden, which makes the descendant
+          unfocusable and hands focus back to the document.
+        */}
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          {navItems.map((item) => {
+            const isOpen = menuGroup === item.name;
+
+            return (
+              <div
+                key={item.name}
+                className="relative"
+                onMouseEnter={() => item.dropdown && setMenuGroup(item.name)}
+                onMouseLeave={() => item.dropdown && setMenuGroup(null)}
+                // Keyboard parity with hover: tabbing in opens, tabbing past
+                // the last item closes. relatedTarget is where focus is going —
+                // still inside this group means it stays open.
+                onFocusCapture={() => item.dropdown && setMenuGroup(item.name)}
+                onBlurCapture={(e) => {
+                  if (
+                    item.dropdown &&
+                    !e.currentTarget.contains(e.relatedTarget as Node | null)
+                  ) {
+                    setMenuGroup(null);
+                  }
+                }}
+              >
+                <Link
+                  href={item.href}
+                  aria-expanded={item.dropdown ? isOpen : undefined}
+                  // The parent is a real link as well as a menu trigger, so it
+                  // needs the same close-on-click as the items beneath it.
+                  onClick={() => setMenuGroup(null)}
+                  className={cn(
+                    "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    isActive(item.href)
+                      ? "text-navy"
+                      : "text-ink-muted hover:text-navy"
+                  )}
+                >
+                  {item.name}
+                  {item.dropdown && (
+                    <ChevronDown
+                      className={cn(
+                        "h-3.5 w-3.5 transition-transform",
+                        isOpen && "rotate-180"
+                      )}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {isActive(item.href) && (
+                    <span className="absolute inset-x-3 -bottom-px h-0.5 bg-gradient-gold-x" aria-hidden="true" />
+                  )}
+                </Link>
+
+                {item.dropdown && (
+                  <div
+                    className={cn(
+                      "absolute left-0 top-full z-50 w-[19rem] transition-all",
+                      isOpen
+                        ? "visible translate-y-0 opacity-100"
+                        : "invisible translate-y-1 opacity-0"
+                    )}
+                  >
+                    <div className="mt-2 overflow-hidden rounded-lg border border-border bg-white p-1.5 shadow-lift">
+                      {item.dropdown.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          onClick={() => setMenuGroup(null)}
+                          className="block rounded-md px-3 py-2.5 transition-colors hover:bg-muted"
+                        >
+                          <span className="block text-sm font-medium text-navy">{sub.name}</span>
+                          {sub.blurb && (
+                            <span className="mt-0.5 block text-xs leading-snug text-ink-muted">
+                              {sub.blurb}
+                            </span>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 lg:flex">
@@ -179,8 +246,16 @@ export default function Header() {
                     </button>
                     {openGroup === item.name && (
                       <div className="pb-3 pl-3">
+                        {/*
+                          The pathname effect closes the drawer on navigation,
+                          but a link to the page you are already on does not
+                          change the pathname and so would never fire it —
+                          leaving the drawer sitting open over the page the
+                          reader just asked for. Closing here covers both.
+                        */}
                         <Link
                           href={item.href}
+                          onClick={() => setOpen(false)}
                           className="block py-2 text-sm font-medium text-navy underline decoration-gold/60 underline-offset-4"
                         >
                           All {item.name}
@@ -189,6 +264,7 @@ export default function Header() {
                           <Link
                             key={sub.href}
                             href={sub.href}
+                            onClick={() => setOpen(false)}
                             className="block py-2 text-sm text-ink-muted"
                           >
                             {sub.name}
@@ -198,7 +274,11 @@ export default function Header() {
                     )}
                   </>
                 ) : (
-                  <Link href={item.href} className="block py-4 text-base font-medium text-navy">
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="block py-4 text-base font-medium text-navy"
+                  >
                     {item.name}
                   </Link>
                 )}

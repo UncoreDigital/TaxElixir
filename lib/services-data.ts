@@ -23,6 +23,18 @@ export type Service = {
   teaser: string;
   intro: string;
   icon: string;
+  /**
+   * 16:9 photograph for this service, shown on the /services card and as the
+   * feature image on the detail page. Decorative in both places — the heading
+   * and teaser beside it already name the service, so it renders with an empty
+   * alt rather than a description that would only repeat them.
+   *
+   * Each one is anchored on a distinct object (a banker's box, a wall calendar,
+   * tabbed binders) rather than a generic desk, because nine near-identical
+   * photographs of people at desks would tell a reader nothing about which
+   * service they were looking at.
+   */
+  image: string;
   groups: ServiceGroup[];
   /** Optional deeper table, used by Audit */
   deliver?: { name: string; body: string }[];
@@ -54,6 +66,7 @@ export const services: Service[] = [
     intro:
       "Busy season does not scale by working longer hours. TaxElixir prepares returns as a direct extension of your team — we log into your systems, follow your engagement standards, and hand back returns that are ready for your reviewer, not ready for rework. Preparation, validation, liability calculation and record digitisation are handled as one workflow, so nothing arrives at your desk half-finished.",
     icon: "FileText",
+    image: "/assets/services/tax.webp",
     groups: [
       {
         title: "Individual & Expat Returns",
@@ -97,6 +110,7 @@ export const services: Service[] = [
     intro:
       "Back year work is the engagement most firms want to help with and least want to staff. It is document-heavy, slow, and hard to quote. TaxElixir runs it as a defined four-stage process — examine, organise and digitise, verify, prepare — so a client who is several years behind ends up with an audit-ready document set and every outstanding return prepared to current IRS standards. Your firm keeps the relationship and the review; we absorb the hours.",
     icon: "Archive",
+    image: "/assets/services/back-year-tax.webp",
     groups: [
       {
         title: "What The Engagement Covers",
@@ -150,6 +164,7 @@ export const services: Service[] = [
     intro:
       "Tax season ends; the books do not. TaxElixir covers the year-round accounting function your firm either absorbs internally or turns away — weekly, monthly, quarterly or annual bookkeeping, payables and receivables, reconciliations, and a structured month-end close. For firms building a CAAS practice, the same team delivers the general ledger discipline and periodic reporting that advisory work depends on.",
     icon: "Calculator",
+    image: "/assets/services/accounting.webp",
     groups: [
       {
         title: "Accounting Services",
@@ -193,6 +208,7 @@ export const services: Service[] = [
     intro:
       "Bookkeeping is where client relationships quietly break. A month slips, then a quarter, and what should have been a straightforward return becomes a clean-up project billed at the wrong rate. TaxElixir takes the recurring transaction work off your team so the books stay current, the close is predictable, and tax season starts from reconciled records rather than a reconstruction exercise.",
     icon: "BookOpen",
+    image: "/assets/services/bookkeeping.webp",
     groups: [
       {
         title: "Bookkeeping Services",
@@ -223,6 +239,7 @@ export const services: Service[] = [
     intro:
       "Payroll runs whether or not anyone on your team has capacity for it, and multi-state rules punish approximation with penalties rather than corrections. TaxElixir handles the recurring processing and the compliance detail as a defined engagement, which frees your internal staff for work that genuinely needs your firm's judgement.",
     icon: "Users",
+    image: "/assets/services/payroll.webp",
     groups: [
       {
         title: "What We Handle",
@@ -258,6 +275,7 @@ export const services: Service[] = [
     intro:
       "Sales tax punishes firms twice: the returns are individually small but numerous, and the penalties for missing one are disproportionate to the revenue it represents. TaxElixir absorbs the recurring preparation, reconciliation and calendar management across your clients' jurisdictions so a filing never slips because someone was busy with a return that mattered more.",
     icon: "Receipt",
+    image: "/assets/services/sales-tax.webp",
     provisional: true,
     groups: [
       {
@@ -305,6 +323,7 @@ export const services: Service[] = [
     intro:
       "1099 season lands in the worst possible month: high volume, a fixed deadline, and work that is tedious rather than technical. TaxElixir handles the vendor data gathering, validation and preparation so your team is not spending late January chasing W-9s instead of starting returns.",
     icon: "FileCheck",
+    image: "/assets/services/filing-1099.webp",
     provisional: true,
     groups: [
       {
@@ -359,6 +378,7 @@ export const services: Service[] = [
     intro:
       "Advisory is the work firms most want to sell and least often have the hours to prepare. The analysis underneath it — the forecast, the break-even model, the cash flow projection — is time-consuming to build and rarely billable at advisory rates. TaxElixir prepares that layer so your partners spend their hours on the conversation with the client rather than on the spreadsheet behind it.",
     icon: "TrendingUp",
+    image: "/assets/services/management-consultation.webp",
     groups: [
       {
         title: "Planning & Analysis",
@@ -402,6 +422,7 @@ export const services: Service[] = [
     intro:
       "TaxElixir empowers CPA firms with offshore audit support combining technical excellence, efficiency, and reliability across every stage of the audit cycle. We prepare and organise documentation, execute procedures and perform analytical review — always as support to your engagement team. The opinion, the judgement and the sign-off remain entirely yours.",
     icon: "ShieldCheck",
+    image: "/assets/services/audit.webp",
     groups: [
       {
         title: "Engagement Types Supported",

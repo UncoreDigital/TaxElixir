@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
@@ -80,6 +81,38 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       />
 
       {service.provisional && <ProvisionalNotice service={service.title} />}
+
+      {/*
+        Feature image. Sits between the banner and the scope grid so the page
+        has something to look at before it asks the reader to work through
+        three columns of checklists.
+
+        Decorative — empty alt. The <h1> and intro immediately above name the
+        service; a description of the photograph would only repeat them.
+
+        `priority` because at this position it is the page's LCP candidate on
+        most viewports, and the aspect box reserves its height either way.
+
+        It lifts into the navy banner rather than sitting in the white gap
+        below it. `relative z-10` is load-bearing, not decoration: PageBanner is
+        itself a positioned element, so an unpositioned sibling would paint
+        underneath it and the overlapping strip would simply vanish. The lift
+        (40px, 64px at md) stays inside the banner's own bottom padding
+        (64px/96px), so it never reaches the intro text.
+      */}
+      <div className="container relative z-10 -mt-10 md:-mt-16">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border bg-muted shadow-soft">
+          <Image
+            src={service.image}
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 1320px) 1256px, 100vw"
+            className="object-cover"
+            aria-hidden="true"
+          />
+        </div>
+      </div>
 
       {/* Scope */}
       <section className="section">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
@@ -34,6 +35,25 @@ export default function ServicesPage() {
               <Reveal key={service.slug} delay={i * 0.05}>
                 <article className="grid gap-8 rounded-2xl border border-border bg-white p-8 shadow-soft md:grid-cols-[1fr_1.3fr] md:p-10">
                   <div>
+                    {/*
+                      Decorative — empty alt. The <h2> and teaser directly below
+                      already name the service, so describing the photograph
+                      would only repeat them to a screen reader.
+
+                      The aspect box reserves the space before the file loads,
+                      so a lazy image lower down the page cannot shift the card.
+                    */}
+                    <div className="relative mb-7 aspect-[16/9] overflow-hidden rounded-xl bg-muted">
+                      <Image
+                        src={service.image}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 40vw, 100vw"
+                        className="object-cover"
+                        aria-hidden="true"
+                      />
+                    </div>
+
                     <div className="flex items-center gap-4">
                       <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-gold-x text-navy">
                         <Icon className="h-5 w-5" aria-hidden="true" />

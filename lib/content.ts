@@ -178,17 +178,23 @@ export const faqs: { q: string; a: string }[] = [
  * Client success proof points — the client's own figures (Website Updates
  * sheet, rows 10 and 17).
  *
- * One array, two consumers: the rotating panel in the hero and the Client
- * Success Stories block on /about. They were specified as the same three
- * claims, so they read from the same place and cannot drift apart.
+ * One array, two consumers: the rotating hero slides and the Client Success
+ * Stories block on /about. They were specified as the same three claims, so they
+ * read from the same place and cannot drift apart.
  *
- * `image` is the slot for the photography behind each slide. Null until the
- * client supplies artwork — the panel renders its patterned brand surface
- * instead, which is a finished-looking state rather than a broken one. Drop a
- * file into public/assets/success/ and set the path here.
+ * `image` is the full-bleed photograph behind each hero slide. All three are
+ * composed the same way — subject in the right 40%, the left half deliberately
+ * dark and empty — because the hero's navy scrim sits at 86–94% over the copy
+ * column. A replacement dropped in here must hold that composition or the
+ * headline will land on top of a subject. Still nullable: the hero falls back
+ * to the brand's patterned surface if a path is ever cleared.
+ *
+ * `label` is the slide's own name. It titles the slide in the hero (Anchor-style
+ * gold rule + eyebrow) and names it for the carousel dots; /about ignores it.
  */
 export type SuccessProof = {
   key: string;
+  label: string;
   value: string;
   headline: string;
   body: string;
@@ -198,24 +204,27 @@ export type SuccessProof = {
 export const successProof: SuccessProof[] = [
   {
     key: "cost",
+    label: "Cost Efficiency",
     value: "55–75%",
     headline: "Lower cost per engagement",
     body: "Offshore delivery at a fraction of the fully loaded cost of a US hire — without the recruitment cycle or the off-season payroll.",
-    image: null,
+    image: "/assets/hero/hero-cost.webp",
   },
   {
     key: "turnaround",
+    label: "Turnaround",
     value: "48 hrs",
     headline: "Turnaround on prepared work",
     body: "Files handed over at the end of your day come back review-ready inside two working days, with the self-review already done.",
-    image: null,
+    image: "/assets/hero/hero-turnaround.webp",
   },
   {
     key: "capacity",
+    label: "Peak-Season Capacity",
     value: "Peak-Season",
     headline: "Capacity to scale into",
     body: "Go from one dedicated preparer to a full seasonal team and back again, sized to your filing calendar rather than your headcount.",
-    image: null,
+    image: "/assets/hero/hero-capacity.webp",
   },
 ];
 
@@ -258,6 +267,90 @@ export const leadership = [
     title: "Qualified delivery team",
     body: "Chartered Accountants, CPAs and Enrolled Agents across the delivery floor, assigned by engagement type rather than by whoever is free.",
     needsClient: true,
+  },
+];
+
+/**
+ * Named leadership profiles for /about.
+ *
+ * These were two hand-written cards of near-identical markup until the client
+ * supplied the second one; they are data now so a third does not mean a third
+ * copy of the same eighty lines.
+ *
+ * Both names and both titles are client-confirmed. If a future profile arrives
+ * without a name, add it here only once the name does — a leadership profile is
+ * the last place on a site to carry a guess.
+ */
+export type LeaderProfile = {
+  key: string;
+  name: string;
+  title: string;
+  image: string;
+  /** Both portraits are square at source, so object-cover crops nothing. */
+  imageSize: number;
+  credentials: string[];
+  bio: string[];
+  /** Optional pull-out. Rendered as a statement, never as a quotation. */
+  statement?: string;
+  /** Optional closing personal note. */
+  personal?: string;
+};
+
+export const leaderProfiles: LeaderProfile[] = [
+  {
+    key: "founder",
+    name: "Dhara Jain",
+    title: "Founder",
+    image: "/assets/team/Owner.jpeg",
+    imageSize: 1254,
+    /*
+     * Drawn only from what the client wrote — nothing here is inferred.
+     *
+     * "In practice since 2003" is the client's own start date, not 2026 minus
+     * the "20+ years" figure: the two are stated separately in the bio and
+     * would only agree by coincidence.
+     */
+    credentials: [
+      "Licensed CPA",
+      "MBA, Finance",
+      "In practice since 2003",
+      "Middle East industry exposure",
+      "AI & Automation Committee member",
+    ],
+    bio: [
+      "Dhara Jain is a seasoned finance and accounting professional with over 20 years of experience and unparalleled expertise in delivering accurate and timely financial information. Dhara is committed to her values of accountability, financial data accuracy and continued professional growth. Her professional journey began in 2003 as an MBA Finance professional, solving complex accounts receivable challenges and handling responsibilities with diligence and precision.",
+      "Over the years, Dhara has gained valuable industry exposure in the Middle East, which enriched her global perspective and strengthened her adaptability in diverse business environments. She advanced her expertise by completing her CPA certification and obtaining her license, showing her dedication to lifelong learning and professional excellence.",
+      "She has also remained actively engaged in emerging developments such as AI and automation, and has contributed knowledge of R&D tax credit calculation as a member of an AI and Automation Committee within her previous organisation.",
+    ],
+    statement:
+      "Her working approach is guided by the belief that accuracy and speed are essential to delivering timely, compliant and high-quality results.",
+    personal:
+      "Apart from her professional commitments, Dhara enjoys swimming, playing tennis and trekking. She believes that an active lifestyle helps sustain energy, focus and overall momentum in life.",
+  },
+  {
+    key: "co-founder",
+    name: "Chetan Jain",
+    title: "Co-Founder",
+    image: "/assets/team/co-founder.webp",
+    imageSize: 1254,
+    /*
+     * Condensed from the supplied bio below — every line restates something
+     * the client wrote, so this column adds no claim the bio does not already
+     * make. Nothing here is sourced from anywhere else.
+     */
+    credentials: [
+      "30+ years in senior leadership",
+      "Sales, Marketing, Operations, HR & Administration",
+      "Three green-field launches, 2011–2017",
+      "Built Nippon Paints India from the ground up",
+      "Founder, Paint Pro",
+    ],
+    bio: [
+      "With over three decades of leadership experience spanning Sales, Marketing, Operations, HR and Administration, Chetan Jain brings deep expertise in building high-performing businesses from the ground up.",
+      "As a founding Sales & Marketing Head, he drove three major green-field projects between 2011 and 2017. At Nippon Paints India he built the entire organisation — hiring teams, establishing manufacturing facilities and leading product development. He then launched the Dulux brand across the UAE, Bahrain, Qatar and Kuwait, securing all government approvals and certifications for production in Dubai and Oman, and establishing the brand in just two and a half years. He later introduced and scaled the Ultra Italia PU wood-coating brand for the Jubilant Group.",
+      "His career includes senior roles with world-leading multinationals — Philips (Consumer Electronics), Berger Paints, ICI (UK), Nippon Paints (Asia-Pacific No. 1), AkzoNobel (the world's leading paint company, of the Netherlands), Jubilant Bhartia Group and Idea Cellular (Aditya Birla Group) — before founding his own luxury paint application brand, Paint Pro, which turned profitable in its first year.",
+      "This deep B2B, customer-centric experience in team building and operational excellence positions him to help elevate TaxElixir to new heights.",
+    ],
   },
 ];
 

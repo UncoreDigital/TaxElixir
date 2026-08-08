@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import PageBanner from "@/components/PageBanner";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
@@ -9,6 +8,8 @@ import SuccessStories from "@/components/sections/SuccessStories";
 import WhyUs from "@/components/sections/WhyUs";
 import CoreServices from "@/components/sections/CoreServices";
 import CTA from "@/components/sections/CTA";
+import LeaderProfile from "@/components/LeaderProfile";
+import { leaderProfiles } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -35,21 +36,6 @@ const values = [
     title: "Excellence",
     body: "The tagline is 'Where Trust Meets CPA Excellence' and it sets the bar we are measured against — your review standards, not our internal ones.",
   },
-];
-
-/**
- * Drawn only from what the client wrote — nothing here is inferred.
- *
- * "In practice since 2003" is the client's own start date, not 2026 minus the
- * "20+ years" figure: the two are stated separately in the bio and would only
- * agree by coincidence.
- */
-const credentials = [
-  "Licensed CPA",
-  "MBA, Finance",
-  "In practice since 2003",
-  "Middle East industry exposure",
-  "AI & Automation Committee member",
 ];
 
 export default function AboutPage() {
@@ -144,10 +130,14 @@ export default function AboutPage() {
       </section>
 
       {/*
-        The founder profile the client supplied. The rest of the leadership team
-        is still outstanding — content-gap #12 — but one real, named, accountable
-        person beats four dashed frames, so the empty slots are gone rather than
-        sitting next to a genuine profile. Still no stock photography.
+        The leadership team, complete as the client has defined it: the founder
+        and the co-founder, both titles confirmed. Content-gap #12 is closed —
+        there is no longer an outstanding-profiles marker here, because there
+        are no outstanding profiles. Still no stock photography.
+
+        Card markup lives in components/LeaderProfile so a third profile, if
+        one is ever added, is a third entry in lib/content rather than a third
+        copy of eighty lines.
       */}
       <section className="section">
         <div className="container">
@@ -158,112 +148,12 @@ export default function AboutPage() {
             intro="Firms sending work offshore ask one question before any other: who stands behind it. This is where that answer starts."
           />
 
-          {/*
-            Three grid children with explicit placement, for two reasons.
+          {leaderProfiles.map((profile, i) => (
+            <Reveal key={profile.key} delay={i * 0.06}>
+              <LeaderProfile profile={profile} />
+            </Reveal>
+          ))}
 
-            `self-start` on the photo keeps it square: grid children stretch by
-            default, which would pull this 1:1 headshot to the height of a
-            400-word bio and let object-cover crop it to roughly 1:2 — a hard
-            zoom into her face.
-
-            The explicit rows put the name above the photo when the grid
-            collapses to one column. In source order the photo comes second, so
-            a phone reads name → photo → credentials → bio instead of meeting a
-            stranger's photograph and a credential list before her name.
-          */}
-          <Reveal>
-            <article className="mx-auto mt-14 max-w-5xl rounded-2xl border border-border bg-white p-8 shadow-soft md:p-10 lg:p-12">
-              <div className="grid gap-y-8 md:grid-cols-[minmax(0,19rem)_1fr] md:gap-x-12">
-                <div className="md:col-start-2 md:row-start-1">
-                  <h3 className="text-2xl md:text-3xl">Dhara Jain</h3>
-                  <p className="mt-2.5 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-dark">
-                    Founder
-                    <Placeholder label="confirm title" className="tracking-wide" />
-                  </p>
-                </div>
-
-                {/* Credentials sit under the photo rather than beside the name:
-                    the bio runs ~400 words, so a photo-only column would leave a
-                    tall empty gutter next to it. */}
-                <div className="mx-auto w-full max-w-[19rem] self-start md:col-start-1 md:row-span-2 md:row-start-1 md:mx-0 md:max-w-none">
-                  <Image
-                    src="/assets/team/Owner.jpeg"
-                    alt="Dhara Jain"
-                    width={1254}
-                    height={1254}
-                    // Source is 1254x1254 into a square box, so object-cover
-                    // crops nothing at all.
-                    sizes="(min-width: 768px) 304px, 304px"
-                    className="aspect-square w-full rounded-2xl object-cover shadow-soft"
-                  />
-
-                  <span className="rule-gold mt-7" aria-hidden="true" />
-
-                  <ul className="mt-5 space-y-3">
-                    {credentials.map((item) => (
-                      <li key={item} className="flex gap-3 text-sm leading-snug text-ink-muted">
-                        <span
-                          className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
-                          aria-hidden="true"
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="min-w-0 md:col-start-2 md:row-start-2">
-                  <span className="rule-gold" aria-hidden="true" />
-
-                  <div className="mt-6 space-y-5 text-sm leading-relaxed text-ink-muted md:text-base">
-                    <p>
-                      Dhara Jain is a seasoned finance and accounting professional with
-                      over 20 years of experience and unparalleled expertise in delivering
-                      accurate and timely financial information. Dhara is committed to her
-                      values of accountability, financial data accuracy and continued
-                      professional growth. Her professional journey began in 2003 as an MBA
-                      Finance professional, solving complex accounts receivable challenges
-                      and handling responsibilities with diligence and precision.
-                    </p>
-                    <p>
-                      Over the years, Dhara has gained valuable industry exposure in the
-                      Middle East, which enriched her global perspective and strengthened
-                      her adaptability in diverse business environments. She advanced her
-                      expertise by completing her CPA certification and obtaining her
-                      license, showing her dedication to lifelong learning and professional
-                      excellence.
-                    </p>
-                    <p>
-                      She has also remained actively engaged in emerging developments such
-                      as AI and automation, and has contributed knowledge of R&amp;D tax
-                      credit calculation as a member of an AI and Automation Committee
-                      within her previous organisation.
-                    </p>
-                  </div>
-
-                  {/*
-                    Rendered as a statement about her, not a quotation. The client
-                    described her approach in the third person and we are not putting
-                    invented words inside quote marks beside a real person's photograph.
-                  */}
-                  <p className="mt-7 border-l-2 border-gold bg-gold/[0.06] py-4 pl-5 pr-4 text-sm leading-relaxed text-navy md:text-base">
-                    Her working approach is guided by the belief that accuracy and speed
-                    are essential to delivering timely, compliant and high-quality results.
-                  </p>
-
-                  <p className="mt-7 text-sm leading-relaxed text-ink-muted">
-                    Apart from her professional commitments, Dhara enjoys swimming, playing
-                    tennis and trekking. She believes that an active lifestyle helps
-                    sustain energy, focus and overall momentum in life.
-                  </p>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-
-          <p className="mt-8 text-center">
-            <Placeholder label="client to supply: remaining leadership profiles" />
-          </p>
         </div>
       </section>
 
