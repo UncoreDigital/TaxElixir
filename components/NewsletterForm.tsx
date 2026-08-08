@@ -75,7 +75,11 @@ export default function NewsletterForm() {
           type="submit"
           disabled={state === "sending"}
           data-cursor="grow"
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-gradient-gold-x px-5 py-3 text-sm font-semibold text-navy transition-shadow hover:shadow-gold disabled:opacity-60"
+          // Same gold-CTA treatment as components/ui/Button's `gold` variant.
+          // This one is hand-rolled rather than using ButtonLink because it is
+          // a submit button inside a joined input group, but the hover has to
+          // match or the two golds behave differently on the same page.
+          className="btn-gold inline-flex shrink-0 items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold text-navy shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-gold active:translate-y-0 active:shadow-soft disabled:opacity-60"
         >
           {state === "sending" ? (
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />

@@ -9,7 +9,10 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-navy text-white hover:bg-navy-light shadow-soft hover:shadow-card",
-        gold: "bg-gradient-gold-x text-navy shadow-soft hover:shadow-gold",
+        // Fill and its hover live in globals.css (.btn-gold); the lift, glow
+        // and press-back are here. Three cues rather than one, so the state
+        // still reads if the page behind it is navy and the glow cannot.
+        gold: "btn-gold text-navy shadow-soft hover:-translate-y-0.5 hover:shadow-gold active:translate-y-0 active:shadow-soft",
         outline: "border border-navy/20 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white",
         ghost: "text-navy hover:bg-muted",
         invert: "bg-white text-navy hover:bg-gold-light",
