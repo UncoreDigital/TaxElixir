@@ -88,8 +88,12 @@
     /*
       Mint — the same hue lifted until it reads on navy. The emerald above is
       tuned for white surfaces and goes muddy on a dark panel; this is the
-      on-navy variant, used for service card titles and their arrow buttons.
+      on-navy variant, for success/verified states that land on a navy surface.
       7.7:1 against --navy, so it is safe for body-sized text, not just accents.
+
+      Not currently referenced — the service cards used it as a general accent
+      and were moved back to gold, because green here is meaning-bearing and
+      spending it on decoration is what made it stop reading as confirmation.
     */
     --emerald-mint: 158 58% 62%;
 
@@ -207,6 +211,7 @@
 
     min-height: calc(100vh - var(--header-h));
     min-height: calc(100svh - var(--header-h));
+    min-height: calc(100svh - 9.5rem); /* TEMP DEBUG — remove */
     padding-top: var(--hero-py);
     padding-bottom: var(--hero-py);
   }

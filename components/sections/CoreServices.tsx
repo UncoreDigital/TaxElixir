@@ -27,8 +27,21 @@ import { gridCard, gridContainer, noMotion, viewportOnce } from "@/lib/motion";
  *     background — if the two drift apart the illusion breaks and it becomes a
  *     grey ring. It clears the right edge only; the bottom stays inside.
  *
- * Mint, not gold. Gold is the logo and owns primary CTAs on light surfaces; on
- * a navy panel it turns the whole grid into a wall of brass. See --emerald-mint.
+ * Navy panel, gold accents — the logo's own pairing, so the grid reads as part
+ * of the brand rather than borrowing a third colour. An earlier pass used the
+ * mint trust accent here; it was legible but green is reserved for
+ * verified/secure/success states elsewhere on the site, so on nine cards it
+ * became the loudest colour on the page and read as a second brand.
+ *
+ * The two golds are not interchangeable:
+ *   - Title text is --gold-light (#D8B460), 7.6:1 on navy, so it clears AAA at
+ *     this size. Flat --gold (#CBA85A) is 6.6:1 and gets muddy in the thin
+ *     strokes of the display face.
+ *   - The arrow disc carries the shield's vertical gradient (bg-gradient-gold)
+ *     rather than a flat fill, which is what the mark itself does. The navy
+ *     arrow on it holds 6.4:1 even at the gradient's dark end.
+ * Keeping the fill for the title and the fill for the disc distinct is what
+ * stops nine gold discs from flattening into a wall of brass.
  */
 export default function CoreServices() {
   const reduced = useReducedMotion();
@@ -74,7 +87,7 @@ export default function CoreServices() {
                 </span>
 
                 <span className="relative flex flex-1 flex-col rounded-b-3xl bg-navy p-6 sm:p-7 lg:p-8">
-                  <span className="block font-display text-lg font-bold leading-snug text-emerald-mint sm:text-xl lg:text-[1.375rem]">
+                  <span className="block font-display text-lg font-bold leading-snug text-gold-light sm:text-xl lg:text-[1.375rem]">
                     {service.title}
                   </span>
                   <span className="mt-3 block text-sm leading-relaxed text-white/75 lg:text-[0.9375rem]">
@@ -98,7 +111,7 @@ export default function CoreServices() {
                     aria-hidden="true"
                   >
                     <span className="flex h-20 w-20 items-center justify-center rounded-full bg-slate-50 lg:h-[5.5rem] lg:w-[5.5rem]">
-                      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-mint text-navy transition-transform duration-300 group-hover:scale-105 lg:h-16 lg:w-16">
+                      <span className="bg-gradient-gold flex h-14 w-14 items-center justify-center rounded-full text-navy transition-transform duration-300 group-hover:scale-105 lg:h-16 lg:w-16">
                         <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
                       </span>
                     </span>
