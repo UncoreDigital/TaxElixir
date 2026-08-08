@@ -21,7 +21,7 @@ import {
   noMotion,
 } from "@/lib/motion";
 
-const INTERVAL = 6000;
+const INTERVAL = 3000;
 
 /**
  * 20px blurred frames of each photograph — avoids a flash of empty navy on
@@ -93,7 +93,7 @@ export default function Hero() {
     [slides.length]
   );
 
-  const autoplay = !reduced && !stopped && !hovered && slides.length > 1;
+  const autoplay = 1;
 
   useEffect(() => {
     if (!autoplay) return;
@@ -342,7 +342,7 @@ export default function Hero() {
           >
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
-                <button
+                {/* <button
                   type="button"
                   onClick={() => go(index - 1)}
                   aria-label="Previous slide"
@@ -359,10 +359,10 @@ export default function Hero() {
                   className="grid h-8 w-8 short:h-7 short:w-7 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:bg-white/10 hover:text-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
-                </button>
+                </button> */}
               </div>
 
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 {slides.map((slide, i) => (
                   <button
                     key={slide.key}
@@ -377,11 +377,11 @@ export default function Hero() {
                     )}
                   />
                 ))}
-              </div>
+              </div> */}
 
               {/* Hidden under reduced motion, where nothing is rotating for it
                   to stop. */}
-              {!reduced && (
+              {/* {!reduced && (
                 <button
                   type="button"
                   onClick={() => setStopped((s) => !s)}
@@ -397,7 +397,7 @@ export default function Hero() {
                     <Pause className="h-3.5 w-3.5" aria-hidden="true" />
                   )}
                 </button>
-              )}
+              )} */}
             </div>
           </motion.div>
 

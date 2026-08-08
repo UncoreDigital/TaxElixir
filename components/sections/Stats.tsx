@@ -28,7 +28,6 @@ export default async function Stats({
       <div className="container">
         {heading && (
           <SectionHeading
-            align="center"
             eyebrow="How We Deliver"
             title="The standard on every file"
             intro="Four things that are true of every engagement, not averages across a good year. Ask us to evidence any of them before you send us work."

@@ -5,8 +5,9 @@ import { site } from "@/lib/site";
 /**
  * The closing call-to-action band, used at the foot of almost every page.
  *
- * Laid out as a bar, not a panel: title left, buttons right, vertically
- * centred against each other. The earlier centred-stack version ran ~400px
+ * Laid out as a bar, not a panel: title left, buttons right, the two centred
+ * against each other and the email centred beneath the buttons. The earlier
+ * centred-stack version ran ~400px
  * tall and repeated on fifteen pages, so by the third or fourth page a reader
  * scrolled past a screenful of navy to reach the same two buttons. The bar is
  * roughly half the height and puts the buttons on the same line as the ask.
@@ -48,8 +49,24 @@ export default function CTA({
               aria-hidden="true"
             />
 
-            <div className="relative flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-              <div className="max-w-xl">
+            {/*
+              A two-row grid from lg, not a flex row, and the email is a grid
+              child rather than a sibling of the buttons.
+
+              As a flex row the right-hand column was heading-height plus
+              buttons plus the email line, and `items-center` centred the
+              heading against all of that — so the heading sat about 18px below
+              the buttons it is meant to read alongside. Here the heading and
+              the buttons share row 1 and centre against each other; the email
+              drops into row 2 under the buttons, where it no longer pulls on
+              the alignment above it.
+
+              The email is centred on the button pair rather than flushed right:
+              it belongs to the buttons, and hanging it off the right edge left
+              it looking like a stray line of the footer.
+            */}
+            <div className="relative flex flex-col gap-6 lg:grid lg:grid-cols-[1fr_auto] lg:items-center lg:gap-x-12 lg:gap-y-4">
+              <div className="max-w-xl lg:col-start-1 lg:row-start-1">
                 <h2 className="text-2xl text-white md:text-3xl">{title}</h2>
                 {body && (
                   <>
@@ -59,33 +76,31 @@ export default function CTA({
                 )}
               </div>
 
-              {/* shrink-0 so the buttons keep their intrinsic width and the
-                  heading takes the squeeze — the reverse wraps "Book a
+              {/* The column keeps the buttons' intrinsic width (`auto` track)
+                  and the heading takes the squeeze — the reverse wraps "Book a
                   Discovery Call" onto two lines before the title has given up
                   any of its own. */}
-              <div className="shrink-0 lg:text-right">
-                <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-                  <ButtonLink href={primary.href} variant="gold" size="lg">
-                    {primary.label}
+              <div className="flex flex-col gap-3 sm:flex-row lg:col-start-2 lg:row-start-1">
+                <ButtonLink href={primary.href} variant="gold" size="lg">
+                  {primary.label}
+                </ButtonLink>
+                {secondary && (
+                  <ButtonLink
+                    href={secondary.href}
+                    size="lg"
+                    className="border border-white/25 bg-transparent text-white hover:bg-white hover:text-navy"
+                  >
+                    {secondary.label}
                   </ButtonLink>
-                  {secondary && (
-                    <ButtonLink
-                      href={secondary.href}
-                      size="lg"
-                      className="border border-white/25 bg-transparent text-white hover:bg-white hover:text-navy"
-                    >
-                      {secondary.label}
-                    </ButtonLink>
-                  )}
-                </div>
-
-                <a
-                  href={site.emailHref}
-                  className="mt-4 inline-block text-sm text-white/60 transition-colors hover:text-gold-light"
-                >
-                  or email {site.email}
-                </a>
+                )}
               </div>
+
+              <a
+                href={site.emailHref}
+                className="block text-center text-sm text-white/60 transition-colors hover:text-gold-light lg:col-start-2 lg:row-start-2"
+              >
+                or email {site.email}
+              </a>
             </div>
           </div>
         </Reveal>
