@@ -86,8 +86,8 @@ export default function Testimonials() {
             <Quote className="mx-auto h-8 w-8 text-border" aria-hidden="true" />
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-muted">
               The carousel is built and will appear here as soon as testimonials
-              are added. Each needs a quote, a named person and their firm —
-              anonymous praise carries no weight with this audience.
+              are added. Each needs a quote, a named person and their firm.
+              Anonymous praise carries no weight with this audience.
             </p>
           </div>
         </div>

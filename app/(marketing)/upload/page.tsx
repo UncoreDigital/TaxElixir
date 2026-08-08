@@ -34,7 +34,7 @@ export default function UploadPage() {
         eyebrow="Secure Transfer"
         title="Send us documents securely"
         crumbs={[{ name: "Secure Upload" }]}
-        intro="Please use this form rather than email. Files go straight into a private, access-controlled store — they are never publicly readable."
+        intro="Please use this form rather than email. Files go straight into a private, access-controlled store. They are never publicly readable."
       />
 
       <section className="section">
@@ -86,8 +86,8 @@ export default function UploadPage() {
 
             <p className="flex items-start gap-2.5 rounded-2xl border border-border bg-white p-6 text-xs leading-relaxed text-ink-muted">
               <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-dark" aria-hidden="true" />
-              If your firm requires a specific transfer method — your own portal,
-              SFTP or a virtual desktop — tell us and we will use that instead.
+              If your firm requires a specific transfer method (your own portal,
+              SFTP or a virtual desktop), tell us and we will use that instead.
             </p>
           </aside>
         </div>

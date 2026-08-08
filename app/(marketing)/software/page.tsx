@@ -8,7 +8,7 @@ import CTA from "@/components/sections/CTA";
 export const metadata: Metadata = {
   title: "Software We Work In",
   description:
-    "TaxElixir works inside the platforms your firm already uses — CCH Axcess, CaseWare, QuickBooks, Xero, UltraTax, Lacerte, Drake and more. Nothing to migrate, nothing new for your staff to learn.",
+    "TaxElixir works inside the platforms your firm already uses: CCH Axcess, CaseWare, QuickBooks, Xero, UltraTax, Lacerte, Drake and more. Nothing to migrate, nothing new for your staff to learn.",
   alternates: { canonical: "/software" },
 };
 
@@ -23,7 +23,7 @@ const principles = [
   },
   {
     title: "Access on your terms",
-    body: "Remote access into your environment, VPN, virtual desktop or your document portal — whatever your IT policy prescribes, provisioned least-privilege.",
+    body: "Remote access into your environment, VPN, virtual desktop or your document portal, whatever your IT policy prescribes, provisioned least-privilege.",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function SoftwarePage() {
         eyebrow="Technology"
         title="We work in your software"
         crumbs={[{ name: "Software" }]}
-        intro="Nothing to migrate to. Nothing new to learn. The most common reason outsourcing fails is that the provider makes the firm adopt their tooling — we do the opposite."
+        intro="Nothing to migrate to. Nothing new to learn. The most common reason outsourcing fails is that the provider makes the firm adopt their tooling; we do the opposite."
       />
 
       <section className="section">

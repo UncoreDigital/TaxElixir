@@ -30,10 +30,10 @@ export default async function Footer() {
               here and none is needed. Same 3010x804 as the header file, so the
               two lockups are optically identical top and bottom.
             */}
-            <Link href="/" aria-label={`${site.name} — home`} className="inline-flex">
+            <Link href="/" aria-label={`${site.name} home`} className="inline-flex">
               <Image
                 src={site.footerLogo}
-                alt={`${site.name} — ${site.tagline}`}
+                alt={`${site.name}, ${site.tagline}`}
                 width={site.headerLogoWidth}
                 height={site.headerLogoHeight}
                 sizes="320px"
@@ -139,7 +139,7 @@ export default async function Footer() {
               {contact.address ? (
                 contact.address
               ) : (
-                <span>India — serving US CPA firms</span>
+                <span>India, serving US CPA firms</span>
               )}
             </p>
           </div>

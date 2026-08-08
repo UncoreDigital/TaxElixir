@@ -10,7 +10,7 @@ import Reveal from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Hire Offshore Staff for Your CPA Firm",
   description:
-    "Hire dedicated offshore accountants, tax preparers, bookkeepers, payroll experts, back year preparers and audit support staff — full-time, part-time or seasonal, integrated with your firm's systems.",
+    "Hire dedicated offshore accountants, tax preparers, bookkeepers, payroll experts, back year preparers and audit support staff: full-time, part-time or seasonal, integrated with your firm's systems.",
   alternates: { canonical: "/hire" },
 };
 
@@ -25,7 +25,7 @@ const models = [
   },
   {
     title: "Project-Based",
-    body: "A defined piece of work — a back year backlog, a batch of returns, a bookkeeping clean-up — scoped and priced as a project rather than a headcount.",
+    body: "A defined piece of work (a back year backlog, a batch of returns, a bookkeeping clean-up) scoped and priced as a project rather than a headcount.",
   },
 ];
 
@@ -36,7 +36,7 @@ export default function HirePage() {
         eyebrow="Offshore Staffing"
         title="Dedicated offshore professionals who become an extension of your team"
         crumbs={[{ name: "Hire Offshore Staff" }]}
-        intro="Six roles covering the work that consumes a CPA firm's capacity. You get a named individual who learns your standards and stays on your engagements — not an anonymous pool of hours."
+        intro="Six roles covering the work that consumes a CPA firm's capacity. You get a named individual who learns your standards and stays on your engagements, not an anonymous pool of hours."
       />
 
       <section className="section">

@@ -62,7 +62,7 @@ export default function Header() {
         )}
       >
       <div className="container flex h-24 items-center justify-between gap-4 md:h-28">
-        <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} — home`}>
+        <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} home`}>
           {/*
             Sized up from h-11/h-12 at the client's request (Website Updates
             sheet, row 2): the tagline is set inside the artwork at roughly 1/14
@@ -75,7 +75,7 @@ export default function Header() {
           */}
           <Image
             src={site.headerLogo}
-            alt={`${site.name} — ${site.tagline}`}
+            alt={`${site.name}, ${site.tagline}`}
             width={site.headerLogoWidth}
             height={site.headerLogoHeight}
             // Without this, Next sizes the srcset from the 3010px intrinsic

@@ -12,9 +12,9 @@ import { leaderProfiles } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About TaxElixir — Offshore Partner to US CPA Firms",
+  title: "About TaxElixir: Offshore Partner to US CPA Firms",
   description:
-    "TaxElixir is an India-based outsourcing partner working exclusively with US CPA firms — tax preparation, accounting, audit support and dedicated offshore staffing delivered inside your own systems.",
+    "TaxElixir is an India-based outsourcing partner working exclusively with US CPA firms: tax preparation, accounting, audit support and dedicated offshore staffing delivered inside your own systems.",
   alternates: { canonical: "/about" },
 };
 
@@ -33,7 +33,7 @@ const values = [
   },
   {
     title: "Excellence",
-    body: "The tagline is 'Where Trust Meets CPA Excellence' and it sets the bar we are measured against — your review standards, not our internal ones.",
+    body: "The tagline is 'Where Trust Meets CPA Excellence' and it sets the bar we are measured against: your review standards, not our internal ones.",
   },
 ];
 
@@ -63,8 +63,8 @@ export default function AboutPage() {
                     IRS deadlines and the fact that your name goes on the return.
                   </p>
                   <p className="mt-4">
-                    We cover four connected service lines — tax preparation, back
-                    year filings, accounting and bookkeeping, and audit support —
+                    We cover four connected service lines (tax preparation, back
+                    year filings, accounting and bookkeeping, and audit support)
                     plus dedicated offshore staffing across six roles. Firms
                     typically start with one of these and expand once the working
                     relationship is proven.
@@ -79,7 +79,7 @@ export default function AboutPage() {
             <dl className="mt-6 space-y-5 text-sm">
               <div>
                 <dt className="font-semibold text-navy">Who we serve</dt>
-                <dd className="mt-1 text-ink-muted">US CPA firms and accounting practices — exclusively.</dd>
+                <dd className="mt-1 text-ink-muted">US CPA firms and accounting practices, exclusively.</dd>
               </div>
               <div>
                 <dt className="font-semibold text-navy">Where we work</dt>

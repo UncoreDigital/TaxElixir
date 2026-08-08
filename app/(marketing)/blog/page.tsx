@@ -33,7 +33,7 @@ export default async function BlogIndexPage() {
         eyebrow="Insights"
         title="Writing for firm owners, not for search engines"
         crumbs={[{ name: "Insights" }]}
-        intro="Notes on capacity, delivery and the practical mechanics of outsourcing — written by the people who do the work."
+        intro="Notes on capacity, delivery and the practical mechanics of outsourcing, written by the people who do the work."
       />
 
       <section className="section">

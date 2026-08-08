@@ -14,7 +14,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: "Case Studies",
   description:
-    "How US CPA firms use TaxElixir in practice — what they moved offshore, how the engagement was structured, and what changed.",
+    "How US CPA firms use TaxElixir in practice: what they moved offshore, how the engagement was structured, and what changed.",
   alternates: { canonical: "/case-studies" },
 };
 
@@ -42,8 +42,8 @@ export default async function CaseStudiesPage() {
               <h2 className="mt-5 text-2xl">No case studies published yet</h2>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ink-muted">
                 Case studies written in the admin panel appear here as soon as
-                they are published. Even one anonymised study — &ldquo;a
-                twelve-partner firm in Ohio&rdquo; — is enough to start.
+                they are published. Even one anonymised study (&ldquo;a
+                twelve-partner firm in Ohio&rdquo;) is enough to start.
               </p>
             </div>
           ) : (

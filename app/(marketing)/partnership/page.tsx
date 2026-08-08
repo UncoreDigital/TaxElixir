@@ -10,7 +10,7 @@ import { partnershipModels } from "@/lib/content";
 import { features } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Partnership — White-Label & Referral",
+  title: "Partnership: White-Label & Referral",
   description:
     "White-label delivery, referral and reserved-capacity partnerships for US CPA firms. We work behind your brand and never contact your clients directly.",
   alternates: { canonical: "/partnership" },
@@ -37,7 +37,7 @@ export default function PartnershipPage() {
         eyebrow="Partnership"
         title="Work with us behind your brand"
         crumbs={[{ name: "Partnership" }]}
-        intro="Three ways firms partner with TaxElixir — white-label delivery, referral arrangements, and reserved seasonal capacity. In all three, the client relationship stays entirely yours."
+        intro="Three ways firms partner with TaxElixir: white-label delivery, referral arrangements, and reserved seasonal capacity. In all three, the client relationship stays entirely yours."
       />
 
       <section className="section">
@@ -45,7 +45,7 @@ export default function PartnershipPage() {
           <SectionHeading
             eyebrow="Models"
             title="Three arrangements, one principle"
-            intro="We do not sell to end taxpayers and we do not approach the firms you serve. That is not a courtesy — it is the only reason a firm would hand us their client work in the first place."
+            intro="We do not sell to end taxpayers and we do not approach the firms you serve. That is not a courtesy: it is the only reason a firm would hand us their client work in the first place."
           />
 
           <div className="mt-14 grid gap-6 lg:grid-cols-3">

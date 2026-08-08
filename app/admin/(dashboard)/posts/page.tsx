@@ -19,7 +19,7 @@ export default async function AdminPostsPage() {
     <>
       <AdminPageHeader
         title="Insights"
-        description="Articles published to the public /blog. Drafts are invisible to anonymous visitors — enforced by row-level security, not just by a filter in the query."
+        description="Articles published to the public /blog. Drafts are invisible to anonymous visitors, enforced by row-level security, not just by a filter in the query."
         actions={
           <ButtonLink href="/admin/posts/new" variant="gold" size="md">
             <Plus className="h-4 w-4" aria-hidden="true" />

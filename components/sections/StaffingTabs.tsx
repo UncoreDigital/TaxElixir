@@ -158,7 +158,7 @@ export default function StaffingTabs() {
 
               <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-white/55">
-                  Full-time, part-time or seasonal — scoped to your workload.
+                  Full-time, part-time or seasonal, scoped to your workload.
                 </p>
                 <div className="flex gap-3">
                   <Link

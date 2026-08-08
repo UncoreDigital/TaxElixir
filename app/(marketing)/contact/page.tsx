@@ -7,7 +7,7 @@ import { getContactDetails } from "@/lib/settings";
 import { features, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact TaxElixir — Talk to Us About Capacity",
+  title: "Contact TaxElixir: Talk to Us About Capacity",
   description:
     "Tell us what work you want to move off your team's desk. We will tell you honestly whether we are the right fit, and propose a pilot you can judge us on.",
   alternates: { canonical: "/contact" },
@@ -23,7 +23,7 @@ export default async function ContactPage() {
         eyebrow="Contact"
         title="Tell us what you need covered"
         crumbs={[{ name: "Contact" }]}
-        intro="Describe the work, the volumes and the software. You will get a direct answer from someone who does the work — and if we are not the right fit, we will say so on the first call."
+        intro="Describe the work, the volumes and the software. You will get a direct answer from someone who does the work, and if we are not the right fit, we will say so on the first call."
       />
 
       <section className="section">
@@ -63,7 +63,7 @@ export default async function ContactPage() {
                   {contact.address ? (
                     <span className="text-ink-muted">{contact.address}</span>
                   ) : (
-                    <span className="text-ink-muted">India — serving US CPA firms</span>
+                    <span className="text-ink-muted">India, serving US CPA firms</span>
                   )}
                 </li>
               </ul>
@@ -84,7 +84,7 @@ export default async function ContactPage() {
                   </span>
                   <span className="mt-1.5 block text-sm leading-relaxed text-ink-muted">
                     Use our secure upload instead of email. Files go to a private,
-                    access-controlled store — never a public link.
+                    access-controlled store, never a public link.
                   </span>
                 </span>
               </Link>

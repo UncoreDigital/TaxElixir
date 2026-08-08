@@ -14,7 +14,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: "Free Guides & Ebooks",
   description:
-    "Free downloads for US CPA firm owners — practical guides on capacity planning, offshore onboarding, busy-season workflow and back year engagements.",
+    "Free downloads for US CPA firm owners: practical guides on capacity planning, offshore onboarding, busy-season workflow and back year engagements.",
   alternates: { canonical: "/guides" },
 };
 

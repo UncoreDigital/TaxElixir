@@ -443,7 +443,7 @@ export default function RichTextEditor({
       )}
 
       <p className="border-t border-slate-200 bg-slate-50 px-5 py-2 text-xs text-ink-muted">
-        Drag an image in, or paste one from the clipboard — it uploads automatically.
+        Drag an image in, or paste one from the clipboard. It uploads automatically.
       </p>
 
       <input

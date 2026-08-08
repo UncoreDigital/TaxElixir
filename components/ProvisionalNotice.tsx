@@ -18,8 +18,8 @@ export default function ProvisionalNotice({ service }: { service: string }) {
         <p className="text-sm leading-relaxed text-amber-900">
           <strong className="font-semibold">Scope needs client confirmation.</strong>{" "}
           {service} does not appear in the TaxElixir services deck. The scope below
-          is drafted from standard practice so the page exists and can be reviewed —
-          it must be confirmed, corrected or removed before launch. No filing,
+          is drafted from standard practice so the page exists and can be reviewed.
+          It must be confirmed, corrected or removed before launch. No filing,
           deadline or form-number claim has been made that the client has not
           already stated elsewhere.
         </p>

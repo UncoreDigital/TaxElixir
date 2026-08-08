@@ -27,11 +27,11 @@ export const roles: Role[] = [
     title: "Offshore Accountant",
     metaTitle: "Hire an Offshore Accountant for Your CPA Firm",
     metaDescription:
-      "Hire a dedicated offshore accountant — end-to-end bookkeeping, custom financial reporting, US tax support and accounts workflow management, integrated with your firm's systems.",
+      "Hire a dedicated offshore accountant: end-to-end bookkeeping, custom financial reporting, US tax support and accounts workflow management, integrated with your firm's systems.",
     h1: "Hire a Dedicated Offshore Accountant",
     icon: "Calculator",
     teaser:
-      "A full accounting function in one hire — books, reporting, tax support and workflow ownership.",
+      "A full accounting function in one hire: books, reporting, tax support and workflow ownership.",
     intro:
       "An offshore accountant from TaxElixir works your engagements the way an in-house hire would: in your software, on your calendar, reporting to your manager. The difference is that you can add one in weeks rather than months, and scale the arrangement up or down as your client base moves.",
     capabilities: [
@@ -52,11 +52,11 @@ export const roles: Role[] = [
     title: "Offshore Tax Preparer",
     metaTitle: "Hire an Offshore Tax Preparer for Your CPA Firm",
     metaDescription:
-      "Hire a dedicated offshore tax preparer — return preparation, tax document review, business data handling and e-filing support for 1040, 1065, 1120 and 1120-S engagements.",
+      "Hire a dedicated offshore tax preparer: return preparation, tax document review, business data handling and e-filing support for 1040, 1065, 1120 and 1120-S engagements.",
     h1: "Hire a Dedicated Offshore Tax Preparer",
     icon: "FileText",
     teaser:
-      "Season capacity that arrives review-ready — preparation, document review and e-filing support.",
+      "Season capacity that arrives review-ready: preparation, document review and e-filing support.",
     intro:
       "Adding preparation capacity in January is the hardest hire in the profession. An offshore tax preparer gives your firm a trained pair of hands who works inside your tax software, follows your review standards, and takes the volume that would otherwise land on a partner's desk at midnight.",
     capabilities: [
@@ -77,13 +77,13 @@ export const roles: Role[] = [
     title: "Offshore Bookkeeper",
     metaTitle: "Hire an Offshore Bookkeeper for Your CPA Firm",
     metaDescription:
-      "Hire a dedicated offshore bookkeeper — daily transaction management, bank and credit card reconciliations, AP/AR tracking and monthly closing support.",
+      "Hire a dedicated offshore bookkeeper: daily transaction management, bank and credit card reconciliations, AP/AR tracking and monthly closing support.",
     h1: "Hire a Dedicated Offshore Bookkeeper",
     icon: "BookOpen",
     teaser:
       "Daily transaction discipline, clean reconciliations and a close that lands on time every month.",
     intro:
-      "Bookkeeping is where client relationships quietly break — a month falls behind, then a quarter, and suddenly the tax return is a clean-up project. A dedicated offshore bookkeeper keeps the transaction work current so your close is predictable and your tax team starts from clean books.",
+      "Bookkeeping is where client relationships quietly break: a month falls behind, then a quarter, and suddenly the tax return is a clean-up project. A dedicated offshore bookkeeper keeps the transaction work current so your close is predictable and your tax team starts from clean books.",
     capabilities: [
       "Daily Transaction Management",
       "Bank & Credit Card Reconciliations",
@@ -102,7 +102,7 @@ export const roles: Role[] = [
     title: "Offshore Payroll Expert",
     metaTitle: "Hire an Offshore Payroll Expert for Your CPA Firm",
     metaDescription:
-      "Hire a dedicated offshore payroll expert — accurate payroll processing, confident multi-state compliance, and streamlined payroll reporting and documentation.",
+      "Hire a dedicated offshore payroll expert: accurate payroll processing, confident multi-state compliance, and streamlined payroll reporting and documentation.",
     h1: "Hire a Dedicated Offshore Payroll Expert",
     icon: "Users",
     teaser:
@@ -127,13 +127,13 @@ export const roles: Role[] = [
     title: "Offshore Back Year Tax Preparer",
     metaTitle: "Hire an Offshore Back Year Tax Preparer",
     metaDescription:
-      "Hire a dedicated offshore back year tax preparer — accurate, compliant prior-year returns that minimise audit risk and regulatory penalties while digitising the client's records.",
+      "Hire a dedicated offshore back year tax preparer: accurate, compliant prior-year returns that minimise audit risk and regulatory penalties while digitising the client's records.",
     h1: "Hire a Dedicated Offshore Back Year Tax Preparer",
     icon: "Archive",
     teaser:
-      "Specialist capacity for delinquent filings — the engagement most firms accept reluctantly.",
+      "Specialist capacity for delinquent filings: the engagement most firms accept reluctantly.",
     intro:
-      "Back year engagements are profitable and unpopular for the same reason: they are slow, document-heavy and hard to staff. A dedicated back year preparer works through the backlog methodically — reconstructing, verifying and digitising as they go — so your firm can say yes to the work without losing a senior to it for a month.",
+      "Back year engagements are profitable and unpopular for the same reason: they are slow, document-heavy and hard to staff. A dedicated back year preparer works through the backlog methodically, reconstructing, verifying and digitising as they go, so your firm can say yes to the work without losing a senior to it for a month.",
     capabilities: [
       "Accurate & Compliant Back Year Returns",
       "Minimize Audit Risk & Regulatory Penalties",
@@ -152,13 +152,13 @@ export const roles: Role[] = [
     title: "Offshore Audit Support",
     metaTitle: "Hire Offshore Audit Support Staff for Your CPA Firm",
     metaDescription:
-      "Hire dedicated offshore audit support — execute audit procedures accurately, improve workpaper management and documentation, and deliver engagements on time without adding staff.",
+      "Hire dedicated offshore audit support: execute audit procedures accurately, improve workpaper management and documentation, and deliver engagements on time without adding staff.",
     h1: "Hire Dedicated Offshore Audit Support",
     icon: "ShieldCheck",
     teaser:
       "Procedure execution and workpaper discipline that keeps engagements on schedule.",
     intro:
-      "Audit capacity is the hardest to flex, because the work is methodology-bound and the deadlines are immovable. Offshore audit support gives your engagement teams trained hands for procedure execution and documentation, working to your methodology — while every element of judgement, review and opinion stays inside your firm.",
+      "Audit capacity is the hardest to flex, because the work is methodology-bound and the deadlines are immovable. Offshore audit support gives your engagement teams trained hands for procedure execution and documentation, working to your methodology, while every element of judgement, review and opinion stays inside your firm.",
     capabilities: [
       "Execute Audit Procedures with Accuracy",
       "Improve Audit Documentation & Workpaper Management",

@@ -6,7 +6,7 @@ import Workflow from "@/components/sections/Workflow";
 import CTA from "@/components/sections/CTA";
 
 export const metadata: Metadata = {
-  title: "How We Work — Engagement Process for CPA Firms",
+  title: "How We Work: Engagement Process for CPA Firms",
   description:
     "How TaxElixir engages: discovery call, written scope, secure access under your controls, a pilot batch you inspect, then steady-state delivery with a named point of contact.",
   alternates: { canonical: "/how-we-work" },
@@ -25,7 +25,7 @@ const models = [
   },
   {
     title: "Project Engagement",
-    body: "A defined scope — a back year backlog, a batch of returns, a bookkeeping clean-up — priced as a project.",
+    body: "A defined scope (a back year backlog, a batch of returns, a bookkeeping clean-up) priced as a project.",
     best: "One-off or clearly bounded work",
   },
 ];

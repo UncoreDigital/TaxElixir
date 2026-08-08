@@ -17,7 +17,7 @@ export default async function AdminSettingsPage() {
     <>
       <AdminPageHeader
         title="Site Settings"
-        description="Headline figures and contact details, stored once and read by every page. This is deliberately the only place these numbers exist — hard-coding them per page is how a site ends up claiming more clients in one country than it has worldwide."
+        description="Headline figures and contact details, stored once and read by every page. This is deliberately the only place these numbers exist; hard-coding them per page is how a site ends up claiming more clients in one country than it has worldwide."
       />
       {error ? (
         <p className="rounded-xl border border-destructive/30 bg-destructive/5 p-6 text-sm text-destructive">

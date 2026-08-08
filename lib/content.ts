@@ -239,7 +239,7 @@ export const successProof: SuccessProof[] = [
     label: "Cost Efficiency",
     value: "55–75%",
     headline: "Lower cost per engagement",
-    body: "Offshore delivery at a fraction of the fully loaded cost of a US hire — without the recruitment cycle or the off-season payroll.",
+    body: "Offshore delivery at a fraction of the fully loaded cost of a US hire, without the recruitment cycle or the off-season payroll.",
     image: "/assets/hero/hero-cost.webp",
   },
   {
@@ -378,8 +378,8 @@ export const leaderProfiles: LeaderProfile[] = [
     ],
     bio: [
       "With over three decades of leadership experience spanning Sales, Marketing, Operations, HR and Administration, Chetan Jain brings deep expertise in building high-performing businesses from the ground up.",
-      "As a founding Sales & Marketing Head, he drove three major green-field projects between 2011 and 2017. At Nippon Paints India he built the entire organisation — hiring teams, establishing manufacturing facilities and leading product development. He then launched the Dulux brand across the UAE, Bahrain, Qatar and Kuwait, securing all government approvals and certifications for production in Dubai and Oman, and establishing the brand in just two and a half years. He later introduced and scaled the Ultra Italia PU wood-coating brand for the Jubilant Group.",
-      "His career includes senior roles with world-leading multinationals — Philips (Consumer Electronics), Berger Paints, ICI (UK), Nippon Paints (Asia-Pacific No. 1), AkzoNobel (the world's leading paint company, of the Netherlands), Jubilant Bhartia Group and Idea Cellular (Aditya Birla Group) — before founding his own luxury paint application brand, Paint Pro, which turned profitable in its first year.",
+      "As a founding Sales & Marketing Head, he drove three major green-field projects between 2011 and 2017. At Nippon Paints India he built the entire organisation: hiring teams, establishing manufacturing facilities and leading product development. He then launched the Dulux brand across the UAE, Bahrain, Qatar and Kuwait, securing all government approvals and certifications for production in Dubai and Oman, and establishing the brand in just two and a half years. He later introduced and scaled the Ultra Italia PU wood-coating brand for the Jubilant Group.",
+      "His career includes senior roles with world-leading multinationals: Philips (Consumer Electronics), Berger Paints, ICI (UK), Nippon Paints (Asia-Pacific No. 1), AkzoNobel (the world's leading paint company, of the Netherlands), Jubilant Bhartia Group and Idea Cellular (Aditya Birla Group). He then founded his own luxury paint application brand, Paint Pro, which turned profitable in its first year.",
       "This deep B2B, customer-centric experience in team building and operational excellence positions him to help elevate TaxElixir to new heights.",
     ],
   },
@@ -407,7 +407,7 @@ export const partnershipModels = [
   },
   {
     title: "Capacity Partnership",
-    body: "A standing arrangement for firms with predictable seasonal peaks — reserved capacity booked ahead of your busy period.",
+    body: "A standing arrangement for firms with predictable seasonal peaks: reserved capacity booked ahead of your busy period.",
     points: [
       "Capacity reserved before the season starts",
       "Agreed volumes and turnaround windows",

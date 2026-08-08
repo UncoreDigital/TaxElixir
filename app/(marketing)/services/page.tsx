@@ -13,7 +13,7 @@ import { getIcon } from "@/lib/icons";
 export const metadata: Metadata = {
   title: "Services for US CPA Firms",
   description:
-    "Outsourced tax preparation, back year filings, accounting and client advisory, bookkeeping and audit support for US CPA firms — delivered by dedicated offshore professionals inside your own workflow and software.",
+    "Outsourced tax preparation, back year filings, accounting and client advisory, bookkeeping and audit support for US CPA firms, delivered by dedicated offshore professionals inside your own workflow and software.",
   alternates: { canonical: "/services" },
 };
 

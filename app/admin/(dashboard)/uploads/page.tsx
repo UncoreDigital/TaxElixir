@@ -22,7 +22,7 @@ export default async function AdminUploadsPage() {
     <>
       <AdminPageHeader
         title="Document Uploads"
-        description="Files sent through the secure upload form. The storage bucket is private — downloads are issued as signed links that expire after 60 seconds."
+        description="Files sent through the secure upload form. The storage bucket is private: downloads are issued as signed links that expire after 60 seconds."
       />
       {error ? (
         <p className="rounded-xl border border-destructive/30 bg-destructive/5 p-6 text-sm text-destructive">

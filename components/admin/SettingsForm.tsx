@@ -10,7 +10,7 @@ const groupLabels: Record<string, { title: string; blurb: string }> = {
   stats: {
     title: "Headline figures",
     blurb:
-      "Shown on the homepage and About page. Leave a field empty and the site renders an em dash — never a zero, and never an invented number.",
+      "Shown on the homepage and About page. Leave a field empty and the site renders an em dash, never a zero, and never an invented number.",
   },
   contact: {
     title: "Contact details",

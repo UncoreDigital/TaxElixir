@@ -60,7 +60,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     audience: { "@type": "Audience", audienceType: "US CPA firms and accounting practices" },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: `${service.title} — scope`,
+      name: `${service.title}: scope`,
       itemListElement: service.groups.flatMap((g) =>
         g.items.map((item) => ({
           "@type": "Offer",
@@ -93,7 +93,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <SectionHeading
             eyebrow="Scope of Work"
             title={`What ${service.title.toLowerCase()} covers`}
-            intro="Taken directly from our service schedule — if something you need is not listed, ask. The list describes our standard scope, not its limits."
+            intro="Taken directly from our service schedule. If something you need is not listed, ask. The list describes our standard scope, not its limits."
           />
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

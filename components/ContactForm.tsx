@@ -88,7 +88,7 @@ export default function ContactForm() {
     return (
       <div className="rounded-2xl border border-gold/40 bg-gold/[0.06] p-10 text-center">
         <CheckCircle2 className="mx-auto h-11 w-11 text-gold-dark" aria-hidden="true" />
-        <h2 className="mt-5 text-2xl">Thank you — your message is with us</h2>
+        <h2 className="mt-5 text-2xl">Thank you, your message is with us</h2>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ink-muted">
           Someone who actually does the work will reply, usually within one
           business day. If it is urgent, email{" "}
@@ -201,7 +201,7 @@ export default function ContactForm() {
           <p className="mt-1.5 text-xs text-destructive">{fieldError("message")}</p>
         ) : (
           <p className="mt-1.5 text-xs text-ink-muted">
-            A sentence or two is plenty — at least 10 characters.
+            A sentence or two is plenty, at least 10 characters.
           </p>
         )}
       </div>

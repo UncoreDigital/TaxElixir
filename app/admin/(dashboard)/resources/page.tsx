@@ -25,8 +25,8 @@ export default async function AdminResourcesPage() {
         title="Resources"
         description={
           features.guides
-            ? "Case studies, events and downloadable guides. Dated events move from Upcoming to Past on the public site automatically — there is no 'upcoming' list to go stale."
-            : "Case studies and events. Dated events move from Upcoming to Past on the public site automatically — there is no 'upcoming' list to go stale."
+            ? "Case studies, events and downloadable guides. Dated events move from Upcoming to Past on the public site automatically, so there is no 'upcoming' list to go stale."
+            : "Case studies and events. Dated events move from Upcoming to Past on the public site automatically, so there is no 'upcoming' list to go stale."
         }
         actions={
           <ButtonLink href="/admin/resources/new" variant="gold" size="md">

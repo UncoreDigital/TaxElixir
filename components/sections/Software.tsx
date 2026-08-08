@@ -30,15 +30,20 @@ export default function Software() {
           <SoftwareCarousel items={items} />
         </div>
 
+        {/* Reordered so the sentence ends on the link. The list-is-not-
+            exhaustive clause used to trail an em dash after "Ask us", and with
+            the dash gone any replacement punctuation would have had to lead the
+            line, which reads as a typo. */}
         <p className="mt-8 text-center text-sm text-ink-muted">
-          Working in a platform not listed here?{" "}
+          The list above is not exhaustive. Working in a platform not listed
+          here?{" "}
           <a
             href="/contact"
             className="font-medium text-navy underline decoration-gold/60 underline-offset-2"
           >
             Ask us
-          </a>{" "}
-          — the list above is not exhaustive.
+          </a>
+          .
         </p>
       </div>
     </section>

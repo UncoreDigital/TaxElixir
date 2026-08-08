@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
           <div className="mb-10 rounded-lg border border-dashed border-amber-400 bg-amber-50 p-5 text-sm text-amber-900">
             <strong className="font-semibold">Review required before launch.</strong>{" "}
             This is a drafted skeleton, not legal advice. It must be reviewed by
-            the client&apos;s counsel — in particular the retention period, the
+            the client&apos;s counsel, in particular the retention period, the
             lawful basis for transferring data to India, and any US state privacy
             rights (CCPA/CPRA) that apply to your prospects.{" "}
            
@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
             <p>
               This policy applies to personal information collected through this
               website. It does not cover information a client firm shares with us
-              under an engagement — that is governed by the engagement letter and
+              under an engagement. That is governed by the engagement letter and
               any data processing agreement signed with your firm.
             </p>
 
