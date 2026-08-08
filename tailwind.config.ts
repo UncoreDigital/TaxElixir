@@ -14,6 +14,17 @@ export default {
       screens: { "2xl": "1320px" },
     },
     extend: {
+      /*
+        Height-based variant. Every other breakpoint here is a width, but the
+        hero has to fit the fold, and on a laptop the binding constraint is
+        vertical: a 1536x720 window has width to spare and none to give below
+        the header. `short:` marks the adjustments that only apply when the
+        screen is too short for the full stack, so tall screens keep the
+        designed layout untouched.
+      */
+      screens: {
+        short: { raw: "(max-height: 800px)" },
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

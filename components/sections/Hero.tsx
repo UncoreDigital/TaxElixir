@@ -142,11 +142,14 @@ export default function Hero() {
         Decorative only — aria-hidden, empty alt. The figures beside them carry
         the meaning, and describing an office would be noise to a screen reader.
 
-        `object-right` matters only below lg, where the section is taller than
-        16:9 and object-cover has to trim width. All three are composed with the
-        subject in the right 40%, so the right edge is the half worth keeping.
-        At lg and up the section is sized to the photographs' own aspect ratio
-        and nothing is cropped at all — see .hero-viewport in globals.css.
+        `object-right` carries the crop at every width. The section is sized to
+        the fold, not to 16:9 — sizing it to the art was tried and reverted,
+        because .hero-viewport is the `.container` and a ratio on it resolves
+        against 1320px rather than the viewport, which pinned the hero to ~742px
+        and pushed the CTAs off short screens (the full account is in
+        globals.css). So object-cover always has some trimming to do, and all
+        three photographs are composed with the subject in the right 40% —
+        the right edge is the half worth keeping.
       */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         {slides.map((slide, i) => (
@@ -261,7 +264,15 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
-          className="max-w-xl"
+          /*
+            36rem normally. On a short laptop screen the constraint is vertical
+            and there is width going spare, so the column widens and the lead
+            paragraph reflows from three lines to two — height bought back
+            without shrinking a single piece of type. Still inside the scrim's
+            0.88-alpha zone (it holds to 60% of the viewport at lg), so the
+            contrast measurements above the gradient definitions still hold.
+          */
+          className="max-w-xl short:lg:max-w-3xl"
         >
           <motion.p variants={item} className="eyebrow text-gold-light">
             Outsourcing Partner for US CPA Firms
@@ -370,7 +381,7 @@ export default function Hero() {
                   onClick={() => go(index - 1)}
                   aria-label="Previous slide"
                   data-cursor="grow"
-                  className="grid h-8 w-8 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:bg-white/10 hover:text-white"
+                  className="grid h-8 w-8 short:h-7 short:w-7 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:bg-white/10 hover:text-white"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -379,7 +390,7 @@ export default function Hero() {
                   onClick={() => go(index + 1)}
                   aria-label="Next slide"
                   data-cursor="grow"
-                  className="grid h-8 w-8 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:bg-white/10 hover:text-white"
+                  className="grid h-8 w-8 short:h-7 short:w-7 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-gold hover:bg-white/10 hover:text-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
                 </button>

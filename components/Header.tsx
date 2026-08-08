@@ -129,8 +129,16 @@ export default function Header() {
                   // The parent is a real link as well as a menu trigger, so it
                   // needs the same close-on-click as the items beneath it.
                   onClick={() => setMenuGroup(null)}
+                  /*
+                    Two steps rather than one. The desktop nav appears at lg,
+                    where it shares 960px of container with a 299px logo (the
+                    lockup is 3010x804, so h-20 is ~299 wide) and the CTA —
+                    there is roughly 30px of slack, and jumping straight to
+                    16px spends more than that. So lg gets 15px and xl, with
+                    another 256px of room, gets the full 16px.
+                  */
                   className={cn(
-                    "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "flex items-center gap-1 rounded-md px-3 py-2 text-[0.9375rem] font-medium transition-colors xl:text-base",
                     isActive(item.href)
                       ? "text-navy"
                       : "text-ink-muted hover:text-navy"
@@ -168,9 +176,9 @@ export default function Header() {
                           onClick={() => setMenuGroup(null)}
                           className="block rounded-md px-3 py-2.5 transition-colors hover:bg-muted"
                         >
-                          <span className="block text-sm font-medium text-navy">{sub.name}</span>
+                          <span className="block text-[0.9375rem] font-medium text-navy">{sub.name}</span>
                           {sub.blurb && (
-                            <span className="mt-0.5 block text-xs leading-snug text-ink-muted">
+                            <span className="mt-0.5 block text-[0.8125rem] leading-snug text-ink-muted">
                               {sub.blurb}
                             </span>
                           )}
@@ -185,7 +193,14 @@ export default function Header() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 lg:flex">
-          <ButtonLink href="/contact" variant="gold" size="sm">
+          {/* Grows with the nav at xl, for the same reason: at lg the width is
+              already spoken for. */}
+          <ButtonLink
+            href="/contact"
+            variant="gold"
+            size="sm"
+            className="xl:h-11 xl:px-6 xl:text-[0.9375rem]"
+          >
             Book a Discovery Call
           </ButtonLink>
         </div>
