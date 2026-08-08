@@ -201,17 +201,9 @@
     */
     --hero-h1: clamp(2rem, min(6.2vw, 5.6vh), 3.5rem);
     --hero-lead: clamp(0.9375rem, 1.9vh, 1.125rem);
-    /*
-      The rotating proof figure. Capped well below --hero-h1 so it reads as
-      support for the headline rather than competing with it, and floored at a
-      size that still holds the longest value ("Peak-Season") on one line inside
-      the copy column.
-    */
-    --hero-figure: clamp(1.5rem, min(4.4vw, 3.9vh), 2.75rem);
 
     min-height: calc(100vh - var(--header-h));
     min-height: calc(100svh - var(--header-h));
-    min-height: calc(100svh - 9.5rem); /* TEMP DEBUG — remove */
     padding-top: var(--hero-py);
     padding-bottom: var(--hero-py);
   }

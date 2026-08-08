@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
+import TrustBar from "@/components/sections/TrustBar";
 import BuiltFor from "@/components/sections/BuiltFor";
 import CoreServices from "@/components/sections/CoreServices";
 import Stats from "@/components/sections/Stats";
@@ -35,9 +36,10 @@ export const metadata: Metadata = {
  * trust figures, services, delivery standard, why, how we work, staffing,
  * leadership, technology, FAQs, closing CTA.
  *
- * Section 2 is split across two components. Its three proof figures live in the
- * hero, one to each slide, at the client's request; BuiltFor carries the
- * qualifying statement that followed them.
+ * Section 2 is split across two components: TrustBar carries its three proof
+ * figures and BuiltFor the qualifying statement that followed them. The figures
+ * spent a while inside the hero, one to each slide, and the client moved them
+ * back out — all three visible at once beats one every six seconds.
  *
  * Testimonials is gone — the document has no testimonials section, and the
  * array behind it has been empty since launch, so the homepage was rendering a
@@ -48,6 +50,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TrustBar />
       <BuiltFor />
       <CoreServices />
       <Stats />

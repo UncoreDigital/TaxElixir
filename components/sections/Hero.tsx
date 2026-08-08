@@ -320,61 +320,27 @@ export default function Hero() {
           </motion.ul>
 
           {/*
-            The proof figure for the current slide, back in the hero at the
-            client's request — each photograph now carries its own figure again
-            rather than the three sitting in a bar below the fold.
+            Controls for the photography, and nothing more.
 
-            A real carousel region, because it carries content: the photographs
-            alone would only have justified image controls.
+            The three proof figures sat here for a while and have moved back out
+            to their own bar directly under the hero, at the client's request. So
+            what rotates now is three decorative photographs — already
+            aria-hidden — and a screen reader is told these are image controls
+            rather than promised slides of content it will never be read.
+
+            Kept rather than dropped: the rotating hero was an explicit client
+            request, and WCAG 2.2.2 wants a stop for anything that moves for
+            more than five seconds.
           */}
           <motion.div
             variants={item}
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="What working with TaxElixir changes"
+            role="group"
+            aria-label="Hero image controls"
             onFocusCapture={() => setHovered(true)}
             onBlurCapture={() => setHovered(false)}
             className="mt-[var(--hero-gap-block)]"
           >
-            {/*
-              One grid cell, three slides stacked in it. The cell takes the
-              height of the tallest, so the CTAs below cannot jump as "55–75%"
-              gives way to "Peak-Season" — and all three stay in the server HTML
-              for crawlers and for anyone whose JS never runs, which mounting
-              only the active slide would not.
-            */}
-            <div className="grid">
-              {slides.map((slide, i) => {
-                const isActive = i === index;
-
-                return (
-                  <div
-                    key={slide.key}
-                    role="group"
-                    aria-roledescription="slide"
-                    aria-label={`${i + 1} of ${slides.length}`}
-                    aria-hidden={!isActive}
-                    className={cn(
-                      "col-start-1 row-start-1 transition-opacity ease-in-out",
-                      isActive ? "opacity-100" : "pointer-events-none opacity-0",
-                      reduced ? "duration-0" : "duration-700"
-                    )}
-                  >
-                    <p className="font-display text-[length:var(--hero-figure)] font-bold leading-none text-gradient-gold">
-                      {slide.value}
-                    </p>
-                    <p className="mt-2.5 font-display text-base font-bold text-white sm:text-lg">
-                      {slide.headline}
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/70">
-                      {slide.body}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-[var(--hero-gap-copy)] flex items-center gap-4">
+            <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"

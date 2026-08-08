@@ -130,15 +130,15 @@ export default function Header() {
                   // needs the same close-on-click as the items beneath it.
                   onClick={() => setMenuGroup(null)}
                   /*
-                    Two steps rather than one. The desktop nav appears at lg,
-                    where it shares 960px of container with a 299px logo (the
-                    lockup is 3010x804, so h-20 is ~299 wide) and the CTA —
-                    there is roughly 30px of slack, and jumping straight to
-                    16px spends more than that. So lg gets 15px and xl, with
-                    another 256px of room, gets the full 16px.
+                    Bigger from xl only. The desktop nav appears at lg, where
+                    it shares 960px of container with a ~299px logo and the
+                    CTA — at 1024 "Hire Offshore Staff" is already wrapping to
+                    three lines at 14px, so that band has nothing to spend and
+                    keeps the original size. xl has another 256px and takes
+                    the full 16px.
                   */
                   className={cn(
-                    "flex items-center gap-1 rounded-md px-3 py-2 text-[0.9375rem] font-medium transition-colors xl:text-base",
+                    "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors xl:text-base",
                     isActive(item.href)
                       ? "text-navy"
                       : "text-ink-muted hover:text-navy"
@@ -176,9 +176,9 @@ export default function Header() {
                           onClick={() => setMenuGroup(null)}
                           className="block rounded-md px-3 py-2.5 transition-colors hover:bg-muted"
                         >
-                          <span className="block text-[0.9375rem] font-medium text-navy">{sub.name}</span>
+                          <span className="block text-sm font-medium text-navy xl:text-[0.9375rem]">{sub.name}</span>
                           {sub.blurb && (
-                            <span className="mt-0.5 block text-[0.8125rem] leading-snug text-ink-muted">
+                            <span className="mt-0.5 block text-xs leading-snug text-ink-muted xl:text-[0.8125rem]">
                               {sub.blurb}
                             </span>
                           )}
