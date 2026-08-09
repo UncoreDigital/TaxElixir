@@ -159,7 +159,15 @@ export default async function Footer() {
 
         <div className="mt-8 flex flex-col items-start justify-between gap-4 border-t border-white/15 pt-8 text-sm sm:flex-row sm:items-center">
           <p>
-            © {year} {site.legalName}. All rights reserved.
+            © {year} {site.legalName}. All rights reserved. | Powered by{" "}
+            <a
+              href={site.builtBy.url}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-white/85 transition-colors hover:text-gold-light"
+            >
+              {site.builtBy.name}
+            </a>
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy-policy" className="transition-colors hover:text-white">

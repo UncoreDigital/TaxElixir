@@ -71,6 +71,20 @@ export default function AdminLoginPage() {
         >
           ← Back to website
         </Link>
+
+        {/* The sidebar credit is behind the login wall, so it is repeated here
+            rather than only appearing once someone is already signed in. */}
+        <p className="mx-auto mt-4 w-fit text-xs text-ink-muted">
+          Powered by{" "}
+          <a
+            href={site.builtBy.url}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium transition-colors hover:text-navy"
+          >
+            {site.builtBy.name}
+          </a>
+        </p>
       </div>
     </div>
   );

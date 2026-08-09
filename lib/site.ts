@@ -56,6 +56,16 @@ export const site = {
    */
   disclaimer:
     "TaxElixir is not a CPA firm. We serve US CPA firms exclusively.",
+
+  /**
+   * Build credit, shown in the public footer and on the admin screens. Here
+   * rather than typed into each of them so the name and the URL cannot drift
+   * apart, and so a rebrand is one edit.
+   */
+  builtBy: {
+    name: "Uncore Digital",
+    url: "https://uncoredigital.com/",
+  },
 } as const;
 
 /**

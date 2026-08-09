@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import Logo from "@/components/brand/Logo";
-import { features } from "@/lib/site";
+import { features, site } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -133,6 +133,17 @@ export default function AdminShell({
               <LogOut className="h-4 w-4" aria-hidden="true" />
               Sign out
             </Button>
+            <p className="px-1 text-[11px] text-ink-muted">
+              Powered by{" "}
+              <a
+                href={site.builtBy.url}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium transition-colors hover:text-navy"
+              >
+                {site.builtBy.name}
+              </a>
+            </p>
           </div>
         </div>
       </aside>
