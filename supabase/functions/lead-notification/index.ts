@@ -15,7 +15,7 @@ import nodemailer from "npm:nodemailer@6.9.7";
  *     SMTP_PORT=465 \
  *     SMTP_USER=leads@taxelixir.com \
  *     SMTP_PASS=<app password> \
- *     NOTIFICATION_EMAIL=info@taxelixir.com
+ *     NOTIFICATION_EMAIL=support@taxelixir.com
  *
  * The reference implementation this was ported from had its SMTP host, user and
  * app password hardcoded in the source file. Do not do that here: this function

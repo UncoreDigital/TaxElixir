@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { createClient } from "@/lib/supabase/client";
+import { saveSettings } from "@/app/admin/(dashboard)/settings/actions";
 import type { SiteSetting } from "@/lib/supabase/types";
 
 const groupLabels: Record<string, { title: string; blurb: string }> = {
@@ -19,9 +19,8 @@ const groupLabels: Record<string, { title: string; blurb: string }> = {
 };
 
 export default function SettingsForm({ initialSettings }: { initialSettings: SiteSetting[] }) {
-  const supabase = createClient();
   const [settings, setSettings] = useState(initialSettings);
-  const [busy, setBusy] = useState(false);
+  const [busy, startSaving] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,30 +31,21 @@ export default function SettingsForm({ initialSettings }: { initialSettings: Sit
     setSettings((prev) => prev.map((s) => (s.key === key ? { ...s, value } : s)));
   }
 
-  async function save() {
-    setBusy(true);
+  // Saved through a server action rather than the browser client: the action
+  // writes *and* clears the public site's cache in one step, so the change is
+  // live the moment this reports "Saved" instead of up to five minutes later.
+  function save() {
     setError(null);
 
-    // Empty string and whitespace both mean "not set" — store NULL so the
-    // public site's "is this confirmed?" check stays a simple null test.
-    const updates = settings.map((s) => ({
-      key: s.key,
-      value: s.value && s.value.trim() ? s.value.trim() : null,
-      label: s.label,
-      group_name: s.group_name,
-      sort_order: s.sort_order,
-    }));
+    startSaving(async () => {
+      const result = await saveSettings(settings);
 
-    const { error: upsertError } = await supabase
-      .from("site_settings")
-      .upsert(updates, { onConflict: "key" });
-
-    if (upsertError) {
-      setError(upsertError.message);
-    } else {
-      setSaved(true);
-    }
-    setBusy(false);
+      if (result.ok) {
+        setSaved(true);
+      } else {
+        setError(result.error);
+      }
+    });
   }
 
   return (

@@ -316,10 +316,16 @@ export type LeaderProfile = {
   key: string;
   name: string;
   title: string;
+  /**
+   * Qualifications, shown beside the title on the same gold line. Separate from
+   * `title` because the title is the role: one changes on promotion, the other
+   * on passing an exam. Only ever what the client has confirmed — a licence
+   * claimed on a leadership card is the first thing a prospect verifies.
+   */
+  credentials?: string;
   image: string;
   /** Both portraits are square at source, so object-cover crops nothing. */
   imageSize: number;
-  credentials: string[];
   bio: string[];
   /** Optional pull-out. Rendered as a statement, never as a quotation. */
   statement?: string;
@@ -332,22 +338,9 @@ export const leaderProfiles: LeaderProfile[] = [
     key: "founder",
     name: "Dhara Jain",
     title: "Founder",
+    credentials: "US CPA · MBA Finance",
     image: "/assets/team/Owner.jpeg",
     imageSize: 1254,
-    /*
-     * Drawn only from what the client wrote — nothing here is inferred.
-     *
-     * "In practice since 2003" is the client's own start date, not 2026 minus
-     * the "20+ years" figure: the two are stated separately in the bio and
-     * would only agree by coincidence.
-     */
-    credentials: [
-      "Licensed CPA",
-      "MBA, Finance",
-      "In practice since 2003",
-      "Middle East industry exposure",
-      "AI & Automation Committee member",
-    ],
     bio: [
       "Dhara Jain is a seasoned finance and accounting professional with over 20 years of experience and unparalleled expertise in delivering accurate and timely financial information. Dhara is committed to her values of accountability, financial data accuracy and continued professional growth. Her professional journey began in 2003 as an MBA Finance professional, solving complex accounts receivable challenges and handling responsibilities with diligence and precision.",
       "Over the years, Dhara has gained valuable industry exposure in the Middle East, which enriched her global perspective and strengthened her adaptability in diverse business environments. She advanced her expertise by completing her CPA certification and obtaining her license, showing her dedication to lifelong learning and professional excellence.",
@@ -364,23 +357,11 @@ export const leaderProfiles: LeaderProfile[] = [
     title: "Co-Founder",
     image: "/assets/team/co-founder.webp",
     imageSize: 1254,
-    /*
-     * Condensed from the supplied bio below — every line restates something
-     * the client wrote, so this column adds no claim the bio does not already
-     * make. Nothing here is sourced from anywhere else.
-     */
-    credentials: [
-      "30+ years in senior leadership",
-      "Sales, Marketing, Operations, HR & Administration",
-      "Three green-field launches, 2011–2017",
-      "Built Nippon Paints India from the ground up",
-      "Founder, Paint Pro",
-    ],
     bio: [
-      "With over three decades of leadership experience spanning Sales, Marketing, Operations, HR and Administration, Chetan Jain brings deep expertise in building high-performing businesses from the ground up.",
-      "As a founding Sales & Marketing Head, he drove three major green-field projects between 2011 and 2017. At Nippon Paints India he built the entire organisation: hiring teams, establishing manufacturing facilities and leading product development. He then launched the Dulux brand across the UAE, Bahrain, Qatar and Kuwait, securing all government approvals and certifications for production in Dubai and Oman, and establishing the brand in just two and a half years. He later introduced and scaled the Ultra Italia PU wood-coating brand for the Jubilant Group.",
-      "His career includes senior roles with world-leading multinationals: Philips (Consumer Electronics), Berger Paints, ICI (UK), Nippon Paints (Asia-Pacific No. 1), AkzoNobel (the world's leading paint company, of the Netherlands), Jubilant Bhartia Group and Idea Cellular (Aditya Birla Group). He then founded his own luxury paint application brand, Paint Pro, which turned profitable in its first year.",
-      "This deep B2B, customer-centric experience in team building and operational excellence positions him to help elevate TaxElixir to new heights.",
+      "With over three decades of executive leadership across Sales, Marketing, Operations, HR, and Administration, Chetan has built high-performing organizations from the ground up — and now brings that same rigor to helping US firms scale with confidence.",
+      "As Founding Sales & Marketing Head, he led three major greenfield ventures between 2011 and 2017. At Nippon Paints India, he built the organization end-to-end — recruiting teams, setting up manufacturing facilities, and driving product development. He then launched the Dulux brand across the UAE, Bahrain, Qatar, and Kuwait, securing all government approvals and production certifications in Dubai and Oman, and establishing the brand in just 2.5 years. He later introduced and scaled the Ultra Italia PU wood-coating brand for the Jubilant Group.",
+      "His career includes senior roles with global market leaders — Philips, Berger Paints, ICI (UK), Nippon Paints (Asia-Pacific’s No. 1), AkzoNobel (Netherlands), the Jubilant Bhartia Group, and Idea Cellular (Aditya Birla Group) — before founding his own luxury paint-application brand, Paint Pro, which turned profitable in its first year.",
+      "This deep, B2B-focused expertise in team building and operational excellence gives him a rare edge: the ability to design offshore teams and processes that US CPA firms can trust to perform at the same standard as their in-house talent.",
     ],
   },
 ];

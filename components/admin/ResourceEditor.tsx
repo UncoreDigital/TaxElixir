@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import MediaUpload from "@/components/admin/MediaUpload";
+import { revalidateSite } from "@/app/admin/actions";
 import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import type { Resource, ResourceKind, PostStatus } from "@/lib/supabase/types";
@@ -132,6 +133,10 @@ export default function ResourceEditor({ resource }: { resource: Resource | null
       setBusy(false);
       return;
     }
+
+    // As in PostEditor: the row is saved, but /case-studies, /events and their
+    // detail pages are cached HTML until something tells Next otherwise.
+    await revalidateSite();
 
     router.push("/admin/resources");
     router.refresh();

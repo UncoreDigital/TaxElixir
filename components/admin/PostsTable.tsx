@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ExternalLink, Pencil, Star, Trash2 } from "lucide-react";
+import { revalidateSite } from "@/app/admin/actions";
 import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import type { Post } from "@/lib/supabase/types";
@@ -20,7 +21,11 @@ export default function PostsTable({ initialPosts }: { initialPosts: Post[] }) {
     if (error) {
       console.error("[posts] delete failed:", error.message);
       setPosts(previous);
+      return;
     }
+    // A deleted article whose page is still cached is worse than a late
+    // publish — the URL keeps serving content that no longer exists.
+    await revalidateSite();
   }
 
   if (posts.length === 0) {

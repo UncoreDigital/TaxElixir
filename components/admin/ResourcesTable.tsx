@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ExternalLink, Pencil, Star, Trash2 } from "lucide-react";
+import { revalidateSite } from "@/app/admin/actions";
 import { features } from "@/lib/site";
 import { createClient } from "@/lib/supabase/client";
 import type { Resource, ResourceKind } from "@/lib/supabase/types";
@@ -47,7 +48,10 @@ export default function ResourcesTable({
     if (error) {
       console.error("[resources] delete failed:", error.message);
       setItems(previous);
+      return;
     }
+    // As in PostsTable — the detail page would otherwise stay live.
+    await revalidateSite();
   }
 
   return (

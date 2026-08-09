@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Save } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import MediaUpload from "@/components/admin/MediaUpload";
+import { revalidateSite } from "@/app/admin/actions";
 import { createClient } from "@/lib/supabase/client";
 import type { Post, PostStatus } from "@/lib/supabase/types";
 import { postSchema } from "@/lib/validation";
@@ -105,6 +106,10 @@ export default function PostEditor({ post }: { post: Post | null }) {
       setBusy(false);
       return;
     }
+
+    // The write landed in Supabase, but /blog and /blog/[slug] are cached HTML
+    // — without this the article stays invisible for up to five minutes.
+    await revalidateSite();
 
     router.push("/admin/posts");
     router.refresh();

@@ -344,7 +344,7 @@ supabase secrets set \
   SMTP_PORT=465 \
   SMTP_USER=leads@taxelixir.com \
   SMTP_PASS=<app password> \
-  NOTIFICATION_EMAIL=info@taxelixir.com
+  NOTIFICATION_EMAIL=support@taxelixir.com
 ```
 
 Plus `WEBHOOK_SECRET` — see below.

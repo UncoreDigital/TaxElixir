@@ -47,7 +47,7 @@ npm run dev                    # http://localhost:3000
    ```bash
    supabase functions deploy lead-notification
    supabase secrets set SMTP_HOST=... SMTP_PORT=465 SMTP_USER=... \
-                        SMTP_PASS=... NOTIFICATION_EMAIL=info@taxelixir.com
+                        SMTP_PASS=... NOTIFICATION_EMAIL=support@taxelixir.com
    ```
 5. Create an admin user under **Authentication → Users → Add user** (email + password).
    There is no public sign-up: the only way to get an admin account is to create it here.

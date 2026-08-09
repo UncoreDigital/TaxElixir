@@ -37,8 +37,8 @@ export const site = {
    * render at matching proportions.
    */
   footerLogo: "/assets/footer-logo.png",
-  email: "info@taxelixir.com",
-  emailHref: "mailto:info@taxelixir.com",
+  email: "support@taxelixir.com",
+  emailHref: "mailto:support@taxelixir.com",
 
   /* CLIENT TO CONFIRM — no phone number was supplied in the services deck. */
   phone: null as string | null,

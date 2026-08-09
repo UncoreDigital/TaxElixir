@@ -52,15 +52,14 @@ export default function AboutPage() {
           <div>
             <SectionHeading
               eyebrow="Our Company"
-              title="One market, served properly"
+              title="Exclusively Serving US Market"
               intro={
                 <>
                   <p>
-                    Most outsourcing providers sell to everyone and specialise in
-                    nobody. TaxElixir works exclusively with US CPA firms, which
-                    means our processes are shaped by the things that actually
-                    govern your practice: engagement letters, review hierarchies,
-                    IRS deadlines and the fact that your name goes on the return.
+                    TaxElixir works exclusively with US firms, which means our
+                    processes are shaped by the things that actually govern your
+                    practice: engagement letters, review hierarchies, IRS
+                    deadlines and the fact that your name goes on the return.
                   </p>
                   <p className="mt-4">
                     We cover four connected service lines (tax preparation, back
@@ -136,15 +135,14 @@ export default function AboutPage() {
         Card markup lives in components/LeaderProfile so a third profile, if
         one is ever added, is a third entry in lib/content rather than a third
         copy of eighty lines.
+
+        Heading is the eyebrow alone: the client removed both the "Who is
+        accountable" headline and the sentence under it, leaving the label,
+        the photo and the bio.
       */}
       <section className="section">
         <div className="container">
-          <SectionHeading
-            align="center"
-            eyebrow="Leadership"
-            title="Who is accountable"
-            intro="Firms sending work offshore ask one question before any other: who stands behind it. This is where that answer starts."
-          />
+          <SectionHeading align="center" eyebrow="Leadership" />
 
           {leaderProfiles.map((profile, i) => (
             <Reveal key={profile.key} delay={i * 0.06}>

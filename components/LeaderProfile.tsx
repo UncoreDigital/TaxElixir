@@ -12,8 +12,8 @@ import type { LeaderProfile as Profile } from "@/lib/content";
  *
  * The explicit rows put the name above the photo when the grid collapses to
  * one column. In source order the photo comes second, so a phone reads
- * name → photo → credentials → bio instead of meeting a stranger's photograph
- * and a credential list before their name.
+ * name → photo → bio instead of meeting a stranger's photograph before their
+ * name.
  */
 export default function LeaderProfile({ profile }: { profile: Profile }) {
   return (
@@ -23,12 +23,14 @@ export default function LeaderProfile({ profile }: { profile: Profile }) {
           <h3 className="text-2xl md:text-3xl">{profile.name}</h3>
           <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold-dark">
             {profile.title}
+            {/* Non-breaking space before the separator so a wrap never leaves a
+                stranded "·" at the start of the second line. */}
+            {profile.credentials && <>{" · "}{profile.credentials}</>}
           </p>
         </div>
 
-        {/* Credentials sit under the photo rather than beside the name: the
-            bio runs several hundred words, so a photo-only column would leave
-            a tall empty gutter next to it. */}
+        {/* Photo only. The credential bullets that used to sit under it were
+            removed by the client — everything they said is in the bio. */}
         <div className="mx-auto w-full max-w-[19rem] self-start md:col-start-1 md:row-span-2 md:row-start-1 md:mx-0 md:max-w-none">
           {/*
             The border is not decoration. These portraits come from different
@@ -45,20 +47,6 @@ export default function LeaderProfile({ profile }: { profile: Profile }) {
             sizes="304px"
             className="aspect-square w-full rounded-2xl border border-border object-cover shadow-soft"
           />
-
-          <span className="rule-gold mt-7" aria-hidden="true" />
-
-          <ul className="mt-5 space-y-3">
-            {profile.credentials.map((item) => (
-              <li key={item} className="flex gap-3 text-sm leading-snug text-ink-muted">
-                <span
-                  className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
-                  aria-hidden="true"
-                />
-                {item}
-              </li>
-            ))}
-          </ul>
         </div>
 
         <div className="min-w-0 md:col-start-2 md:row-start-2">

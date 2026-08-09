@@ -7,7 +7,6 @@ import Stats from "@/components/sections/Stats";
 import WhyUs from "@/components/sections/WhyUs";
 import Workflow from "@/components/sections/Workflow";
 import StaffingTabs from "@/components/sections/StaffingTabs";
-import Leadership from "@/components/sections/Leadership";
 import Software from "@/components/sections/Software";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
@@ -32,9 +31,14 @@ export const metadata: Metadata = {
 };
 
 /**
- * Section order follows the client's website content document exactly: hero,
- * trust figures, services, delivery standard, why, how we work, staffing,
- * leadership, technology, FAQs, closing CTA.
+ * Section order follows the client's website content document: hero, trust
+ * figures, services, delivery standard, why, how we work, staffing,
+ * technology, FAQs, closing CTA.
+ *
+ * Leadership is not on the homepage — the client removed it. The named
+ * profiles on /about are the only place leadership appears now; the
+ * four-card credentials block in components/sections/Leadership stays in the
+ * codebase, unused, in case it is asked for again.
  *
  * Section 2 is split across two components: TrustBar carries its three proof
  * figures and BuiltFor the qualifying statement that followed them. The figures
@@ -57,7 +61,6 @@ export default function HomePage() {
       <WhyUs />
       <Workflow />
       <StaffingTabs />
-      <Leadership />
       <Software />
       <FaqSection items={faqs.slice(0, 6)} />
       <CTA />

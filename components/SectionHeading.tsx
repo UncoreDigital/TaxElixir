@@ -5,6 +5,10 @@ import type { ReactNode } from "react";
  * Section headings render as <h2> by default. The <h1> belongs to the page and
  * appears exactly once — 13 pages on unisonglobus.com have no <h1> at all and
  * 40+ have two or three, which is what happens when hero components own the tag.
+ *
+ * `title` is optional so a section can be labelled by its eyebrow alone (the
+ * leadership block on /about). No title means no heading tag at all rather
+ * than an empty one — the gold rule still renders and carries the label.
  */
 export default function SectionHeading({
   eyebrow,
@@ -16,7 +20,7 @@ export default function SectionHeading({
   invert = false,
 }: {
   eyebrow?: string;
-  title: ReactNode;
+  title?: ReactNode;
   intro?: ReactNode;
   align?: "left" | "center";
   as?: "h2" | "h3";
@@ -34,14 +38,16 @@ export default function SectionHeading({
       {eyebrow && (
         <p className={cn("eyebrow mb-3", invert && "text-gold-light")}>{eyebrow}</p>
       )}
-      <Tag
-        className={cn(
-          "text-3xl leading-[1.15] md:text-4xl",
-          invert && "text-white"
-        )}
-      >
-        {title}
-      </Tag>
+      {title && (
+        <Tag
+          className={cn(
+            "text-3xl leading-[1.15] md:text-4xl",
+            invert && "text-white"
+          )}
+        >
+          {title}
+        </Tag>
+      )}
       <span
         className={cn("rule-gold mt-5", align === "center" && "mx-auto")}
         aria-hidden="true"
