@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 /** Body — long-form readability. */
 const inter = Inter({
@@ -77,6 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         {children}
+        <Analytics />
       </body>
     </html>
   );
