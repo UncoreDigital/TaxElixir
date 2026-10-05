@@ -74,6 +74,29 @@ const watermark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140"
         fill="none" stroke="${B.gold}" stroke-opacity="0.10" stroke-width="1.5"/>
 </svg>`;
 
+// ---------------------------------------------------------------------------
+// Packs PNG frames into an .ico. Every current browser reads PNG-in-ICO, and
+// sharp has no ICO encoder.
+// ---------------------------------------------------------------------------
+function ico(pngs) {
+  const header = Buffer.alloc(6 + 16 * pngs.length);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(pngs.length, 4);
+  let offset = header.length;
+  pngs.forEach((png, i) => {
+    const size = png.readUInt32BE(16); // IHDR width; frames are square
+    const e = 6 + 16 * i;
+    header.writeUInt8(size >= 256 ? 0 : size, e);
+    header.writeUInt8(size >= 256 ? 0 : size, e + 1);
+    header.writeUInt16LE(1, e + 4);
+    header.writeUInt16LE(32, e + 6);
+    header.writeUInt32LE(png.length, e + 8);
+    header.writeUInt32LE(offset, e + 12);
+    offset += png.length;
+  });
+  return Buffer.concat([header, ...pngs]);
+}
+
 (async () => {
   fs.mkdirSync('public/assets/patterns', { recursive: true });
   fs.mkdirSync('public/assets/brand', { recursive: true });
@@ -82,13 +105,39 @@ const watermark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140"
   fs.writeFileSync('public/assets/patterns/grid-gold.svg', gridPatternGold);
   fs.writeFileSync('public/assets/patterns/shield-watermark.svg', watermark);
 
-  // App icons — Apple needs a real PNG, not an SVG.
-  const iconSvg = fs.readFileSync('app/icon.svg');
-  await sharp(iconSvg, { density: 900 }).resize(180, 180).png().toFile('app/apple-icon.png');
-  await sharp(iconSvg, { density: 900 }).resize(512, 512).png()
-    .toFile('public/assets/brand/icon-512.png');
-  await sharp(iconSvg, { density: 900 }).resize(192, 192).png()
-    .toFile('public/assets/brand/icon-192.png');
+  // App icons — cut from the header lockup's own shield, so the browser tab,
+  // the home screen and the header all show the same artwork. header-logo.png
+  // has a transparent field; the shield sits in its first ~700px and the
+  // wordmark starts at ~825px, so a 760px strip trimmed to its content is
+  // exactly the shield.
+  // Two pipelines: within one, sharp trims before it extracts.
+  const shield = await sharp(await sharp('public/assets/header-logo.png')
+    .extract({ left: 0, top: 0, width: 760, height: 804 }).toBuffer()).trim().toBuffer();
+  const CLEAR = { r: 0, g: 0, b: 0, alpha: 0 };
+  const shieldIcon = async (size, { pad = 0, bg = CLEAR } = {}) => {
+    const inner = Math.round(size * (1 - 2 * pad));
+    const mark = await sharp(shield)
+      .resize(inner, inner, { fit: 'contain', background: CLEAR }).toBuffer();
+    return sharp({ create: { width: size, height: size, channels: 4, background: bg } })
+      .composite([{ input: mark, gravity: 'center' }]).png().toBuffer();
+  };
+
+  // Tab favicon: transparent, so the gold shield sits on light and dark tab
+  // strips alike. favicon.ico carries pre-shrunk 16/32/48 frames — the serif
+  // TE turns to mush if the browser downsamples a large PNG itself.
+  fs.writeFileSync('app/icon.png', await shieldIcon(192));
+  fs.writeFileSync('app/favicon.ico', ico(await Promise.all([16, 32, 48].map((s) => shieldIcon(s)))));
+
+  // Home-screen icons sit on the paper field, as the lockup does in the header.
+  // iOS would fill a transparent apple-icon with black.
+  const paper = { pad: 0.1, bg: B.paper };
+  fs.writeFileSync('app/apple-icon.png', await shieldIcon(180, paper));
+  fs.writeFileSync('public/assets/brand/icon-192.png', await shieldIcon(192, paper));
+  fs.writeFileSync('public/assets/brand/icon-512.png', await shieldIcon(512, paper));
+  // Maskable: Android may crop to a circle of 80% diameter, so the shield's
+  // corners need to sit inside it.
+  fs.writeFileSync('public/assets/brand/icon-maskable-512.png',
+    await shieldIcon(512, { pad: 0.2, bg: B.paper }));
 
   // Default social card, plus one for the Insights section.
   const cards = [

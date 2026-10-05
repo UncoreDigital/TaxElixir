@@ -62,9 +62,10 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   // Icons and social cards come from the app/ file conventions:
-  //   app/icon.svg · app/apple-icon.png · app/opengraph-image.png · app/twitter-image.png
-  // Declaring them here as well would override the generated, correctly-sized
-  // files with the 1600x427 logo, which renders as a sliver in a browser tab.
+  //   app/favicon.ico · app/icon.png · app/apple-icon.png · app/opengraph-image.png · app/twitter-image.png
+  // The icons are the header logo's shield, cut square by scripts/generate-assets.js.
+  // Declaring them here as well would override those files with the full
+  // 3010x804 lockup, which renders as a sliver in a browser tab.
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

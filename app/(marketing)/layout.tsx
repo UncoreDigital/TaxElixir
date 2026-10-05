@@ -19,8 +19,8 @@ function OrganizationJsonLd() {
     name: site.name,
     slogan: site.tagline,
     url: site.url,
-    // Google wants a roughly square logo here; the supplied lockup is 1600x427,
-    // which it will reject. This is the generated square mark.
+    // Google wants a roughly square logo here; the supplied lockup is 3010x804,
+    // which it will reject. This is the lockup's shield, cut square.
     logo: {
       "@type": "ImageObject",
       url: `${site.url}/assets/brand/icon-512.png`,

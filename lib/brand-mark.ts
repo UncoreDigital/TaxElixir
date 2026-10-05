@@ -4,8 +4,9 @@
  * The supplied logo is a 1600x427 raster lockup — unusable as a favicon (it
  * renders as a squashed sliver) and unusable on dark backgrounds (it carries a
  * near-white #FCFCFC field). This module rebuilds just the shield element as
- * geometry, so it can be a favicon, an app icon, a social card and a watermark
- * without any raster or font dependency.
+ * geometry, so it can be a social card and a watermark without any raster or
+ * font dependency. The favicon and app icons no longer use it: they are cut
+ * from header-logo.png, the client's own render, by scripts/generate-assets.js.
  *
  * Colours are the sampled logo values — see lib/site.ts and globals.css.
  */
