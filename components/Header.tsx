@@ -100,7 +100,15 @@ export default function Header() {
           `invisible` is visibility:hidden, which makes the descendant
           unfocusable and hands focus back to the document.
         */}
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        {/*
+          Tighter between lg and xl — no gap here and px-2 on the links below,
+          against gap-1 and px-3 from xl up. That band was already at capacity
+          with five items, and "Insights" made six: at 1024 the row came out
+          46px wider than the container and pushed the CTA off the right edge.
+          The 68px this recovers puts it back inside with room to spare. A
+          seventh item will not fit here; it needs a dropdown to live in.
+        */}
+        <nav className="hidden items-center gap-0 lg:flex xl:gap-1" aria-label="Primary">
           {navItems.map((item) => {
             const isOpen = menuGroup === item.name;
 
@@ -133,12 +141,12 @@ export default function Header() {
                     Bigger from xl only. The desktop nav appears at lg, where
                     it shares 960px of container with a ~299px logo and the
                     CTA — at 1024 "Hire Offshore Staff" is already wrapping to
-                    three lines at 14px, so that band has nothing to spend and
+                    two lines at 14px, so that band has nothing to spend and
                     keeps the original size. xl has another 256px and takes
                     the full 16px.
                   */
                   className={cn(
-                    "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors xl:text-base",
+                    "flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium transition-colors xl:px-3 xl:text-base",
                     isActive(item.href)
                       ? "text-navy"
                       : "text-ink-muted hover:text-navy"
@@ -155,7 +163,7 @@ export default function Header() {
                     />
                   )}
                   {isActive(item.href) && (
-                    <span className="absolute inset-x-3 -bottom-px h-0.5 bg-gradient-gold-x" aria-hidden="true" />
+                    <span className="absolute inset-x-2 -bottom-px h-0.5 bg-gradient-gold-x xl:inset-x-3" aria-hidden="true" />
                   )}
                 </Link>
 

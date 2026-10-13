@@ -88,10 +88,10 @@ export default function PostsTable({ initialPosts }: { initialPosts: Post[] }) {
               </td>
               <td className="px-5 py-4">
                 <div className="flex items-center justify-end gap-1">
-                  {/* /blog 404s while features.resources is off, so a
+                  {/* /blog 404s while features.blog is off, so a
                       "view on the live site" link would land on a 404 and read
                       as a broken publish rather than a parked section. */}
-                  {post.status === "published" && features.resources && (
+                  {post.status === "published" && features.blog && (
                     <a
                       href={`/blog/${post.slug}`}
                       target="_blank"

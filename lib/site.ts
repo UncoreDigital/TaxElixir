@@ -107,12 +107,26 @@ export const features = {
   newsletter: false,
 
   /**
-   * The whole Resources track — the nav dropdown, the footer column, and the
-   * /blog, /case-studies, /events and /partnership routes behind them.
+   * The Insights blog — /blog, /blog/[slug], the "Latest insights" block on the
+   * homepage, and the nav and footer links to them.
+   *
+   * It was parked inside `resources` below until the client published their
+   * first article and asked for the blog to go live. It has a flag of its own
+   * because the rest of that group is still empty: turning `resources` on to
+   * reach the blog would have brought three "nothing here yet" pages with it.
+   *
+   * While `resources` is off the blog is a top-level "Insights" nav item; once
+   * the group comes back it moves into the Resources dropdown where it started.
+   */
+  blog: true,
+
+  /**
+   * The rest of the Resources track — the nav dropdown, the footer column, and
+   * the /case-studies, /events and /partnership routes behind them.
    *
    * Off at the client's request (Website Updates sheet, row 14) because there
-   * is nothing published in any of them yet, and four routes that each render
-   * their own "nothing here yet" empty state is worse than not offering the
+   * is nothing published in any of them yet, and routes that each render their
+   * own "nothing here yet" empty state are worse than not offering the
    * section. Partnership goes with the group: it lives in that dropdown and
    * orphaning it into the top-level nav is a layout decision, not a flag.
    *
@@ -171,14 +185,18 @@ export const navItems: NavItem[] = [
     ],
   },
   // Parked behind features.resources — every route in this group 404s while
-  // the flag is off, so the dropdown must not be rendered.
+  // the flag is off, so the dropdown must not be rendered. The blog has its own
+  // flag: it sits in this dropdown when the group is on, and stands alone as a
+  // top-level item when it is not.
   ...(features.resources
     ? [
         {
           name: "Resources",
-          href: "/blog",
+          href: features.blog ? "/blog" : "/case-studies",
           dropdown: [
-            { name: "Insights", href: "/blog", blurb: "Writing for CPA firm owners" },
+            ...(features.blog
+              ? [{ name: "Insights", href: "/blog", blurb: "Writing for CPA firm owners" }]
+              : []),
             { name: "Case Studies", href: "/case-studies", blurb: "How firms use us in practice" },
             { name: "Events & Webinars", href: "/events", blurb: "Sessions we are running or speaking at" },
             ...(features.guides
@@ -188,7 +206,9 @@ export const navItems: NavItem[] = [
           ],
         },
       ]
-    : []),
+    : features.blog
+      ? [{ name: "Insights", href: "/blog" }]
+      : []),
   { name: "Contact", href: "/contact" },
 ];
 
@@ -234,7 +254,7 @@ export const footerNav = [
         {
           heading: "Resources",
           links: [
-            { name: "Insights", href: "/blog" },
+            ...(features.blog ? [{ name: "Insights", href: "/blog" }] : []),
             { name: "Case Studies", href: "/case-studies" },
             { name: "Events & Webinars", href: "/events" },
             ...(features.guides ? [{ name: "Guides & Ebooks", href: "/guides" }] : []),
@@ -249,6 +269,8 @@ export const footerNav = [
       // Secure upload is parked behind features.clientPortal — the route 404s
       // while it is off, so the link must not be rendered.
       ...(features.clientPortal ? [{ name: "Send Documents", href: "/upload" }] : []),
+      // Listed in the Resources column above when that group is on.
+      ...(features.blog && !features.resources ? [{ name: "Insights", href: "/blog" }] : []),
       { name: "Contact", href: "/contact" },
       { name: "Privacy Policy", href: "/privacy-policy" },
     ],

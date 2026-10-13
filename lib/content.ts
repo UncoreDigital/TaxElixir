@@ -261,12 +261,27 @@ export const successProof: SuccessProof[] = [
 ];
 
 /**
- * Homepage social proof. CLIENT TO SUPPLY — no testimonials were provided.
- * The carousel in components/sections/Testimonials.tsx is built and renders as
- * soon as this array has entries. Each needs a real name and a real firm; an
- * anonymous quote persuades nobody in this market.
+ * Homepage social proof — client-supplied, and quoted exactly as supplied. A
+ * testimonial is someone else's sentence: do not tidy the wording here, however
+ * small the edit, without going back to the firm that said it.
+ *
+ * `firm` is the attribution and is always present. `name` is the person at that
+ * firm and is optional, because MAS LLC gave theirs as the firm and nobody is
+ * named until they have agreed to be. Leave it unset rather than guess.
+ *
+ * components/sections/Testimonials.tsx lays these out by count: one is a single
+ * featured quote, two or more become the carousel. Emptying the array takes the
+ * section off the homepage again.
  */
-export const testimonials: { quote: string; name: string; firm: string }[] = [];
+export type Testimonial = { quote: string; firm: string; name?: string };
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "We started working with TaxElixir team during tax season, and it has been phenomenal. Dhara’s strong understanding of the Internal Revenue Code (IRC), GAAP, financial statements, and transaction-level details has been invaluable to our work. They have been able to support our clients with highly complex tax requirements with impressive knowledge and expertise. We truly value their contribution and look forward to continuing our association with Dhara and the TaxElixir team.",
+    firm: "MAS LLC",
+  },
+];
 
 /**
  * Leadership & expertise claims — section 8 of the client's content document.

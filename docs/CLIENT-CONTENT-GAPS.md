@@ -51,6 +51,28 @@ set on `/faqs`; the copy is in git if it is wanted back.
 
 ---
 
+## ⚪ Round 3 — testimonial and blog (October 2026)
+
+The client supplied a first testimonial and asked for the blog to be shown.
+
+**Closed by this round**
+
+- **Gap 11** (testimonials) is partly closed — one quote, from MAS LLC, is live on the
+  homepage. See the row below for what is still worth asking for.
+- **The blog is live.** `/blog` and its articles came out from behind `features.resources`
+  onto a flag of their own, `features.blog`, with an "Insights" link in the header and
+  footer and a "Latest insights" block on the homepage. Case studies, events and
+  partnership stay parked.
+
+**Opened by this round**
+
+| # | Item | Where | Notes |
+|---|---|---|---|
+| 36 | **Replace the one published article before this deploys** | Homepage, `/blog`, `/blog/mid-year` | The only published article, *Mid-Year Tax Strategies for 2026*, is Unison Globus material, not TaxElixir's. Its cover image carries their logo, website and email address; its alt text is "Blog Unison"; and the body links to their tax preparation service page and refers to "our previous article" on their site. It was harmless while the blog was parked. With the blog on it is the lead item on the homepage block. Unpublish or replace it under **Admin → Insights**; no code change is needed either way |
+| 37 | **A named person for the MAS LLC testimonial** | Homepage | The quote is attributed to the firm only, which is how it was supplied. A name and role beside it would carry more weight, and is a one-line addition in `lib/content.ts → testimonials` once MAS LLC agrees to it |
+
+---
+
 ## 🔴 Blockers — the site should not go live until these are resolved
 
 | # | Item | Where it appears | Why it blocks |
@@ -69,7 +91,7 @@ set on `/faqs`; the copy is in git if it is wanted back.
 | # | Item | Where | Notes |
 |---|---|---|---|
 | 7–10 | ~~**Years in business · professionals · CPA firms supported · returns annually**~~ | ~~Homepage, About~~ | **Withdrawn in round 2.** The client replaced all four volume counters with operational facts (see the round 2 section above), so none of these renders anywhere and `site_settings` no longer carries their rows. Worth revisiting later regardless: throughput is still the strongest single number for this audience, and nothing stops a fifth figure being added back once there is one worth publishing |
-| 11 | **Client testimonials** (3–5, named person + firm) | Homepage, service pages | The competitor uses five named testimonials from named firms as its main trust signal. `lib/content.ts → testimonials` is an empty array; the section stays hidden until filled |
+| 11 | **Client testimonials** (3–5, named person + firm) | Homepage, service pages | **Partly supplied in round 3.** One is live on the homepage, from MAS LLC, shown as a single featured quote. The competitor uses five named testimonials from named firms as its main trust signal, so more are still worth asking for: a second entry in `lib/content.ts → testimonials` turns the section into the carousel automatically |
 | 12 | **Leadership team** — names, titles, short bios, photos | `/about` | **Partly supplied.** Dhara Jain (founder) is live with photo and bio; her *title* is our inference from "owner" and needs confirming. Anyone else on the leadership bench is still outstanding — offshore providers get asked "who is actually accountable?", and one name only answers part of it |
 | 13 | **Software licences** — which of QuickBooks, Xero, UltraTax, Lacerte, Drake, ProConnect, Sage, NetSuite do you actually work in? | `/software`, service pages | Only **CCH Axcess** and **CaseWare** are confirmed, from the audit sheet. The rest are drafted and marked `verified: false` in `lib/content.ts` |
 

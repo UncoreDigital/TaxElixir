@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 import PageBanner from "@/components/PageBanner";
-import CoverFallback from "@/components/CoverFallback";
+import PostCard from "@/components/PostCard";
 import CTA from "@/components/sections/CTA";
 import { getPublishedPosts } from "@/lib/posts";
-import { formatDate } from "@/lib/utils";
 import { features } from "@/lib/site";
 
 export const revalidate = 300;
@@ -20,9 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
-  // Parked with the rest of the Resources group — see features.resources. 404s
-  // rather than rendering an empty shelf, and the sitemap drops the URL to match.
-  if (!features.resources) notFound();
+  // See features.blog. Parked, it 404s rather than rendering an empty shelf, and
+  // the sitemap drops the URL to match.
+  if (!features.blog) notFound();
 
   const posts = await getPublishedPosts();
   const [featured, ...rest] = posts;
@@ -52,69 +49,12 @@ export default async function BlogIndexPage() {
             </div>
           ) : (
             <>
-              {featured && (
-                <Link
-                  href={`/blog/${featured.slug}`}
-                  className="group grid gap-8 overflow-hidden rounded-2xl border border-border bg-white shadow-soft transition-all hover:shadow-card md:grid-cols-2"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-muted md:aspect-auto md:h-full">
-                    {featured.cover_url ? (
-                      <Image
-                        src={featured.cover_url}
-                        alt={featured.cover_alt ?? ""}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        priority
-                      />
-                    ) : (
-                      <CoverFallback label={featured.category} />
-                    )}
-                  </div>
-
-                  <div className="flex flex-col justify-center p-8 md:py-12 md:pr-12">
-                    <p className="eyebrow">
-                      {featured.category} · {featured.published_at ? formatDate(featured.published_at) : ""}
-                    </p>
-                    <h2 className="mt-4 text-2xl leading-snug md:text-3xl">{featured.title}</h2>
-                    <p className="mt-4 text-sm leading-relaxed text-ink-muted">{featured.excerpt}</p>
-                    <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-navy">
-                      Read article
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                    </span>
-                  </div>
-                </Link>
-              )}
+              {featured && <PostCard post={featured} variant="featured" priority />}
 
               {rest.length > 0 && (
                 <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {rest.map((post) => (
-                    <Link
-                      key={post.id}
-                      href={`/blog/${post.slug}`}
-                      className="group flex flex-col overflow-hidden rounded-xl border border-border bg-white shadow-soft transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-card"
-                    >
-                      <div className="relative aspect-[16/9] overflow-hidden bg-muted">
-                        {post.cover_url ? (
-                          <Image
-                            src={post.cover_url}
-                            alt={post.cover_alt ?? ""}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                          />
-                        ) : (
-                          <CoverFallback label={post.category} />
-                        )}
-                      </div>
-                      <div className="flex flex-1 flex-col p-6">
-                        <p className="eyebrow">
-                          {post.category} · {post.published_at ? formatDate(post.published_at) : ""}
-                        </p>
-                        <h2 className="mt-3 text-lg leading-snug">{post.title}</h2>
-                        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">{post.excerpt}</p>
-                      </div>
-                    </Link>
+                    <PostCard key={post.id} post={post} />
                   ))}
                 </div>
               )}

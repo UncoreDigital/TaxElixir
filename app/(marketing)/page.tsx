@@ -8,6 +8,8 @@ import WhyUs from "@/components/sections/WhyUs";
 import Workflow from "@/components/sections/Workflow";
 import StaffingTabs from "@/components/sections/StaffingTabs";
 import Software from "@/components/sections/Software";
+import Testimonials from "@/components/sections/Testimonials";
+import LatestInsights from "@/components/sections/LatestInsights";
 import FaqSection from "@/components/sections/FaqSection";
 import CTA from "@/components/sections/CTA";
 import { faqs } from "@/lib/content";
@@ -45,10 +47,15 @@ export const metadata: Metadata = {
  * spent a while inside the hero, one to each slide, and the client moved them
  * back out — all three visible at once beats one every six seconds.
  *
- * Testimonials is gone — the document has no testimonials section, and the
- * array behind it has been empty since launch, so the homepage was rendering a
- * "client to supply" state to every visitor. It stays in the codebase and drops
- * back in the moment there are real quotes to put in it.
+ * Testimonials and LatestInsights are the two sections the document does not
+ * list — the client asked for both afterwards, once there was a real quote and
+ * a published article to put in them. They sit after Technology and ahead of
+ * the FAQs so the document's own order is left intact above them, and they fall
+ * white then tinted to keep the page's alternation going into the FAQs.
+ *
+ * Both render nothing when they have nothing to show (an emptied testimonials
+ * array, no published articles), so neither can leave a "coming soon" block on
+ * the homepage — which is exactly why Testimonials was pulled the first time.
  */
 export default function HomePage() {
   return (
@@ -62,6 +69,8 @@ export default function HomePage() {
       <Workflow />
       <StaffingTabs />
       <Software />
+      <Testimonials />
+      <LatestInsights />
       <FaqSection items={faqs.slice(0, 6)} />
       <CTA />
     </>
